@@ -1,2 +1,5 @@
 # bandCloneCoding
-naver band clone coding with my friends!
+
+Naver band clone coding. 
+
+솰롸사라라라랄
