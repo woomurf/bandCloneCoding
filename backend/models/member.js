@@ -1,0 +1,46 @@
+module.exports = function(sequelize, DataTypes) {
+  const member = sequelize.define('MEMBER', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    type: {
+      type: DataTypes.ENUM('REQUESTED', 'APPROVED', 'REJECTED', 'INVITED'),
+      allowNull: false,
+    },
+    groupId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: 'memberGroupId',
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: 'memberUserId',
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+  })
+
+  member.associate = function(models) {
+    member.belongsTo(models.USER, {
+      foreignKey: 'userId',
+    });
+
+    member.belongsTo(models.GROUP, {
+      foreignKey: 'groupId',
+    })
+  }
+
+  return member;
+}
