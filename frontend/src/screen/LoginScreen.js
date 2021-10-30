@@ -11,22 +11,21 @@ const LoginScreen = () => {
       <div className="relativeWrapperOne">
         <img
           alt=""
-          className="rectangle1"
+          className="sectionBanner"
           src={Banner}
         />
-        <div className="rectangle11" />
       </div>
       <div className="flexWrapperOne">
         <img
           alt=""
-          className="union"
+          className="sectionTitle"
           src={Title}
         />
-        <div className="rectangle3" />
-        <div className="rectangle3" />
+        <div className="textBox_1" />
+        <div className="textBox_1" />
         <div className="flexWrapperTwo">
-          <SubButton/>
-          <MainButton/>
+          <SubButton title="Register" clsNm="mr8"/>
+          <MainButton title="Login" clsNm="ml8"/>
         </div>
       </div>
     </div>

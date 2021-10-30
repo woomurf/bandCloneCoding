@@ -20,20 +20,11 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   position: relative;
 }
 
-.rectangle1 {
+.sectionBanner {
   width: 400px;
   height: 460px;
   position: relative;
   border-radius: 40px;
-}
-
-.rectangle11 {
-  width: 10px;
-  height: 10px;
-  background-color: $primary-1;
-  position: absolute;
-  right: -5px;
-  top: 225px;
 }
 
 .flexWrapperOne {
@@ -43,14 +34,14 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   align-items: flex-start;
 }
 
-.union {
+.sectionTitle {
   width: 143.31px;
   height: 74.36px;
   margin-bottom: 161.02px;
   margin-left: 64.82px;
 }
 
-.rectangle3 {
+.textBox_1 {
   width: 280px;
   height: 50px;
   background-color: $gray-white;
@@ -59,19 +50,7 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
-.rectangle2 {
-  width: 280px;
-  height: 50px;
-  margin-bottom: 8px;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
-  border-radius: 40px;
-}
-
 .flexWrapperTwo {
   display: flex;
   align-items: flex-start;
-}
-
-.button {
-    margin-right: 8px;
 }

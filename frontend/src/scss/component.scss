@@ -22,19 +22,21 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   padding: 10px 46.5px;
   display: flex;
   align-items: center;
-  margin-left: 8px;
   justify-content: center;
-}
-.main_push {
   color: $primary-4-text;
   letter-spacing: -0.16px;
+  @include button-md;
+}
+.main_push {
+  background-color: $primary-3-main;
+  letter-spacing: -0.16px;
+  opacity: 0.32;
   @include button-md;
 }
 .sub_button {
   background-color: $secondeay-3-border;
   border-radius: 40px;
   padding: 10px 36px;
-  margin-right: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
