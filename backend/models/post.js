@@ -34,16 +34,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: false,
     },
-    author: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'postUserId',
-    },
-    groupId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'postGroupId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -59,14 +49,15 @@ module.exports = function(sequelize, DataTypes) {
   post.associate = function(models) {
     post.belongsToMany(models.USER, {
       foreignKey: 'author',
+      through: 'USER_POST',
     });
 
     post.belongsTo(models.GROUP, {
       foreignKey: 'groupId'
     });
 
-    post.hasMany(models.COMMENT);
-    post.hasMany(models.FILE);
+    post.hasMany(models.COMMENT, { foreignKey: 'postId' });
+    post.hasMany(models.FILE, { foreignKey: 'postId' });
   }
 
   return post;

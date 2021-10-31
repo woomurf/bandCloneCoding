@@ -18,16 +18,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: true,
     },
-    postId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'commentPostId',
-    },
-    author: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'commentUserId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -46,7 +36,8 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     comment.belongsToMany(models.USER, {
-      foreignKey: 'author'
+      foreignKey: 'author',
+      through: 'USER_COMMENT',
     });
   }
 

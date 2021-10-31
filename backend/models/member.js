@@ -10,16 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('REQUESTED', 'APPROVED', 'REJECTED', 'INVITED'),
       allowNull: false,
     },
-    groupId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'memberGroupId',
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'memberUserId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

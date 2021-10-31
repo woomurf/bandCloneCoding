@@ -14,11 +14,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    postId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'filePostId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -32,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   file.associate = function(models) {
-    post.belongsTo(models.POST, {
+    file.belongsTo(models.POST, {
       foreignKey: 'postId'
     });
   }

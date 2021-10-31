@@ -6,16 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true,
     },
-    commentId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'commentLikeCommentId',
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'commentLikeUserId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -29,7 +19,8 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     commentLike.belongsToMany(models.USER, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      through: 'USER_COMMENT_LIKE',
     });
   }
 

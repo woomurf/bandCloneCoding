@@ -13,11 +13,6 @@ module.exports = function(sequelize, DataTypes) {
     profileImageUrl: {
       type: DataTypes.STRING,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'profileUserId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

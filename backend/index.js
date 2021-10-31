@@ -9,7 +9,6 @@ const app = express();
 db.sequelize.sync()
   .then(() => {
     console.log('Connect on DB');
-    console.log(db);
   })
   .catch((error) => {
     console.error('Failed to connect on DB');

@@ -29,8 +29,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   group.associate = function(models) {
-    group.hasMany(models.MEMBER);
-    group.hasMany(models.POST);
+    group.hasMany(models.MEMBER, { foreignKey: 'groupId' });
+    group.hasMany(models.POST, { foreignKey: 'groupId' });
   }
 
   return group;

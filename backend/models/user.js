@@ -31,12 +31,12 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   user.associate = function(models) {
-    user.hasMany(models.MEMBER);
-    user.hasMany(models.PROFILE);
-    user.hasMany(models.POST);
-    user.hasMany(models.COMMENT);
-    user.hasMany(models.POST_LIKE);
-    user.hasMany(models.COMMENT_LIKE);
+    user.hasMany(models.MEMBER, { foreignKey: 'userId' });
+    user.hasMany(models.PROFILE, { foreignKey: 'userId' });
+    user.belongsToMany(models.POST, { through: 'USER_POST' });
+    user.belongsToMany(models.COMMENT, { through: 'USER_COMMENT', foreignKey: 'author' });
+    user.belongsToMany(models.POST_LIKE, { through: 'USER_POST_LIKE', foreignKey: 'author' });
+    user.belongsToMany(models.COMMENT_LIKE, { through: 'USER_COMMENT_LIKE', foreignKey: 'userId' });
   }
 
   return user;

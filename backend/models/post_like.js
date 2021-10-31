@@ -6,16 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true,
     },
-    postId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'postLikePostId',
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: 'postLikeUserId',
-    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -29,7 +19,8 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     postLike.belongsToMany(models.USER, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      through: 'USER_POST_LIKE',
     });
   }
 
