@@ -8,10 +8,12 @@ $secondeay-3-border: rgba(204, 250, 255, 1);
 $secondeay-6-text: rgba(0, 158, 173, 1);
 $transparent-black: rgba(0, 0, 0, 0.05);
 
-.loginPage {
+#loginPage {
   background-color: $gray-white;
-  padding: 220px 380px 220px 320px;
-  display: flex;
+  padding: 220px;
+  display: flex;  
+  justify-content: center;
+  align-items:center;
   align-items: flex-start;
 }
 
@@ -39,15 +41,6 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   height: 74.36px;
   margin-bottom: 161.02px;
   margin-left: 64.82px;
-}
-
-.textBox_1 {
-  width: 280px;
-  height: 50px;
-  background-color: $gray-white;
-  margin-bottom: 8px;
-  border-radius: 40px;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
 .flexWrapperTwo {

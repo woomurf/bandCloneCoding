@@ -3,11 +3,8 @@ import '../scss/base.scss';
 import '../scss/component.scss';
 
 class Button extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeYn: false
-    }
+  state = {
+    activeYn: false
   }
 
   render() {
@@ -30,6 +27,8 @@ class Button extends Component {
       }.bind(this)}
       onClick={function(e){
         //계정 확인후 팝업 or 페이지전환
+        e.preventDefault();
+        this.props.onClick();
       }.bind(this)}>
         <p className={(this.state.activeYn ? 'main_push' : '')}>{this.props.title}</p>
       </div>

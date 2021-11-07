@@ -16,6 +16,37 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   line-height: 16px;
 }
 
+.textBox_1 {
+  display: flex;  
+  align-items:center;
+  padding: 0px 25px;
+  width: 230px;
+  height: 50px;
+  background-color: $gray-white;
+  margin-bottom: 8px;
+  border-radius: 40px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.textBox_1 label {
+  position: absolute; 
+  padding: 0px 5px;
+  font-size: 16px;
+  color: #999; 
+  cursor: text;
+}
+
+.textBox_1 input[type="text"], 
+.textBox_1 input[type="password"] {
+  border:none;
+  width: 100%;
+  padding: 0px 5px 0px 5px;
+  height: auto; /* 높이값 초기화 */ 
+  line-height : normal; /* line-height 초기화 */ 
+  font-size: 16px;
+  outline-style: none;
+}
+
 .main_button {
   background-color: $primary-3-main;
   border-radius: 40px;
@@ -27,12 +58,11 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   letter-spacing: -0.16px;
   @include button-md;
 }
+
 .main_push {
-  background-color: $primary-3-main;
-  letter-spacing: -0.16px;
   opacity: 0.32;
-  @include button-md;
 }
+
 .sub_button {
   background-color: $secondeay-3-border;
   border-radius: 40px;
@@ -40,9 +70,11 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.sub_push {
   color: $secondeay-6-text;
   letter-spacing: -0.16px;
   @include button-md;
+}
+
+.sub_push {
+  opacity: 0.32;
 }

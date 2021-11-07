@@ -6,7 +6,7 @@ import MainButton from '../component/MainButton.js';
 import SubButton from '../component/SubButton.js';
 import '../scss/screen.scss';
 
-class LoginScreen extends Component {
+class PostScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ class LoginScreen extends Component {
           onClick={function(e){
             alert("ID : " + this.state.inputId + "\nPW : " + this.state.inputPw
              + "\n체크 후 팝업 또는 로그인 완료 및 메인페이지로 이동");
-            this.props.onClick("Login");
+             this.props.onChange("complete");
           }.bind(this)}/>
         </div>
       </div>
@@ -65,4 +65,4 @@ class LoginScreen extends Component {
   }
 };
 
-export default LoginScreen;
+export default PostScreen;
