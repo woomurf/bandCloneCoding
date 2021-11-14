@@ -1,9 +1,19 @@
 const express = require('express');
+const db = require('./models/index');
 const userRouter = require('./routes/user');
-
 
 const PORT = process.env.port || 3000;
 const app = express();
+
+// DB initialize
+db.sequelize.sync()
+  .then(() => {
+    console.log('Connect on DB');
+  })
+  .catch((error) => {
+    console.error('Failed to connect on DB');
+    console.error(error);
+  });
 
 app.use('/user', userRouter);
 
