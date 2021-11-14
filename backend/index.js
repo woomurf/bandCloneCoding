@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
 
@@ -14,6 +15,9 @@ db.sequelize.sync()
     console.error('Failed to connect on DB');
     console.error(error);
   });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/user', userRouter);
 
