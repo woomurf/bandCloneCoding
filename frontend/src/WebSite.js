@@ -5,19 +5,32 @@ import {
   Route
 } from "react-router-dom";
 import LoginScreen from "./screen/LoginScreen";
-import PostScreen from "./screen/LoginScreen";
+import PostScreen from "./screen/PostScreen";
 
 class WebSite extends Component {
+  onChangePage(pagePath) {
+    window.location.href = "/" + pagePath;
+  }
+
   render() {
     return (
       <Router>
         <div>
           <Routes>
-            <Route path="/main" element={<PostScreen/>}/>
-            <Route path="/" element={<LoginScreen
-              onClick={function(result){
-                alert(result);
-              }.bind(this)}/>}/>
+            <Route path="/main" element={
+              <PostScreen
+                onClick={
+                  (result) => this.onChangePage(result)
+                }
+              />
+            }/>
+            <Route path="/" element={
+              <LoginScreen
+                onClick={
+                  (result) => this.onChangePage(result)
+                }
+              />
+            }/>
           </Routes>
         </div>
       </Router>

@@ -47,6 +47,26 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   outline-style: none;
 }
 
+.searchBox {
+  align-items:center;
+  display: flex;
+  width: 540px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.Box {
+  align-items:center;
+  display: flex;
+  width: 140px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: $primary-4-text;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
 .main_button {
   background-color: $primary-3-main;
   border-radius: 40px;

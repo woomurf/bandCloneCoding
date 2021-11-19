@@ -7,24 +7,18 @@ class Button extends Component {
     activeYn: false
   }
 
+  btnState(stateValue) {
+    this.setState({
+      activeYn: stateValue
+    });
+  };
+
   render() {
     return (
       <div className={'noDrag sub_button ' + (this.props.clsNm)}
-      onMouseDown={function(e){
-        if(!this.state.activeYn){
-          this.setState({activeYn: !this.state.activeYn});
-        }
-      }.bind(this)}
-      onMouseUp={function(e){
-        if(this.state.activeYn){
-          this.setState({activeYn: !this.state.activeYn});
-        }
-      }.bind(this)}
-      onMouseLeave={function(e){
-        if(this.state.activeYn){
-          this.setState({activeYn: !this.state.activeYn});
-        }
-      }.bind(this)}
+      onMouseDown={this.btnState.bind(this, true)}
+      onMouseUp={this.btnState.bind(this, false)}
+      onMouseLeave={this.btnState.bind(this, false)}
       onClick={function(e){
         //회원가입 팝업
         e.preventDefault();

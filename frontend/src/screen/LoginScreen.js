@@ -22,45 +22,45 @@ class LoginScreen extends Component {
   render() {
     return (
       <div id="loginPage">
-      <div className="relativeWrapperOne">
-        <img
-          alt=""
-          className="sectionBanner"
-          src={Banner}
-        />
-      </div>
-      <div className="flexWrapperOne">
-        <img
-          alt=""
-          className="sectionTitle"
-          src={Title}
-        />
-        <TextBox title="ID" typeNm="text" dtaNm="inputId"
-        onChange={function(_inputId){
-          this.setState({
-            inputId:_inputId
-          });
-        }.bind(this)}/>
-        <TextBox title="PW" typeNm="password" dtaNm="inputPw"
-        onChange={function(_inputPw){
-          this.setState({
-            inputPw:_inputPw
-          });
-        }.bind(this)}/>
-        <div className="flexWrapperTwo">
-          <SubButton title="Register" clsNm="mr8"
-          onClick={function(e){
-            alert("회원가입 넣어야합니다.");
-          }}/>
-          <MainButton title="Login" clsNm="ml8"
-          onClick={function(e){
-            alert("ID : " + this.state.inputId + "\nPW : " + this.state.inputPw
-             + "\n체크 후 팝업 또는 로그인 완료 및 메인페이지로 이동");
-            this.props.onClick("Login");
+        <div className="relativeWrapperOne">
+          <img
+            alt=""
+            className="sectionBanner"
+            src={Banner}
+          />
+        </div>
+        <div className="flexWrapperOne">
+          <img
+            alt=""
+            className="sectionTitle"
+            src={Title}
+          />
+          <TextBox title="ID" typeNm="text" dtaNm="inputId"
+          onChange={function(_inputId){
+            this.setState({
+              inputId:_inputId
+            });
           }.bind(this)}/>
+          <TextBox title="PW" typeNm="password" dtaNm="inputPw"
+          onChange={function(_inputPw){
+            this.setState({
+              inputPw:_inputPw
+            });
+          }.bind(this)}/>
+          <div className="flexWrapperTwo">
+            <SubButton title="Register" clsNm="mr8"
+            onClick={function(e){
+              alert("회원가입 넣어야합니다.");
+            }}/>
+            <MainButton title="Login" clsNm="ml8"
+            onClick={function(e){
+              alert("ID : " + this.state.inputId + "\nPW : " + this.state.inputPw
+              + "\n체크 후 팝업 또는 로그인 완료 및 메인페이지로 이동");
+              this.props.onClick("main");
+            }.bind(this)}/>
+          </div>
         </div>
       </div>
-    </div>
     );
   }
 };
