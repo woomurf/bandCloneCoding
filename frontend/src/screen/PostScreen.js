@@ -14,17 +14,22 @@ class PostScreen extends Component {
     return (
       <div>
         <div id="mainTop">
-          <div className="topBar"/>
+          <div id="topBar"/>
         </div>
         <div id="mainPage">
           <div id="main_Lside">
-            <div className="Box"/>
+            <div className="Box" onClick={function(e){
+              alert("로그인화면으로");
+              this.props.onClick("");
+            }.bind(this)}/>
           </div>
           <div id="postList">
-            <div className="searchBox" onClick={function(e){
-                alert("로그인화면으로");
-                this.props.onClick("");
-              }.bind(this)}/>
+          <div className="searchBox"/>
+            <div className="postBox"/>
+            <div className="postBox"/>
+            <div className="postBox"/>
+            <div className="postBox"/>
+            <div className="postBox"/>
           </div>
           <div id="main_Rside">
             <div className="Box"/>
