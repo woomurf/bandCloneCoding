@@ -4,6 +4,8 @@ import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox_1';
 import MainButton from '../component/MainButton.js';
 import SubButton from '../component/SubButton.js';
+import AlertPopup from '../screen/AlertPopup';
+import ConfirmPopup from '../screen/ConfirmPopup';
 import '../scss/common.scss';
 import '../scss/screen.scss';
 
@@ -25,9 +27,9 @@ class LoginScreen extends Component {
     alertPopup.classList.remove('hide');
   }
 
-  closeAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.add('hide');
+  showConfirmPopup() {
+    const confirmPopup = document.querySelector('#confirmPopup');
+    confirmPopup.classList.remove('hide');
   }
 
   render() {
@@ -61,24 +63,12 @@ class LoginScreen extends Component {
           <div className="flexWrapperTwo">
             <SubButton title="Register" clsNm="mr8"
             onClick={this.showAlertPopup.bind(this)}/>
-            <MainButton title="Login" clsNm="ml8"
-            onClick={function(e){
-              alert("ID : " + this.state.inputId + "\nPW : " + this.state.inputPw
-              + "\n체크 후 팝업 또는 로그인 완료 및 메인페이지로 이동");
-              this.props.onClick("main");
-            }.bind(this)}/>
+            <MainButton title="Login" clsNm=""
+            onClick={this.showConfirmPopup.bind(this)}/>
           </div>
         </div>
-        <div id="alertPopup" class="hide"> 
-          <div class="content">
-            <p>
-              회원가입 팝업을 <br/>
-              먼저 넣어주세요.
-            </p>
-            <SubButton title="Close" clsNm="mr8"
-            onClick={this.closeAlertPopup.bind(this)}/>
-          </div>
-        </div>
+        <AlertPopup/>
+        <ConfirmPopup/>
       </div>
     );
   }
