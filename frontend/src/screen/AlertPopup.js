@@ -14,7 +14,7 @@ class AlertPopup extends Component {
       <div id="alertPopup" class="hide"> 
         <div class="content">
           <p class="text">
-            회원가입 팝업을 먼저 넣어주세요.
+            {this.props.content}
           </p>
           <p class="btn">
             <SubButton title="Close" clsNm="mt8"

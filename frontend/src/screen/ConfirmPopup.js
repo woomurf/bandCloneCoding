@@ -5,9 +5,13 @@ import '../scss/common.scss';
 import '../scss/screen.scss';
 
 class ConfirmPopup extends Component {
-  closeAlertPopup() {
+  closeConfirmPopup() {
     const confirmPopup = document.querySelector('#confirmPopup');
     confirmPopup.classList.add('hide');
+  }
+
+  onConfirmCallback() {
+    console.log(this);
   }
 
   render() {
@@ -15,15 +19,16 @@ class ConfirmPopup extends Component {
       <div id="confirmPopup" class="hide"> 
         <div class="content">
           <p class="text">
-            회원가입 팝업을 먼저 넣어주세요.
+            {this.props.content}
           </p>
           <p class="btn">
             <div className="flexWrapperTwo">
               <SubButton title="Close" clsNm="mr8"
-              onClick={this.closeAlertPopup.bind(this)}/>
+              onClick={this.closeConfirmPopup.bind(this)}/>
               <MainButton title="Confirm" clsNm=""
               onClick={function(e){
-                this.props.onClick("main"); //여기 해결중
+                this.closeConfirmPopup();
+                this.props.onClick();
               }.bind(this)}/>
             </div>
           </p>

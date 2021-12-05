@@ -20,7 +20,6 @@ class Button extends Component {
       onMouseUp={this.btnState.bind(this, false)}
       onMouseLeave={this.btnState.bind(this, false)}
       onClick={function(e){
-        //계정 확인후 팝업 or 페이지전환
         e.preventDefault();
         this.props.onClick();
       }.bind(this)}>

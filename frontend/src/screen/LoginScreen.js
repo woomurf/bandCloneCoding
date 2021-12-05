@@ -14,6 +14,7 @@ class LoginScreen extends Component {
     super(props);
     this.state = {
       title:'',
+      content:'',
       clsNm:'',
       typeNm:'',
       dtaNm:'',
@@ -66,9 +67,10 @@ class LoginScreen extends Component {
             <MainButton title="Login" clsNm=""
             onClick={this.showConfirmPopup.bind(this)}/>
           </div>
+          <AlertPopup content="회원가입 팝업을 먼저 넣어주세요?!!"/>
+          <ConfirmPopup content="로그인 할껍니까?(test)" 
+          onClick={this.props.onClick.bind(this, "main")}/>
         </div>
-        <AlertPopup/>
-        <ConfirmPopup/>
       </div>
     );
   }
