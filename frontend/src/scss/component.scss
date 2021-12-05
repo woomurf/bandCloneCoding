@@ -1,19 +1,96 @@
+/*
+Colors
+# 표기 > #000000
+  # 이후 16진법 2자리수 연속 3번 사용
+  2자리마다 빨강 초록 파랑 순
+  3자리로만 표기 시 2번째 자리 생략된 걸로 판단
+  ex)#FFF = #F0F0F0
+rgba 표기 > rgba(0, 0, 0, 1)
+  r : 빨강(min,max - 0, 255)
+  g : 초록(min,max - 0, 255)
+  b : 파랑(min,max - 0, 255)
+  a : 투명도(min,max - 0, 1)
+*/
+$primary-1: #FFFFED;
+$primary-2: #FFFFC1;
+$primary-3-main: #FFFF81;
+$primary-4-text: #8A79AF;
 
-// Colors
-$gray-white: rgba(255, 255, 255, 1);
-$primary-1: rgba(255, 255, 237, 1);
-$primary-3-main: rgba(255, 255, 129, 1);
-$primary-4-text: rgba(138, 121, 175, 1);
-$secondeay-3-border: rgba(204, 250, 255, 1);
-$secondeay-6-text: rgba(0, 158, 173, 1);
+$secondeay-1: #ECFFFF;
+$secondeay-2-main: #DEFCFC;
+$secondeay-3-border: #CCFAFF;
+$secondeay-4: #8ED9E0;
+$secondeay-5: #49BAC6;
+$secondeay-6-text: #009EAD;
+
+$gray-white: #FFFFFF;
+$gray-1: #F5F5F5;
+$gray-2: #E6E6E6;
+$gray-3: #C2C2C2;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #333333;
+$gray-black: #000000;
+
+$theme-alert: #FF8080;
+$theme-info: #FF8A00;
+
 $transparent-black: rgba(0, 0, 0, 0.05);
 
-// Typographies
+/*
+Fonts
+font-family > 글꼴
+font-size > 글자크기
+font-weight > 글자두께
+line-height > 줄 높이(100% = 글자크기와 동일), 단위는 사용자 마음
+*/
+@mixin headline-h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin headline-h6 {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin body-p16 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+@mixin body-p14 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+@mixin body-p12 {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
 @mixin button-md {
   font-family: "Inter";
   font-size: 16px;
   font-weight: 600;
-  line-height: 16px;
+  line-height: 100%;
+}
+
+@mixin button-sm {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 100%;
 }
 
 .textBox_1 {
@@ -42,9 +119,8 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 0px 5px 0px 5px;
   height: auto; /* 높이값 초기화 */ 
-  line-height : normal; /* line-height 초기화 */ 
-  font-size: 16px;
   outline-style: none;
+  @include body-p16;
 }
 
 .searchBox {

@@ -1,0 +1,110 @@
+/* Color */
+$primary-1: #FFFFED;
+$primary-2: #FFFFC1;
+$primary-3-main: #FFFF81;
+$primary-4-text: #8A79AF;
+
+$secondeay-1: #ECFFFF;
+$secondeay-2-main: #DEFCFC;
+$secondeay-3-border: #CCFAFF;
+$secondeay-4: #8ED9E0;
+$secondeay-5: #49BAC6;
+$secondeay-6-text: #009EAD;
+
+$gray-white: #FFFFFF;
+$gray-1: #F5F5F5;
+$gray-2: #E6E6E6;
+$gray-3: #C2C2C2;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #333333;
+$gray-black: #000000;
+
+$theme-alert: #FF8080;
+$theme-info: #FF8A00;
+
+$transparent-black: rgba(0, 0, 0, 0.05);
+
+/* Font */
+@mixin headline-h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin headline-h6 {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin body-p16 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+@mixin body-p14 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+@mixin body-p12 {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+@mixin button-md {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+@mixin button-sm {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+/* Common */
+.relativeWrapperOne {
+  margin-right: 60px;
+  position: relative;
+}
+
+.flexWrapperOne {
+  padding: 26.62px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flexWrapperTwo {
+  display: flex;
+  align-items: flex-start;
+}
+
+.noDrag
+{
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.mr8 {
+    margin-right: 8px;
+}
+
+.ml8 {
+  margin-left: 8px;
+}
