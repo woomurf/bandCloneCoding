@@ -4,8 +4,9 @@ import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox_1';
 import MainButton from '../component/MainButton.js';
 import SubButton from '../component/SubButton.js';
-import AlertPopup from '../screen/AlertPopup';
+// import AlertPopup from '../screen/AlertPopup';
 import ConfirmPopup from '../screen/ConfirmPopup';
+import RegisterPopup from '../screen/RegisterPopup';
 import '../scss/common.scss';
 import '../scss/screen.scss';
 
@@ -13,11 +14,6 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      title:'',
-      content:'',
-      clsNm:'',
-      typeNm:'',
-      dtaNm:'',
       inputId:'',
       inputPw:''
     }
@@ -31,6 +27,15 @@ class LoginScreen extends Component {
   showConfirmPopup() {
     const confirmPopup = document.querySelector('#confirmPopup');
     confirmPopup.classList.remove('hide');
+  }
+  
+  showRegisterPopup() {
+    const registerPopup = document.querySelector('#registerPopup');
+    registerPopup.classList.remove('hide');
+  }
+
+  addMember(regId, regPw, regNm, regBd) {
+    alert("ID : " + regId + "\nPW : " + regPw +  "\nName : " + regNm + "\nBirthday : " + regBd);
   }
 
   render() {
@@ -63,11 +68,15 @@ class LoginScreen extends Component {
           }.bind(this)}/>
           <div className="flexWrapperTwo">
             <SubButton title="Register" clsNm="mr8"
-            onClick={this.showAlertPopup.bind(this)}/>
+            onClick={this.showRegisterPopup.bind(this)}/>
             <MainButton title="Login" clsNm=""
             onClick={this.showConfirmPopup.bind(this)}/>
           </div>
-          <AlertPopup content="회원가입 팝업을 먼저 넣어주세요?!!"/>
+          <RegisterPopup
+          onClick={function(regId, regPw, regNm, regBd){
+            this.addMember(regId, regPw, regNm, regBd);
+          }.bind(this)}/>
+          {/* <AlertPopup content="회원가입 팝업을 먼저 넣어주세요?!!"/> */}
           <ConfirmPopup content="로그인 할껍니까?(test)" 
           onClick={this.props.onClick.bind(this, "main")}/>
         </div>

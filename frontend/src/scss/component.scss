@@ -1,15 +1,5 @@
 /*
 Colors
-# 표기 > #000000
-  # 이후 16진법 2자리수 연속 3번 사용
-  2자리마다 빨강 초록 파랑 순
-  3자리로만 표기 시 2번째 자리 생략된 걸로 판단
-  ex)#FFF = #F0F0F0
-rgba 표기 > rgba(0, 0, 0, 1)
-  r : 빨강(min,max - 0, 255)
-  g : 초록(min,max - 0, 255)
-  b : 파랑(min,max - 0, 255)
-  a : 투명도(min,max - 0, 1)
 */
 $primary-1: #FFFFED;
 $primary-2: #FFFFC1;
@@ -39,10 +29,6 @@ $transparent-black: rgba(0, 0, 0, 0.05);
 
 /*
 Fonts
-font-family > 글꼴
-font-size > 글자크기
-font-weight > 글자두께
-line-height > 줄 높이(100% = 글자크기와 동일), 단위는 사용자 마음
 */
 @mixin headline-h5 {
   font-family: "Inter";
@@ -103,6 +89,11 @@ line-height > 줄 높이(100% = 글자크기와 동일), 단위는 사용자 마
   margin-bottom: 8px;
   border-radius: 40px;
   box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.regTextBox {
+  width: 340px;
+  height: 50px;
 }
 
 .textBox_1 label {

@@ -88,6 +88,10 @@ $transparent-black: rgba(0, 0, 0, 0.05);
   align-items: flex-start;
 }
 
+.flexWrapperReg {
+  display: flex;
+}
+
 .flexWrapperTwo {
   display: flex;
   align-items: flex-start;
@@ -116,4 +120,8 @@ $transparent-black: rgba(0, 0, 0, 0.05);
 
 .mb8 {
   margin-bottom: 8px;
+}
+
+.m40 {
+  margin: 20px;
 }
