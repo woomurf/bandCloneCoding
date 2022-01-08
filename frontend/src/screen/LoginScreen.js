@@ -76,7 +76,6 @@ class LoginScreen extends Component {
           onClick={function(regId, regPw, regNm, regBd){
             this.addMember(regId, regPw, regNm, regBd);
           }.bind(this)}/>
-          {/* <AlertPopup content="회원가입 팝업을 먼저 넣어주세요?!!"/> */}
           <ConfirmPopup content="로그인 할껍니까?(test)" 
           onClick={this.props.onClick.bind(this, "main")}/>
         </div>

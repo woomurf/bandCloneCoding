@@ -91,17 +91,30 @@ Fonts
   box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
+.datePicker {
+  display: flex;  
+  align-items:center;
+  padding: 0px 25px;
+  width: 340px;
+  height: 50px;
+  background-color: $gray-white;
+  margin-bottom: 8px;
+  border-radius: 40px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.datePicker_input {
+  border:none;
+  width: 100%;
+  padding: 0px 5px 0px 5px;
+  height: auto; /* 높이값 초기화 */ 
+  outline-style: none;
+  @include body-p16;
+}
+
 .regTextBox {
   width: 340px;
   height: 50px;
-}
-
-.textBox_1 label {
-  position: absolute; 
-  padding: 0px 5px;
-  font-size: 16px;
-  color: #999; 
-  cursor: text;
 }
 
 .textBox_1 input[type="text"], 

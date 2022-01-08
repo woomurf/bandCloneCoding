@@ -208,7 +208,6 @@ Popup CSS
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
 }
 
 #confirmPopup.hide {
@@ -226,6 +225,7 @@ Popup CSS
   border-radius: 3px;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
+  z-index: 1;
 }
 
 #confirmPopup .text {
@@ -234,6 +234,14 @@ Popup CSS
 
 #confirmPopup .btn {
   padding-bottom: 50px;
+}
+
+.idxZ1 {
+  z-index: 1;
+}
+
+.idxZ2 {
+  z-index: 2;
 }
 
 #registerPopup {
