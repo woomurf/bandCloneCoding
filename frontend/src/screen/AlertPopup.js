@@ -18,11 +18,9 @@ class AlertPopup extends Component {
           </p>
           <p class="btn">
             <SubButton title="Close" clsNm="mt8"
-            onClick={function(e){
+            onClick={function(e){ 
               this.closeAlertPopup();
-              if (this.props.purpose != "") {
-                this.props.onClick();
-              }
+              this.props.onClick();
             }.bind(this)}/>
             
           </p>

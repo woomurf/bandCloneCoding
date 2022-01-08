@@ -16,21 +16,11 @@ class RegisterPopup extends Component {
       confirmPopup.classList.add('idxZ2');
     }
 
-    showAlertPopup() {
-      const alertPopup = document.querySelector('#alertPopup');
-      alertPopup.classList.remove('hide');
-      alertPopup.classList.add('idxZ2');
-    }
-
     closeRegisterPopup() {
         const registerPopup = document.querySelector('#registerPopup');
         registerPopup.classList.add('hide');
     }
-
-    onRegisterPopup() {
-        console.log(this);
-    }
-
+    
     render() {
         var regId, regPw, regNm;
         var regBd = "19961213";
@@ -58,17 +48,14 @@ class RegisterPopup extends Component {
                             <SubButton title="Close" clsNm="mr8"
                             onClick={this.showConfirmPopup.bind(this)}/>
                             <MainButton title="Confirm" clsNm=""
-                            onClick={this.showAlertPopup.bind(this)}/>
+                            onClick={function(e){
+                                this.props.onClick(regId, regPw, regNm, regBd);
+                            }.bind(this)}/>
                         </div>
                     </div>
                 </div>
                 <ConfirmPopup content="회원가입을 취소하겠습니까?" 
                 onClick={this.closeRegisterPopup.bind(this)}/>
-                <AlertPopup content="회원가입이 완료되었습니다." purpose="REG"
-                onClick={function(e){
-                    this.closeRegisterPopup();
-                    this.props.onClick(regId, regPw, regNm, regBd);
-                }.bind(this)}/>
             </div>
         );
     }
