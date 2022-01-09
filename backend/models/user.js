@@ -10,6 +10,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    refreshToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
