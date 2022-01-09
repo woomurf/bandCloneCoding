@@ -8,20 +8,21 @@ const { registerValidator } = require('../middleware/auth');
 const router = express.Router();
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'SECRET_KEY';
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'REFRESH_KEY';
 const ITERATION = proccess.env.ITERATION || '9943943';
 const ISS = 'GOMUJUL';
 
 
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (email) => {
-  return jwt.sign({ iss: ISS, email }, process.env.ACCESS_TOKEN_SECRET, {
+  return jwt.sign({ iss: ISS, email }, ACCESS_TOKEN_SECRET, {
       expiresIn: "15m",
   });
 };
 
 // refersh token을 secret key  기반으로 생성
 const generateRefreshToken = (email) => {
-  return jwt.sign({ iss: ISS, email }, process.env.REFRESH_TOKEN_SECRET, {
+  return jwt.sign({ iss: ISS, email }, REFRESH_TOKEN_SECRET, {
       expiresIn: "7 days",
   });
 };
