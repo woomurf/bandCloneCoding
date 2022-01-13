@@ -9,12 +9,13 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     description: {
       type: DataTypes.TEXT,
     },
     profileImageUrl: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, // add default value
     },
     createdAt: {
       type: DataTypes.DATE,
