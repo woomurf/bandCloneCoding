@@ -6,12 +6,12 @@ const crypto = require('crypto');
 const { USER } = require('../models');
 const { registerValidator } = require('../middleware/auth');
 const router = express.Router();
-
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'SECRET_KEY';
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'REFRESH_KEY';
-const ITERATION = proccess.env.ITERATION || '9943943';
-const ISS = 'GOMUJUL';
-
+const {
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  ITERATION,
+  ISS,
+} = require('../const');
 
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (email) => {
@@ -97,6 +97,9 @@ router.post('/login', async (req, res) => {
     const accessToken = generateAccessToken(email);
     const refreshToken = generateRefreshToken(email);
 
+    _user.refreshToken = refreshToken;
+    _user.save();
+
     res.json({
       id: _user.id,
       accessToken,
@@ -108,3 +111,5 @@ router.post('/login', async (req, res) => {
     });
   }
 })
+
+module.exports = router;

@@ -1,7 +1,8 @@
 const express = require('express');
+const { authValidator } = require('../middleware/auth');
 const router = express.Router();
 
-router.get('/:id', get = (req, res) => {
+router.get('/:id', authValidator, async (req, res) => {
   const { id } = req.params;
   try {
     res.json({ id });

@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 const PORT = process.env.port || 3000;
 const app = express();
@@ -15,6 +16,7 @@ db.sequelize.sync()
     console.error(error);
   });
 
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
 app.get('/health', (req, res) => {
