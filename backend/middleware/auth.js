@@ -9,7 +9,7 @@ const _checkUserExist = async (email) => {
     }
   });
 
-  if (!user) {
+  if (user) {
     return true;
   }
   return false;

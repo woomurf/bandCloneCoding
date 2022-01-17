@@ -34,12 +34,12 @@ const createSalt = async () => {
 
 const createHashedPassword = async (plainPassword) => {
   const salt = await createSalt();
-  const password = (await crypto.pbkdf2(plainPassword, salt, ITERATION, 64, "sha512")).toString('base64');
+  const password = (crypto.pbkdf2Sync(plainPassword, salt, ITERATION, 64, "sha512")).toString('base64');
   return { password, salt }
 }
 
 const verifyPassword = async (password, salt, hash) => {
-  const hashedPassword = (await crypto.pbkdf2(password, salt, ITERATION, 64, "sha512")).toString('base64');
+  const hashedPassword = (crypto.pbkdf2Sync(password, salt, ITERATION, 64, "sha512")).toString('base64');
   if (hash === hashedPassword) {
     return true;
   }
@@ -51,9 +51,8 @@ router.post('/register', registerValidator, async (req, res) => {
   const { name, email, password } = req.body;
 
   // TODO(hyeonwoong): check name, email, password rule.
-
   try {
-    const { hash, salt } = await createHashedPassword(password);
+    const { password: hash, salt } = await createHashedPassword(password);
     const user = await USER.create({
       name,
       email,
