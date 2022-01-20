@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import Banner from '../image/LoginBanner.png';
 import Title from '../image/Title.svg';
-import TextBox from '../component/TextBox_1';
+import TextBox from '../component/TextBox';
 import MainButton from '../component/MainButton.js';
 import SubButton from '../component/SubButton.js';
 import AlertPopup from '../screen/AlertPopup';
-// import ConfirmPopup from '../screen/ConfirmPopup';
 import RegisterPopup from '../screen/RegisterPopup';
 import '../scss/common.scss';
 import '../scss/screen.scss';
@@ -17,7 +16,7 @@ class LoginScreen extends Component {
       inputId:'',
       inputPw:'',
       alertPurpose:'',
-      alertContent:'',
+      alertContent:''
     }
   }
 
@@ -38,10 +37,10 @@ class LoginScreen extends Component {
             src={Title}
           />
           <TextBox 
-            type="text"
-            name="inputId"
-            placeholder="ID" 
+            id="inputId"
+            type="text" 
             value={this.state.inputId}
+            placeholder="ID" 
             onChange={function(e){
               this.setState({
                 inputId:e.target.value
@@ -49,10 +48,10 @@ class LoginScreen extends Component {
             }.bind(this)}
           />
           <TextBox 
+            id="inputPw"
             type="password"
-            name="inputPw"
-            placeholder="PW" 
             value={this.state.inputPw}
+            placeholder="PW" 
             onChange={function(e){
               this.setState({
                 inputPw:e.target.value
@@ -61,15 +60,14 @@ class LoginScreen extends Component {
           />
           <div className="flexWrapperTwo">
             <SubButton 
-              title="Register" 
-              clsNm="mr8"
+              label="Register" 
+              className="mr8"
               onClick={function(e){
                 this.showRegisterPopup();
               }.bind(this)}
             />
             <MainButton 
-              title="Login" 
-              clsNm=""
+              label="Login" 
               onClick={function(e){
                 if ("" !== this.state.inputId
                   || "" !== this.state.inputPw) {

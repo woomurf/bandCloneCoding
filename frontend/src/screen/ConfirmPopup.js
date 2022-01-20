@@ -16,22 +16,28 @@ class ConfirmPopup extends Component {
 
   render() {
     return (
-      <div id="confirmPopup" class="hide"> 
-        <div class="content">
-          <p class="text">
+      <div id="confirmPopup" className="hide"> 
+        <div className="content">
+          <div className="text">
             {this.props.content}
-          </p>
-          <p class="btn">
+          </div>
+          <div className="btn">
             <div className="flexWrapperTwo">
-              <SubButton title="Close" clsNm="mr8"
-              onClick={this.closeConfirmPopup.bind(this)}/>
-              <MainButton title="Confirm" clsNm=""
-              onClick={function(e){
-                this.closeConfirmPopup();
-                this.props.onClick();
-              }.bind(this)}/>
+              <SubButton 
+                label="Close" 
+                className="mr8"
+                onClick={this.closeConfirmPopup.bind(this)}
+              />
+              <MainButton 
+                label="Confirm" 
+                className=""
+                onClick={function(e){
+                  this.closeConfirmPopup();
+                  this.props.onClick();
+                }.bind(this)}
+              />
             </div>
-          </p>
+          </div>
         </div>
       </div>
     );

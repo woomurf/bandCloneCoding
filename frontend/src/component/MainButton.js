@@ -6,27 +6,27 @@ class Button extends Component {
   state = {
     activeYn: false
   }
-
+  
+  render() {
+    return (
+      <div 
+        className={'noDrag main_button ' + (this.props.className)}
+        onMouseDown={this.btnState.bind(this, true)}
+        onMouseUp={this.btnState.bind(this, false)}
+        onMouseLeave={this.btnState.bind(this, false)}
+        onClick={this.props.onClick}
+      >
+        <div className={(this.state.activeYn ? 'main_push' : '')}>
+          {this.props.label}
+        </div>
+      </div>
+    );
+  }
+  
   btnState(stateValue) {
     this.setState({
       activeYn: stateValue
     });
-  };
-
-  render() {
-    return (
-      <div className={'noDrag main_button ' + (this.props.clsNm)}
-      onMouseDown={this.btnState.bind(this, true)}
-      onMouseUp={this.btnState.bind(this, false)}
-      onMouseLeave={this.btnState.bind(this, false)}
-      onClick={function(e){
-        //계정 확인후 팝업 or 페이지전환
-        e.preventDefault();
-        this.props.onClick();
-      }.bind(this)}>
-        <p className={(this.state.activeYn ? 'main_push' : '')}>{this.props.title}</p>
-      </div>
-    );
   }
 };
 

@@ -11,19 +11,21 @@ class AlertPopup extends Component {
 
   render() {
     return (
-      <div id="alertPopup" class="hide"> 
-        <div class="content">
-          <p class="text">
+      <div id="alertPopup" className="hide"> 
+        <div className="content">
+          <div className="text">
             {this.props.content}
-          </p>
-          <p class="btn">
-            <SubButton title="Close" clsNm="mt8"
-            onClick={function(e){ 
-              this.closeAlertPopup();
-              this.props.onClick();
-            }.bind(this)}/>
-            
-          </p>
+          </div>
+          <div className="btn">
+            <SubButton 
+              label="Close" 
+              className="mt8"
+              onClick={function(e){ 
+                this.closeAlertPopup();
+                this.props.onClick();
+              }.bind(this)}
+            />
+          </div>
         </div>
       </div>
     );
