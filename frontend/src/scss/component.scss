@@ -79,7 +79,7 @@ Fonts
   line-height: 100%;
 }
 
-.textBox_1 {
+.textBox {
   display: flex;  
   align-items:center;
   padding: 0px 25px;
@@ -91,34 +91,13 @@ Fonts
   box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
-.datePicker {
-  display: flex;  
-  align-items:center;
-  padding: 0px 25px;
-  width: 340px;
-  height: 50px;
-  background-color: $gray-white;
-  margin-bottom: 8px;
-  border-radius: 40px;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
-}
-
-.datePicker_input {
-  border:none;
-  width: 100%;
-  padding: 0px 5px 0px 5px;
-  height: auto; /* 높이값 초기화 */ 
-  outline-style: none;
-  @include body-p16;
-}
-
 .regTextBox {
   width: 340px;
   height: 50px;
 }
 
-.textBox_1 input[type="text"], 
-.textBox_1 input[type="password"] {
+.textBox input[type="text"], 
+.textBox input[type="password"] {
   border:none;
   width: 100%;
   padding: 0px 5px 0px 5px;
@@ -127,91 +106,36 @@ Fonts
   @include body-p16;
 }
 
-.searchBox {
-  align-items:center;
-  width: 540px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: $gray-white;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
-}
-
-.postBox {
-  align-items:center;
-  margin-top: 10px;
-  width: 540px;
-  height: 380px;
-  border-radius: 20px;
-  background-color: $gray-white;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
-}
-
-.Box {
-  align-items:center;
-  display: flex;
-  width: 210px;
-  height: 210px;
-  border-radius: 20px;
-  background-color: $primary-4-text;
-  box-shadow: 2px 2px 2px 0 $transparent-black;
-}
-
-.main_button {
-  background-color: $primary-3-main;
+.button {
   border-radius: 40px;
-  width: 136px;
-  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $primary-4-text;
   letter-spacing: -0.16px;
+}
+
+.mainButton {
+  background-color: $primary-3-main;
+  color: $primary-4-text;
+}
+
+.subButton {
+  background-color: $secondeay-2-main;
+  color: $secondeay-6-text;
+}
+
+.largeButton {
+  width: 136px;
+  height: 56px;
   @include button-md;
 }
 
-.main_button_sm {
-  background-color: $primary-3-main;
-  border-radius: 40px;
+.smallButton {
   width: 80px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $primary-4-text;
-  letter-spacing: -0.16px;
   @include button-sm;
 }
 
-.main_push {
-  opacity: 0.32;
-}
-
-.sub_button {
-  background-color: $secondeay-3-border;
-  border-radius: 40px;
-  width: 136px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $secondeay-6-text;
-  letter-spacing: -0.16px;
-  @include button-md;
-}
-
-.sub_button_sm {
-  background-color: $secondeay-3-border;
-  border-radius: 40px;
-  width: 80px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $secondeay-6-text;
-  letter-spacing: -0.16px;
-  @include button-sm;
-}
-
-.sub_push {
+.pushButton {
   opacity: 0.32;
 }

@@ -2,12 +2,11 @@ import React, {Component} from "react";
 import Banner from '../image/LoginBanner.png';
 import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox';
-import MainButton from '../component/MainButton.js';
-import SubButton from '../component/SubButton.js';
-import AlertPopup from '../screen/AlertPopup';
-import RegisterPopup from '../screen/RegisterPopup';
+import Button from '../component/Button.js';
+import AlertPopup from '../popup/AlertPopup';
+import RegisterPopup from '../popup/RegisterPopup';
 import '../scss/common.scss';
-import '../scss/screen.scss';
+import '../scss/page.scss';
 
 class LoginScreen extends Component {
   constructor(props){
@@ -59,15 +58,16 @@ class LoginScreen extends Component {
             }.bind(this)}
           />
           <div className="flexWrapperTwo">
-            <SubButton 
+            <Button 
               label="Register" 
-              className="mr8"
+              className="subButton largeButton mr8"
               onClick={function(e){
                 this.showRegisterPopup();
               }.bind(this)}
             />
-            <MainButton 
+            <Button 
               label="Login" 
+              className="mainButton largeButton"
               onClick={function(e){
                 if ("" !== this.state.inputId
                   || "" !== this.state.inputPw) {

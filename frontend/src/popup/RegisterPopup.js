@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import TextBox from '../component/TextBox';
-import ConfirmPopup from '../screen/ConfirmPopup';
-import MainButton from '../component/MainButton';
-import SubButton from '../component/SubButton';
+import ConfirmPopup from '../popup/ConfirmPopup';
+import Button from '../component/Button';
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss';
+import '../scss/popup.scss';
 
 class RegisterPopup extends Component {
   state = {
@@ -53,14 +52,14 @@ class RegisterPopup extends Component {
               onChange={this.handelChange.bind(this)}
             />
             <div className="flexWrapperTwo">
-              <SubButton 
+              <Button 
                 label="Close" 
-                className="mr8"
+                className="subButton largeButton mr8"
                 onClick={this.showConfirmPopup.bind(this)}
               />
-              <MainButton 
+              <Button 
                 label="Confirm" 
-                className=""
+                className="mainButton largeButton"
                 onClick={function(){
 
                   // this.state.regId, 

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import '../scss/screen.scss';
-import '../scss/component.scss';
+import '../scss/page.scss';
 
 class PostScreen extends Component {
   constructor(props){
@@ -17,21 +16,23 @@ class PostScreen extends Component {
           <div id="topBar"/>
         </div>
         <div id="mainPage">
-          <div id="main_Lside">
+          <div id="leftFrame">
             <div className="Box" onClick={function(e){
               alert("로그인화면으로");
               this.props.onClick("");
             }.bind(this)}/>
           </div>
-          <div id="postList">
-          <div className="searchBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
+          <div id="centerFrame">
+            <div id="postList">
+              <div className="searchBox"/>
+              <div className="postBox"/>
+              <div className="postBox"/>
+              <div className="postBox"/>
+              <div className="postBox"/>
+              <div className="postBox"/>
+            </div>
           </div>
-          <div id="main_Rside">
+          <div id="rightFrame">
             <div className="Box"/>
           </div>
         </div>

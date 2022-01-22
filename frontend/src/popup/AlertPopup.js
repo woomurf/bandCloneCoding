@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import SubButton from '../component/SubButton_sm';
+import Button from '../component/Button';
 import '../scss/common.scss';
-import '../scss/screen.scss';
+import '../scss/popup.scss';
 
 class AlertPopup extends Component {
   closeAlertPopup() {
@@ -17,9 +17,9 @@ class AlertPopup extends Component {
             {this.props.content}
           </div>
           <div className="btn">
-            <SubButton 
+            <Button 
               label="Close" 
-              className="mt8"
+              className="subButton smallButton mt8"
               onClick={function(e){ 
                 this.closeAlertPopup();
                 this.props.onClick();

@@ -5,7 +5,7 @@ import '../scss/component.scss';
 class TextBox extends React.PureComponent {
   render() {
     return (
-      <div className={'textBox_1 ' + (this.props.className)}>
+      <div className={'textBox ' + (this.props.className)}>
         <input 
           id={this.props.id} 
           type={this.props.type} 

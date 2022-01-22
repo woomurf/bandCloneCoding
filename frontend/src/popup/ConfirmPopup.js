@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-import MainButton from '../component/MainButton_sm';
-import SubButton from '../component/SubButton_sm';
+import Button from '../component/Button';
 import '../scss/common.scss';
-import '../scss/screen.scss';
+import '../scss/popup.scss';
 
 class ConfirmPopup extends Component {
   closeConfirmPopup() {
@@ -23,14 +22,14 @@ class ConfirmPopup extends Component {
           </div>
           <div className="btn">
             <div className="flexWrapperTwo">
-              <SubButton 
+              <Button 
                 label="Close" 
-                className="mr8"
+                className="subButton smallButton mr8"
                 onClick={this.closeConfirmPopup.bind(this)}
               />
-              <MainButton 
+              <Button 
                 label="Confirm" 
-                className=""
+                className="mainButton smallButton"
                 onClick={function(e){
                   this.closeConfirmPopup();
                   this.props.onClick();
