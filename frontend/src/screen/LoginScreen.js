@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Banner from '../image/LoginBanner.png';
 import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox';
-import Button from '../component/Button.js';
+import Button from '../component/Button';
 import AlertPopup from '../popup/AlertPopup';
 import RegisterPopup from '../popup/RegisterPopup';
 import '../scss/common.scss';
@@ -77,7 +77,7 @@ class LoginScreen extends Component {
                   }); 
                   this.showAlertPopup();
                 } else {
-                  this.props.onClick("main");
+                  this.props.onClick("post");
                 }
               }.bind(this)}
             />

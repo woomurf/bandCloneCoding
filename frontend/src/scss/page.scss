@@ -33,14 +33,14 @@ Fonts
 @mixin headline-h5 {
   font-family: "Inter";
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 100%;
 }
 
 @mixin headline-h6 {
   font-family: "Inter";
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 100%;
 }
 
@@ -108,14 +108,31 @@ LoginScreen CSS
 /*
 PostScreen CSS
 */
-#mainTop {
-  background-color: $primary-3-main;
+#PageHeader {
   width: 100%;
   height: 90px;
-  top: 0px;
+  background-color: $primary-2;
 }
 
-#mainPage {
+#PageTopBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  top: 60px;
+  background-color: $primary-3-main;
+}
+
+#menuTab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 480px;
+}
+
+#PageBody {
   display: flex;
   justify-content: center;
   position: relative;
@@ -143,13 +160,6 @@ PostScreen CSS
 
 #rightFrame {
   margin-top: 15px;
-}
-
-#topBar {
-  position: absolute;
-  background-color: $primary-2;
-  width: 100%;
-  height: 60px;
 }
 
 .Box {

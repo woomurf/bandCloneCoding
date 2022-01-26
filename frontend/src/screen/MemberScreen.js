@@ -20,10 +20,10 @@ class PostScreen extends Component {
               <TextButton
                 label="게시글"
                 className="mt4"
-                selectYn={true}
+                selectYn={false}
                 onClick={function(){
-                  // this.props.onClick("post");
-                }}
+                  this.props.onClick("post");
+                }.bind(this)}
               />
               <TextButton
                 label="캘린더"
@@ -36,10 +36,10 @@ class PostScreen extends Component {
               <TextButton
                 label="멤버"
                 className="mt4"
-                selectYn={false}
+                selectYn={true}
                 onClick={function(){
-                  this.props.onClick("member");
-                }.bind(this)}
+                  // this.props.onClick("member");
+                }}
               />
             </div>
           </div>
@@ -53,11 +53,11 @@ class PostScreen extends Component {
           </div>
           <div id="centerFrame">
             <div id="postList">
+              <div className="postBox"/>
+              <div className="postBox"/>
               <div className="searchBox">
-                아무튼 여기가 게시글
+                아무튼 여기가 멤버
               </div>
-              <div className="postBox"/>
-              <div className="postBox"/>
               <div className="postBox"/>
               <div className="postBox"/>
               <div className="postBox"/>
