@@ -7,7 +7,7 @@ import Main_Lside from '../component/Main_Lside';
 import Main_Rside from '../component/Main_Rside';
 import Sky from '../image/Sky.png';
 import Pic from '../image/Pic.png';
-import taco from '../image/Taco.png';
+import Taco from '../image/Taco.png';
 import '../scss/component.scss';
 import '../scss/page.scss';
 
@@ -67,7 +67,7 @@ class PostScreen extends Component {
             <Post 
             userName="권영준" 
             year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={taco}
+            profileImage={Taco}
             text="크림파스타먹고싶다 ㅎㅅㅎ" 
             picture={Pic} 
             scheduleDate={"22"}
@@ -97,9 +97,9 @@ class PostScreen extends Component {
             <Post 
             userName="권영준" 
             year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={taco}
+            profileImage={Taco}
             text="이게 슬픈문어야!" 
-            picture={taco} 
+            picture={Taco} 
             />
 
             <Post 
@@ -121,11 +121,11 @@ class PostScreen extends Component {
 
           </div>
           <Main_Rside
-          pictureCollect={taco}
+          pictureCollect={Taco}
           pictureCollect1={Sky}
           pictureCollect2={Pic}
           pictureCollect3={Sky}
-          pictureCollect4={taco}
+          pictureCollect4={Taco}
           pictureCollect5={Pic}
           />
         </div>

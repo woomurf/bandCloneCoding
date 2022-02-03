@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import SM from '../image/See More.png';
+import SeeMore from '../image/See_More.png';
 import Emogi from '../image/Emogi.png';
 import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
@@ -27,7 +27,7 @@ class Post extends Component {
                 </div>
               </div>
               <div className="moreIcon">
-                <img className="moreIcon" src={SM} id="moreIcon"/>
+                <img className="moreIcon" src={SeeMore} id="moreIcon"/>
               </div>
             </div>
 
