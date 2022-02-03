@@ -1,0 +1,191 @@
+/*
+Colors
+*/
+$primary-1: #FFFFED;
+$primary-2: #FFFFC1;
+$primary-3-main: #FFFF81;
+$primary-4-text: #8A79AF;
+
+$secondeay-1: #ECFFFF;
+$secondeay-2-main: #DEFCFC;
+$secondeay-3-border: #CCFAFF;
+$secondeay-4: #8ED9E0;
+$secondeay-5: #49BAC6;
+$secondeay-6-text: #009EAD;
+
+$gray-white: #FFFFFF;
+$gray-1: #F5F5F5;
+$gray-2: #E6E6E6;
+$gray-3: #C2C2C2;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #333333;
+$gray-black: #000000;
+
+$theme-alert: #FF8080;
+$theme-info: #FF8A00;
+
+$transparent-black: rgba(0, 0, 0, 0.05);
+
+/*
+Fonts
+*/
+@mixin headline-h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+@mixin headline-h6 {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+@mixin body-p16 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p14 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p12 {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin button-md {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+@mixin button-sm {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+/*
+LoginScreen CSS
+*/
+#loginPage {
+  background-color: $gray-white;
+  padding: 220px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  align-items: flex-start;
+}
+
+.sectionBanner {
+  width: 400px;
+  height: 460px;
+  position: relative;
+  border-radius: 40px;
+}
+
+.sectionTitle {
+  width: 143.31px;
+  height: 74.36px;
+  margin-bottom: 161.02px;
+  margin-left: 64.82px;
+}
+
+/*
+PostScreen CSS
+*/
+#pageHeader {
+  width: 100%;
+  height: 90px;
+  background-color: $primary-2;
+}
+
+#pageTopBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  top: 60px;
+  background-color: $primary-3-main;
+}
+
+#menuTab {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  width: 480px;
+}
+
+#pageBody {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0px auto;
+  overflow: hidden;
+  background-color: $gray-1;
+} 
+
+#leftFrame {
+  margin-top: 15px;
+}
+
+#centerFrame {
+  width: 550px;
+  height: calc(100vh - 90px);
+  margin: 0px 10px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#centerFrame::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+#rightFrame {
+  margin-top: 15px;
+}
+
+.Box {
+  align-items:center;
+  display: flex;
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: $primary-4-text;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.searchBox {
+  margin-top: 15px;
+  width: 540px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.postBox {
+  margin: 10px auto 0px;
+  width: 540px;
+  height: 380px;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
