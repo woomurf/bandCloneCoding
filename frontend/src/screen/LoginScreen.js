@@ -24,14 +24,12 @@ class LoginScreen extends Component {
       <div id="loginPage">
         <div className="relativeWrapperOne">
           <img
-            alt=""
             className="sectionBanner"
             src={Banner}
           />
         </div>
         <div className="flexWrapperOne">
           <img
-            alt=""
             className="sectionTitle"
             src={Title}
           />
@@ -115,13 +113,12 @@ class LoginScreen extends Component {
 
   showRegisterPopup() {
     const registerPopup = document.querySelector('#registerPopup');
-    
     registerPopup.classList.remove('hide');
   }
     
   closeRegisterPopup() {
-      const registerPopup = document.querySelector('#registerPopup');
-      registerPopup.classList.add('hide');
+    const registerPopup = document.querySelector('#registerPopup');
+    registerPopup.classList.add('hide');
   }
 };
 

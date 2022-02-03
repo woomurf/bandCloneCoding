@@ -22,7 +22,7 @@ class TextButton extends React.PureComponent {
             : '')
           }
         >
-          <div className={'textButton ' + (this.state.selectYn ? this.props.className : '')}>
+          <div className={'textButton ' + this.props.className}>
             {this.props.label}
           </div>
           <div className={(this.state.selectYn ? 'selectPoint' : '')}/>

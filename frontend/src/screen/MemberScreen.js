@@ -13,9 +13,9 @@ class PostScreen extends Component {
   render() {
     return (
       <div>
-        <div id="PageHeader">
+        <div id="pageHeader">
           {/* 프로필 및 설정 있는 부분 */}
-          <div id="PageTopBar">
+          <div id="pageTopBar">
             <div id="menuTab">
               <TextButton
                 label="게시글"
@@ -44,7 +44,7 @@ class PostScreen extends Component {
             </div>
           </div>
         </div>
-        <div id="PageBody">
+        <div id="pageBody">
           <div id="leftFrame">
             <div className="Box" onClick={function(e){
               alert("로그인화면으로");

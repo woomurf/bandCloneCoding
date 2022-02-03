@@ -17,38 +17,36 @@ class WebSite extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <Routes>
-            <Route path="/post" element={
-              <PostScreen
-                onClick={
-                  (result) => this.onChangePage(result)
-                }
-              />
-            }/>
-            <Route path="/calender" element={
-              <CalenderScreen
-                onClick={
-                  (result) => this.onChangePage(result)
-                }
-              />
-            }/>
-            <Route path="/member" element={
-              <MemberScreen
-                onClick={
-                  (result) => this.onChangePage(result)
-                }
-              />
-            }/>
-            <Route path="/" element={
-              <LoginScreen
-                onClick={
-                  (result) => this.onChangePage(result)
-                }
-              />
-            }/>
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <LoginScreen
+              onClick={
+                (result) => this.onChangePage(result)
+              }
+            />
+          }/>
+          <Route path="/post" element={
+            <PostScreen
+              onClick={
+                (result) => this.onChangePage(result)
+              }
+            />
+          }/>
+          <Route path="/calender" element={
+            <CalenderScreen
+              onClick={
+                (result) => this.onChangePage(result)
+              }
+            />
+          }/>
+          <Route path="/member" element={
+            <MemberScreen
+              onClick={
+                (result) => this.onChangePage(result)
+              }
+            />
+          }/>
+        </Routes>
       </Router>
     );
   }
