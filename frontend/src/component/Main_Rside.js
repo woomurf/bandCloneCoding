@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class Main_Rside extends Component {
     render() {
         return (
-          <div id="main_Rside">
+          <div id="rightFrame">
             <div className="pictureCollect">
               <div className="pictureSort">
                 <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>

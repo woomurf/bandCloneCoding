@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import vector from '../image/Vector.png';
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class Main_Lside extends Component {
     render() {
         return (
-            <div id="main_Lside">
+            <div id="leftFrame">
             <div className="bandImage" onClick={function(e){
               alert("로그인화면으로");
               this.props.onClick("");

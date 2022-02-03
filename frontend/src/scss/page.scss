@@ -33,14 +33,14 @@ Fonts
 @mixin headline-h5 {
   font-family: "Inter";
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 100%;
 }
 
 @mixin headline-h6 {
   font-family: "Inter";
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 100%;
 }
 
@@ -108,13 +108,30 @@ LoginScreen CSS
 /*
 PostScreen CSS
 */
-#mainTop {
+#pageHeader {
   display: flex;
   flex-direction: column;
-  background-color: $primary-3-main;
   width: 100%;
   height: 90px;
-  top: 0px;
+  background-color: $primary-2;
+}
+
+#pageTopBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  top: 60px;
+  background-color: $primary-3-main;
+}
+
+#menuTab {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  width: 480px;
 }
 #topBar {
   background-color: $primary-2;
@@ -126,16 +143,6 @@ PostScreen CSS
   justify-content: space-around;
   margin: 7px;
 }
-
-#mainPage {
-  display: flex;
-  height: calc(100vh - 90px);
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  align-items: flex-start;
-  background-color: $gray-1;
-}
 #postp{
   overflow-y: auto;
   height: 790px;
@@ -145,7 +152,24 @@ PostScreen CSS
   width: 3px;
 }
 
-.postList {
+#pageBody {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0px auto;
+  overflow: hidden;
+  background-color: $gray-1;
+} 
+
+#leftFrame {
+  margin-top: 15px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+}
+
+#centerFrame {
   width: 545px;
   margin: 15px 15px 15px;
   align-items: center;
@@ -155,22 +179,28 @@ PostScreen CSS
   border-radius: 20px;
   overflow-x: visible;
 }
-.postList::-webkit-scrollbar{
+.centerFrame::-webkit-scrollbar{
   width: 0px; 
 }
 
-#main_Rside {
+#centerFrame::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+#rightFrame {
   margin-top: 15px;
   display: flex;
   justify-content: right;
 }
 
-#main_Lside {
-  margin-top: 15px;
-  margin-right: 5px;
+.Box {
+  align-items:center;
   display: flex;
-  justify-content: left;
-  flex-direction: column;
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: $primary-4-text;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
 .pictureCollect{
@@ -298,7 +328,7 @@ PostScreen CSS
 .postFooter{
   padding-top: 5px;
 }
-.textBox{
+.postLabel{
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -406,136 +436,4 @@ PostScreen CSS
   letter-spacing: -0.01em;
   color: #666666;
   margin-top: 8px;
-}
-
-
-/*
-Popup CSS
-*/
-#alertPopup {
-  position: absolute;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: $transparent-black;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
-}
-
-#alertPopup.hide {
-  display: none;
-}
-
-#alertPopup .content {
-  width: 420px;
-  height: 270px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $primary-1;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px $transparent-black;
-  @include body-p14;
-}
-
-#alertPopup .text {
-  padding-top: 70px;
-}
-
-#alertPopup .btn {
-  padding-bottom: 50px;
-}
-
-#confirmPopup {
-  position: absolute;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: $transparent-black;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-}
-
-#confirmPopup.hide {
-  display: none;
-}
-
-#confirmPopup .content {
-  width: 420px;
-  height: 270px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $primary-1;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px $transparent-black;
-  @include body-p14;
-  z-index: 1;
-}
-
-#confirmPopup .text {
-  padding-top: 70px;
-}
-
-#confirmPopup .btn {
-  padding-bottom: 50px;
-}
-
-.idxZ1 {
-  z-index: 1;
-}
-
-.idxZ2 {
-  z-index: 2;
-}
-
-#registerPopup {
-  position: absolute;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: $transparent-black;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
-}
-
-#registerPopup.hide {
-  display: none;
-}
-
-#registerPopup .content {
-  width: 480px;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: $primary-1;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px $transparent-black;
-  @include body-p14;
-}
-
-#registerPopup .text {
-  padding-top: 70px;
-}
-
-#registerPopup .btn {
-  padding-bottom: 20px;
 }

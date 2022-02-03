@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Picture from '../image/Picture.png';
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class Postuploadbox extends Component {
     render() {

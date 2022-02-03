@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Search from '../image/Search.png';
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class SearchBox extends Component {
     render() {

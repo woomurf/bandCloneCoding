@@ -5,7 +5,7 @@ import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class Post extends Component {
     render() {
@@ -31,7 +31,7 @@ class Post extends Component {
 
             <div className="postBody">
               {this.props.text &&(
-                <div className="textBox">
+                <div className="postLabel">
                   {this.props.text}
                 </div>)
               }

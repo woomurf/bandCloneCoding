@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/screen.scss'
+import '../scss/page.scss'
 
 class Schedule extends Component{
     render(){

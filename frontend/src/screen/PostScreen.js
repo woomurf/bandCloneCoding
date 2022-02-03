@@ -1,14 +1,15 @@
-import React, {Component,useState,useEffect} from "react";
+import React, {Component} from "react";
 import Post from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
+import TextButton from '../component/TextButton';
 import Main_Lside from '../component/Main_Lside';
 import Main_Rside from '../component/Main_Rside';
 import Sky from '../image/Sky.png';
 import Pic from '../image/Pic.png';
 import taco from '../image/Taco.png';
-import '../scss/screen.scss';
 import '../scss/component.scss';
+import '../scss/page.scss';
 
 class PostScreen extends Component {
   constructor(props){
@@ -21,24 +22,38 @@ class PostScreen extends Component {
   render() {
     return (
       <div>
-        <div id="mainTop">
-          <div id="topBar"/>
-          <div id="banner">
-            <div className="postPage"onClick={function(e){
-              alert("로그인화면으로");
-              this.props.onClick("");
-            }.bind(this)}>
-              게시글
-            </div>
-            <div className="calendarPage">
-              캘린더
-            </div>
-            <div className="memberPage">
-              맴버
+        <div id="pageHeader">
+          {/* 프로필 및 설정 있는 부분 */}
+          <div id="pageTopBar">
+            <div id="menuTab">
+              <TextButton
+                label="게시글"
+                className="mt4"
+                selectYn={true}
+                onClick={function(){
+                  // this.props.onClick("post");
+                }}
+              />
+              <TextButton
+                label="캘린더"
+                className="mt4"
+                selectYn={false}
+                onClick={function(){
+                  this.props.onClick("calender");
+                }.bind(this)}
+              />
+              <TextButton
+                label="멤버"
+                className="mt4"
+                selectYn={false}
+                onClick={function(){
+                  this.props.onClick("member");
+                }.bind(this)}
+              />
             </div>
           </div>
         </div>
-        <div id="mainPage">
+        <div id="pageBody">
           <Main_Lside
           onClick={this.props.onClick}
           bandImage={Sky}
@@ -46,7 +61,7 @@ class PostScreen extends Component {
           memberCount={"멤버 3"}
           bandIntroduce={"몰?루"}
           />
-          <div id="postList" className="postList">
+          <div id="centerFrame" className="centerFrame">
             <SearchBox/>
             <Postuploadbox/>
             <Post 
@@ -113,8 +128,8 @@ class PostScreen extends Component {
           pictureCollect4={taco}
           pictureCollect5={Pic}
           />
-          </div>
         </div>
+      </div>
     );
   }
 };    
