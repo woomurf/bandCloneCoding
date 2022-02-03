@@ -35,8 +35,20 @@ const registerValidator = async (req, res, next) => {
 
 const authValidator = async (req, res, next) => {
   const token = req.headers['access-token'];
-  const result = await jwt.verify(token, ACCESS_TOKEN_SECRET);
-  console.log({ result });
+  if (!token) {
+    return res.status(401).json({
+      message: 'Token required.'
+    });
+  }
+
+  try {
+    const decodedToken = await jwt.verify(token, ACCESS_TOKEN_SECRET);
+    res.locals.id = decodedToken.id;
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Failed to verify token',
+    });
+  }
   next();
 }
 
