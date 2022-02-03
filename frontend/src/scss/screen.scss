@@ -109,10 +109,22 @@ LoginScreen CSS
 PostScreen CSS
 */
 #mainTop {
+  display: flex;
+  flex-direction: column;
   background-color: $primary-3-main;
   width: 100%;
   height: 90px;
   top: 0px;
+}
+#topBar {
+  background-color: $primary-2;
+  width: 100%;
+  height: 60px;
+}
+#banner{
+  display: flex;
+  justify-content: space-around;
+  margin: 7px;
 }
 
 #mainPage {
@@ -124,34 +136,278 @@ PostScreen CSS
   align-items: flex-start;
   background-color: $gray-1;
 }
+#postp{
+  overflow-y: auto;
+  height: 790px;
+  width: 540px;
+}
+#postp::-webkit-scrollbar {
+  width: 3px;
+}
 
-#main_Lside {
-  flex: 1;
+.postList {
+  width: 545px;
+  margin: 15px 15px 15px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 850px;
+  border-radius: 20px;
+  overflow-x: visible;
+}
+.postList::-webkit-scrollbar{
+  width: 0px; 
+}
+
+#main_Rside {
   margin-top: 15px;
   display: flex;
   justify-content: right;
 }
 
-#postList {
-  width: 540px;
-  margin: 15px 15px 15px;
-  align-items: center;
-  justify-content: center;
-}
-
-#main_Rside {
-  flex: 1;
+#main_Lside {
   margin-top: 15px;
+  margin-right: 5px;
   display: flex;
   justify-content: left;
+  flex-direction: column;
 }
 
-#topBar {
-  position: absolute;
-  background-color: $primary-2;
-  width: 100%;
-  height: 60px;
+.pictureCollect{
+  display: flex;
+  flex-wrap: wrap;
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: $gray-3;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  overflow-y: scroll;
 }
+
+.pictureSort{
+  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  margin: 3px;
+}
+
+.pictureCollect::-webkit-scrollbar{ 
+  width: 5px; 
+}
+
+.bandImage {
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.bandName{
+  margin-top: 10px;
+  @include headline-h5;
+}
+.memberCount{
+  margin-top: 10px;
+  @include body-p14;
+  color: #666666;
+}
+.bandIntroduce{
+  margin-top: 5px;
+  @include body-p12;
+  color: #666666;
+}
+.line{
+  width: 210px;
+  height: 2px;
+  left: 0px;
+  top: 252px;
+  background: #E6E6E6;
+}
+.setting{
+  display: flex;
+  margin-top: 5px;
+}
+.bandSetting{
+  @include body-p12;
+  color: #999999;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.postPicture{
+  width: auto;
+  max-height: 300px;
+  margin: 5px 0 5px 0;
+}
+
+.postHeader{
+  display: flex;
+  width: auto;
+  height: 40px;
+  left: 15px;
+  top: 896px;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+.profile{
+  display: flex;
+  width: auto;
+  height: 40px;
+  left: 15px;
+  top: 896px;
+}
+.profileMeta{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.userName{
+  width: 36px;
+  height: 13px;
+  left: 60px;
+  top: 900px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.day{
+  width: 125px;
+  height: 12px;
+  left: 60px;
+  top: 920px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #999999;
+  padding-top: 7px;
+  //PND 랑 SM 을 감싸는 div PDNS
+  //PDNS 를 감싸는 clolum PDNST
+}
+.postBody{
+  display: flex;
+  flex-direction: column;
+}
+.postFooter{
+  padding-top: 5px;
+}
+.textBox{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin: 5px 0 5px 0;
+}
+#profileImage{
+  position: static;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: 15px;
+  top: 188px;
+}
+.moreIcon{
+  border-radius: 50%;
+}
+
+.Emogi{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.Comment{
+  border-radius: 50%;
+}
+
+.postBox {
+  align-items:center;
+  margin-top: 10px;
+  width: 510px;
+  height: auto;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  padding: 15px;
+}
+.scheduleBox{
+  display: flex;
+  width: 510px;
+  height: 80px;
+  left: 15px;
+  top: 746px;
+  background: #F5F5F5;
+  border: 0.5px solid #E6E6E6;
+  box-sizing: border-box;
+}
+.postSchedule{
+  margin: 5px 0 5px 0;
+}
+.scheduleHead{
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.scheduleDate{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin-top: 21px;
+  text-align: center;
+}
+
+.scheduleDay{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #FF8080;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.scheduleBody{
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduleName{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin-top: 26px;
+}
+.scheduleDDay{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #666666;
+  margin-top: 8px;
+}
+
 
 /*
 Popup CSS

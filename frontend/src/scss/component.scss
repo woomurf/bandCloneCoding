@@ -128,22 +128,45 @@ Fonts
 }
 
 .searchBox {
+  display: flex;
   align-items:center;
   width: 540px;
-  height: 40px;
+  height: auto;
   border-radius: 20px;
   background-color: $gray-white;
   box-shadow: 2px 2px 2px 0 $transparent-black;
 }
-
-.postBox {
-  align-items:center;
-  margin-top: 10px;
+.postuploadbox {
+  display: flex;
   width: 540px;
-  height: 380px;
+  height: auto;
   border-radius: 20px;
   background-color: $gray-white;
   box-shadow: 2px 2px 2px 0 $transparent-black;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+#searchText{
+  width: 467px;
+  border: $gray-white;
+  outline:none;
+  border-radius: 50px;
+  margin: 15px;
+}
+
+#postupload{
+  outline:none;
+  border: $gray-white;
+  margin: 15px;
+  width: 510px;
+  resize: none;
+}
+
+
+#pictureImage{
+  border-radius: 50%;
+  margin: 15px;
 }
 
 .Box {

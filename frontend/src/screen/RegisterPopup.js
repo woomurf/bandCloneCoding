@@ -70,7 +70,7 @@ function join_vali(regId, regPw, regNm){
     var n_RegExp = /^[가-힣]{2,15}$/;
 
 
-	if(regId === "") {
+	if(!regId) {
            alert("E-mail을 입력해 주세요");
            return false;
     }
@@ -78,7 +78,7 @@ function join_vali(regId, regPw, regNm){
             alert("올바른 이메일 형식이 아닙니다.");
             return false;
     }
-	if(regPw === "") {
+	if(!regPw) {
            alert("password 를 입력해 주세요");
            return false;
     }
@@ -86,7 +86,7 @@ function join_vali(regId, regPw, regNm){
         alert("Password는 4~15자의 영문 대소문자와 숫자로만 입력하여 주세요.");
         return false;
     }
-	if(regNm === "") {
+	if(!regNm) {
        alert("성함을 입력해 주세요");
        return false;
     }
@@ -104,16 +104,19 @@ function Birth_vali(_inputBd) {
         return false;
     }
 
-    var Bd_exp = /^[0-9]$/;
+    var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/
     var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
     var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
     var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
     var today = new Date();
     var yearNow = today.getFullYear();
 
-
-    if (_inputBd.length != 8 || !Bd_exp.test(_inputBd)) {
+    if (_inputBd.length !== 8) {
         alert("년도 4자리를 포함한 8자리숫자로 적어주세요");
+        return false;
+    }
+    else if (!Bd_exp.test(_inputBd)) {
+        alert("년도 4자리를 포함한 8자리숫자로 적어주세요 2");
         return false;
     }
     else if (1900 > year || year > yearNow){
@@ -146,8 +149,5 @@ function Birth_vali(_inputBd) {
     return true;
     }
 }
-
-
-
 
 export default RegisterPopup;
