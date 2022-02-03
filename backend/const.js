@@ -1,6 +1,6 @@
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'SECRET_KEY';
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'REFRESH_KEY';
-const ITERATION = Number(process.env.ITERATION) || 9943943;
+const ITERATION = Number(process.env.ITERATION) || 10000;
 const ISS = 'GOMUJUL';
 
 module.exports = {
