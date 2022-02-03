@@ -14,10 +14,12 @@ class Post extends Component {
             <div className="postHeader">
               <div className="profile">
                 <div className="profileImage">
-                  <img alt="" className="profileImage" src={this.props.profileImage} id="profileImage"/>
+                  <img className="profileImage" src={this.props.profileImage} id="profileImage"/>
                 </div>
                 <div className="profileMeta">
-                  <div className="userName">{this.props.userName}</div>
+                  <div className="userName">
+                    {this.props.userName}
+                  </div>
                   <div className="day">
                     {this.props.year}년 {this.props.month}월 
                     {this.props.date}일 {this.props.hours}:{this.props.min}
@@ -25,7 +27,7 @@ class Post extends Component {
                 </div>
               </div>
               <div className="moreIcon">
-                <img alt="" className="moreIcon" src={SM} id="moreIcon"/>
+                <img className="moreIcon" src={SM} id="moreIcon"/>
               </div>
             </div>
 
@@ -46,15 +48,15 @@ class Post extends Component {
               }
               {this.props.picture &&  (
                 <div className="post_Picture">
-                  <img alt="" className="postPicture" 
+                  <img className="postPicture" 
                   src={this.props.picture} id="postPicture"/>
                 </div>)
               }
             </div>
 
             <div className="postFooter">
-              <img alt="" className="Emogi" src={Emogi} id="Emogi"/>
-              <img alt="" className="Comment" src={Comment} id="Comment"/>
+              <img className="Emogi" src={Emogi} id="Emogi"/>
+              <img className="Comment" src={Comment} id="Comment"/>
             </div>
         </div>
       );

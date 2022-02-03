@@ -9,52 +9,52 @@ class Main_Rside extends Component {
           <div id="rightFrame">
             <div className="pictureCollect">
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect1} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect1} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect2} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect2} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect3} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect3} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect4} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect4} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect5} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect5} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
               <div className="pictureSort">
-                <img alt="" className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
+                <img className="pictureSort" src={this.props.pictureCollect} id="pictureSort"/>
               </div>
             </div>
           </div>

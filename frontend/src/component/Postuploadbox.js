@@ -12,7 +12,7 @@ class Postuploadbox extends Component {
             <textarea type="text" rows="4" placeholder="새로운 소식을 남겨보세요." id="postupload"/>
             </div>
             <div className="pictureImage">
-                  <img alt="" className="pictureImage" src={Picture} id="pictureImage"/>
+                  <img className="pictureImage" src={Picture} id="pictureImage"/>
             </div>
             </div>
       );
