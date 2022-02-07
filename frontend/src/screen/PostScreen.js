@@ -127,6 +127,9 @@ class PostScreen extends Component {
           pictureCollect3={Sky}
           pictureCollect4={Taco}
           pictureCollect5={Pic}
+          pictureCollect6={Sky}
+          pictureCollect7={Taco}
+          pictureCollect8={Pic}
           />
         </div>
       </div>

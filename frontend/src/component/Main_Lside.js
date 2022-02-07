@@ -13,7 +13,7 @@ class Main_Lside extends Component {
               this.props.onClick("");
             }.bind(this)}
             >
-            <img className="bandImage" src={this.props.bandImage} id="bandImage"/>
+            <img alt="" className="bandImage" src={this.props.bandImage} id="bandImage"/>
             </div>
             <div className="bandName">
               {this.props.bandName}
@@ -27,7 +27,7 @@ class Main_Lside extends Component {
             <div className="line"></div>
             <div className="setting">
             <div className="vectorImage">
-              <img className="vectorImage" src={vector} id="vectorImage"/>
+              <img alt=""  className="vectorImage" src={vector} id="vectorImage"/>
             </div>
             <div className="bandSetting">
               밴드설정
