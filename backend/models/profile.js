@@ -27,7 +27,9 @@ module.exports = function(sequelize, DataTypes) {
 
   profile.associate = function(models) {
     profile.belongsTo(models.USER, {
-      foreignKey: 'userId',
+      foreignKey: "userId",
+      as: "author",
+      onDelete: "CASCADE",
     });
   }
 
