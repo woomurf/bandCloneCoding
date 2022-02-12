@@ -23,13 +23,15 @@ class LoginScreen extends Component {
     return (
       <div id="loginPage">
         <div className="relativeWrapperOne">
-          <img
+          <img 
+            alt=""
             className="sectionBanner"
             src={Banner}
           />
         </div>
         <div className="flexWrapperOne">
           <img
+            alt=""
             className="sectionTitle"
             src={Title}
           />
