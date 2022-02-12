@@ -160,7 +160,7 @@ class PostScreen extends Component {
   }
 };    
 
-
+//DB 연결후 지울 데이터입니다.
 var now = new Date();
 var year = now.getFullYear();
 var month = now.getMonth();
