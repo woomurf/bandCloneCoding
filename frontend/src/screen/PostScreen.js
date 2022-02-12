@@ -15,7 +15,74 @@ class PostScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-
+      posts :[{
+        userName:"정의창",
+        year:year,
+        month:month,
+        date:date, 
+        hours:hours,
+        min:min,
+        profileImage:Pic,
+        text:"일정입니다", 
+        scheduleDate:"22",
+        scheduleDay:"화요일",
+        scheduleDDay:"2022년 04월 22일",
+        scheduleName:"일정이라구요"
+      },{
+        userName:"권영준",
+        year:year, 
+        month:month, 
+        date:date, 
+        hours:hours, 
+        min:min,
+        profileImage:Taco,
+        picture:Pic,
+        text:"크림파스타먹고싶다 ㅎㅅㅎ" , 
+        scheduleDate:"22",
+        scheduleDay:"일요일",
+        scheduleDDay:"2022년 02월 22일",
+        scheduleName:"밥먹는날"
+      },{
+        userName:"우현웅",
+        year:year, 
+        month:month, 
+        date:date, 
+        hours:hours, 
+        min:min,
+        profileImage:Sky,
+        text:"와!",
+      },{
+        userName:"정의창",
+        year:year, 
+        month:month, 
+        date:date, 
+        hours:hours, 
+        min:min,
+        profileImage:Sky,
+        picture:Sky
+      },{
+        userName:"권영준",
+        year:year, 
+        month:month, 
+        date:date, 
+        hours:hours, 
+        min:min,
+        profileImage:Taco,
+        picture:Taco,
+        text:"이게 슬픈문어야!" , 
+      },{
+        userName:"우현웅",
+        year:year, 
+        month:month, 
+        date:date, 
+        hours:hours, 
+        min:min,
+        profileImage:Sky,
+        scheduleDate:"15",
+        scheduleDay:"목요일",
+        scheduleDDay:"2022년 06월 15일",
+        scheduleName:"^^7"        
+      }]
     }
   }
 
@@ -64,72 +131,28 @@ class PostScreen extends Component {
           <div id="centerFrame" className="centerFrame">
             <SearchBox/>
             <Postuploadbox/>
-            <Post 
-            userName="권영준" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Taco}
-            text="크림파스타먹고싶다 ㅎㅅㅎ" 
-            picture={Pic} 
-            scheduleDate={"22"}
-            scheduleDay={"일요일"}
-            scheduleDDay={"2022년 02월 22일"}
-            scheduleName={"밥먹는날"}
-            />
-
-            <Post 
-            userName="우현웅" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Sky}
-            text="와!" 
-            />
-
-            <Post 
-            userName="정의창" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Pic}
-            text="일정입니다" 
-            scheduleDate={"22"}
-            scheduleDay={"화요일"}
-            scheduleDDay={"2022년 04월 22일"}
-            scheduleName={"일정이라구요"}
-            />
-
-            <Post 
-            userName="권영준" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Taco}
-            text="이게 슬픈문어야!" 
-            picture={Taco} 
-            />
-
-            <Post 
-            userName="정의창" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Pic}
-            picture={Sky}
-            />
-
-            <Post 
-            userName="우현웅" 
-            year={year} month={month} date={date} hours={hours} min = {min}
-            profileImage={Sky}
-            scheduleDate={"15"}
-            scheduleDay={"목요일"}
-            scheduleDDay={"2022년 03월 15일"}
-            scheduleName={"^^7"}
-            /> 
-
+            {this.state.posts.map((post)=>{
+              return(
+                <Post
+                userName={post.userName}
+                year={post.year} 
+                month={post.month}
+                date={post.date} 
+                hours={post.hours} 
+                min = {post.min}
+                profileImage={post.profileImage}
+                text={post.text} 
+                picture={post.picture} 
+                scheduleDate={post.scheduleDate}
+                scheduleDay={post.scheduleDay}
+                scheduleDDay={post.scheduleDDay}
+                scheduleName={post.scheduleName}
+              />
+              )})}
           </div>
-          <Main_Rside
-          pictureCollect={Taco}
-          pictureCollect1={Sky}
-          pictureCollect2={Pic}
-          pictureCollect3={Sky}
-          pictureCollect4={Taco}
-          pictureCollect5={Pic}
-          pictureCollect6={Sky}
-          pictureCollect7={Taco}
-          pictureCollect8={Pic}
+          <Main_Rside 
+          //DB 연결이되면 수정
+          pictures = {[Taco,Sky,Pic]}
           />
         </div>
       </div>
