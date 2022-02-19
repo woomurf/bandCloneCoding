@@ -31,12 +31,36 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   user.associate = function(models) {
-    user.hasMany(models.MEMBER, { foreignKey: 'userId' });
-    user.hasMany(models.PROFILE, { foreignKey: 'userId' });
-    user.belongsToMany(models.POST, { through: 'USER_POST' });
-    user.belongsToMany(models.COMMENT, { through: 'USER_COMMENT', foreignKey: 'author' });
-    user.belongsToMany(models.POST_LIKE, { through: 'USER_POST_LIKE', foreignKey: 'author' });
-    user.belongsToMany(models.COMMENT_LIKE, { through: 'USER_COMMENT_LIKE', foreignKey: 'userId' });
+    user.hasMany(models.MEMBER, {
+      foreignKey: 'memberId',
+      as: 'members',
+      onDelete: 'CASCADE'
+    });
+    user.hasMany(models.PROFILE, {
+      foreignKey: 'profileId',
+      as: 'profiles',
+      onDelete: 'CASCADE'
+    });
+    user.hasMany(models.POST, {
+      foreignKey: 'postId',
+      as: 'posts',
+      onDelete: 'CASCADE'
+    });
+    user.hasMany(models.COMMENT, {
+      foreignKey: "commentId",
+      as: "comments",
+      onDelete: "CASCADE",
+    });
+    user.hasMany(models.POST_LIKE, {
+      foreignKey: "postLikeId",
+      as: "postLikes",
+      onDelete: "CASCADE",
+    });
+    user.hasMany(models.COMMENT_LIKE, {
+      foreignKey: "commentLikeId",
+      as: "commentLikes",
+      onDelete: "CASCADE",
+    });
   }
 
   return user;

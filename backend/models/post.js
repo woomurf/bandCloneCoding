@@ -47,17 +47,28 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   post.associate = function(models) {
-    post.belongsToMany(models.USER, {
-      foreignKey: 'author',
-      through: 'USER_POST',
+    post.belongsTo(models.USER, {
+      foreignKey: 'userId',
+      as: 'author',
+      onDelete: 'RESTRICT'
     });
 
     post.belongsTo(models.GROUP, {
-      foreignKey: 'groupId'
+      foreignKey: 'groupId',
+      as: 'group',
+      onDelete: 'RESTRICT'
     });
 
-    post.hasMany(models.COMMENT, { foreignKey: 'postId' });
-    post.hasMany(models.FILE, { foreignKey: 'postId' });
+    post.hasMany(models.COMMENT, {
+      foreignKey: "postId",
+      as: "comments",
+      onDelete: "RESTRICT",
+    });
+    post.hasMany(models.FILE, {
+      foreignKey: "postId",
+      as: "files",
+      onDelete: "RESTRICT",
+    });
   }
 
   return post;

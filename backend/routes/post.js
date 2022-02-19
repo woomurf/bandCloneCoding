@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { POST, POST_LIKE } = require('../models');
+const { POST, POST_LIKE, USER } = require('../models');
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -8,6 +8,11 @@ router.get('/:id', async (req, res) => {
     const post = await POST.findOne({
       where: {
         id,
+      },
+      include: {
+        model: USER,
+        as: 'author',
+        attributes: ['id', 'name']
       }
     });
 
@@ -30,7 +35,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { groupId, title, content, files } = req.body;
+  const { groupId, title, content, files, userId } = req.body;
   try {
     const post = await POST.create({
       title,
@@ -38,6 +43,7 @@ router.post('/', async (req, res) => {
       groupId,
       public: true,
       isPinned: false,
+      userId,
     });
 
     res.json(post);
@@ -116,6 +122,7 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/:id/like', async (req, res) => {
   const { id } = req.params;
+  const userId = 1; // FIXME
   try {
     // TODO(hyeonwoong): check if user already like this post.
     const post = await POST.findOne({
@@ -133,6 +140,7 @@ router.post('/:id/like', async (req, res) => {
 
     const postLike = await POST_LIKE.create({
       postId: id,
+      userId,
     });
 
     res.json({
