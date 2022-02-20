@@ -14,15 +14,15 @@ const {
 } = require('../const');
 
 // access token을 secret key 기반으로 생성
-const generateAccessToken = (id) => {
-  return jwt.sign({ iss: ISS, id }, ACCESS_TOKEN_SECRET, {
+const generateAccessToken = (email) => {
+  return jwt.sign({ iss: ISS, email }, ACCESS_TOKEN_SECRET, {
       expiresIn: "15m",
   });
 };
 
 // refersh token을 secret key  기반으로 생성
-const generateRefreshToken = (id) => {
-  return jwt.sign({ iss: ISS, id }, REFRESH_TOKEN_SECRET, {
+const generateRefreshToken = (email) => {
+  return jwt.sign({ iss: ISS, email }, REFRESH_TOKEN_SECRET, {
       expiresIn: "7 days",
   });
 };
@@ -92,8 +92,8 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const accessToken = generateAccessToken(_user.id);
-    const refreshToken = generateRefreshToken(_user.id);
+    const accessToken = generateAccessToken(_user.email);
+    const refreshToken = generateRefreshToken(_user.email);
 
     _user.refreshToken = refreshToken;
     _user.save();

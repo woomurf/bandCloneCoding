@@ -40,7 +40,7 @@ const authValidator = async (req, res, next) => {
 
   try {
     const decodedToken = await jwt.verify(token, ACCESS_TOKEN_SECRET);
-    const user = _getUserInstance(decodedToken.id);
+    const user = await _getUserInstance(decodedToken.email);
     res.locals.user = user;
   } catch (error) {
     return res.status(500).json({
