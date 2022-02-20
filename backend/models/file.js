@@ -28,7 +28,6 @@ module.exports = function(sequelize, DataTypes) {
 
   file.associate = function(models) {
     file.belongsTo(models.POST, {
-      foreignKey: "postId",
       as: "post",
       onDelete: "CASCADE",
     });

@@ -15,14 +15,12 @@ module.exports = function(sequelize, DataTypes) {
 
   postLike.associate = function(models) {
     postLike.belongsTo(models.POST, {
-      foreignKey: "postId",
       as: "post",
       onDelete: "CASCADE",
     });
 
     postLike.belongsTo(models.USER, {
-      foreignKey: "userId",
-      as: "author",
+      as: "user",
       onDelete: "CASCADE",
     });
   }

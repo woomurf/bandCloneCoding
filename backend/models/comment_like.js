@@ -15,13 +15,11 @@ module.exports = function(sequelize, DataTypes) {
 
   commentLike.associate = function(models) {
     commentLike.belongsTo(models.COMMENT, {
-      foreignKey: "commentId",
       as: "comment",
       onDelete: "CASCADE",
     });
 
     commentLike.belongsTo(models.USER, {
-      foreignKey: "userId",
       as: "user",
       onDelete: "CASCADE",
     });
