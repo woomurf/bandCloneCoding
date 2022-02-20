@@ -1,0 +1,195 @@
+/*
+Colors
+*/
+$primary-1: #FFFFED;
+$primary-2: #FFFFC1;
+$primary-3-main: #FFFF81;
+$primary-4-text: #8A79AF;
+
+$secondeay-1: #ECFFFF;
+$secondeay-2-main: #DEFCFC;
+$secondeay-3-border: #CCFAFF;
+$secondeay-4: #8ED9E0;
+$secondeay-5: #49BAC6;
+$secondeay-6-text: #009EAD;
+
+$gray-white: #FFFFFF;
+$gray-1: #F5F5F5;
+$gray-2: #E6E6E6;
+$gray-3: #C2C2C2;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #333333;
+$gray-black: #000000;
+
+$theme-alert: #FF8080;
+$theme-info: #FF8A00;
+
+$transparent-black: rgba(0, 0, 0, 0.05);
+
+/*
+Fonts
+*/
+@mixin headline-h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin headline-h6 {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin body-p16 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p14 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p12 {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin button-md {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+@mixin button-sm {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.textBox {
+  display: flex;  
+  align-items:center;
+  padding: 0px 25px;
+  width: 230px;
+  height: 50px;
+  background-color: $gray-white;
+  margin-bottom: 8px;
+  border-radius: 40px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.regTextBox {
+  width: 340px;
+  height: 50px;
+}
+
+.textBox input[type="text"], 
+.textBox input[type="password"] {
+  border:none;
+  width: 100%;
+  padding: 0px 5px 0px 5px;
+  height: auto; /* 높이값 초기화 */ 
+  outline-style: none;
+  @include body-p16;
+}
+
+.searchBox {
+  display: flex;
+  align-items:center;
+  width: 540px;
+  height: auto;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+.postuploadbox {
+  display: flex;
+  width: 540px;
+  height: auto;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+#searchText{
+  width: 467px;
+  border: $gray-white;
+  outline:none;
+  border-radius: 50px;
+  margin: 15px;
+}
+
+#postupload{
+  outline:none;
+  border: $gray-white;
+  margin: 15px;
+  width: 510px;
+  resize: none;
+}
+
+#pictureImage{
+  border-radius: 50%;
+  margin: 15px;
+}
+
+.button {
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.16px;
+}
+
+.mainButton {
+  background-color: $primary-3-main;
+  color: $primary-4-text;
+}
+
+.subButton {
+  background-color: $secondeay-2-main;
+  color: $secondeay-6-text;
+}
+
+.largeButton {
+  width: 136px;
+  height: 56px;
+  @include button-md;
+}
+
+.smallButton {
+  width: 80px;
+  height: 40px;
+  @include button-sm;
+}
+
+.pushButton {
+  opacity: 0.32;
+}
+
+.textButton {
+  color: $primary-4-text;
+  @include headline-h5;
+}
+
+.selectPoint {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  margin-top: 2px;
+  background-color: $primary-4-text;
+}

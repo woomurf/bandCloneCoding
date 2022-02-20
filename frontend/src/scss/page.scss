@@ -1,0 +1,439 @@
+/*
+Colors
+*/
+$primary-1: #FFFFED;
+$primary-2: #FFFFC1;
+$primary-3-main: #FFFF81;
+$primary-4-text: #8A79AF;
+
+$secondeay-1: #ECFFFF;
+$secondeay-2-main: #DEFCFC;
+$secondeay-3-border: #CCFAFF;
+$secondeay-4: #8ED9E0;
+$secondeay-5: #49BAC6;
+$secondeay-6-text: #009EAD;
+
+$gray-white: #FFFFFF;
+$gray-1: #F5F5F5;
+$gray-2: #E6E6E6;
+$gray-3: #C2C2C2;
+$gray-4: #999999;
+$gray-5: #666666;
+$gray-6: #333333;
+$gray-black: #000000;
+
+$theme-alert: #FF8080;
+$theme-info: #FF8A00;
+
+$transparent-black: rgba(0, 0, 0, 0.05);
+
+/*
+Fonts
+*/
+@mixin headline-h5 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+@mixin headline-h6 {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+@mixin body-p16 {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p14 {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin body-p12 {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+@mixin button-md {
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+@mixin button-sm {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+/*
+LoginScreen CSS
+*/
+#loginPage {
+  background-color: $gray-white;
+  padding: 220px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  align-items: flex-start;
+}
+
+.sectionBanner {
+  width: 400px;
+  height: 460px;
+  position: relative;
+  border-radius: 40px;
+}
+
+.sectionTitle {
+  width: 143.31px;
+  height: 74.36px;
+  margin-bottom: 161.02px;
+  margin-left: 64.82px;
+}
+
+/*
+PostScreen CSS
+*/
+#pageHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90px;
+  background-color: $primary-2;
+}
+
+#pageTopBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  top: 60px;
+  background-color: $primary-3-main;
+}
+
+#menuTab {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  width: 480px;
+}
+#topBar {
+  background-color: $primary-2;
+  width: 100%;
+  height: 60px;
+}
+#banner{
+  display: flex;
+  justify-content: space-around;
+  margin: 7px;
+}
+#postp{
+  overflow-y: auto;
+  height: 790px;
+  width: 540px;
+}
+#postp::-webkit-scrollbar {
+  width: 3px;
+}
+
+#pageBody {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0px auto;
+  overflow: hidden;
+  background-color: $gray-1;
+} 
+
+#leftFrame {
+  margin-top: 15px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+}
+
+#centerFrame {
+  width: 545px;
+  margin: 15px 15px 15px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 850px;
+  border-radius: 20px;
+  overflow-x: visible;
+}
+.centerFrame::-webkit-scrollbar{
+  width: 0px; 
+}
+
+#centerFrame::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+#rightFrame {
+  margin-top: 15px;
+  display: flex;
+  justify-content: right;
+}
+
+.Box {
+  align-items:center;
+  display: flex;
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: $primary-4-text;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.pictureCollect{
+  display: flex;
+  flex-wrap: wrap;
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  background-color: $gray-3;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  overflow-y: scroll;
+}
+
+.pictureSort{
+  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  margin: 3px;
+}
+
+.pictureCollect::-webkit-scrollbar{ 
+  width: 5px; 
+}
+
+.bandImage {
+  width: 210px;
+  height: 210px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.bandName{
+  margin-top: 10px;
+  @include headline-h5;
+}
+.memberCount{
+  margin-top: 10px;
+  @include body-p14;
+  color: #666666;
+}
+.bandIntroduce{
+  margin-top: 5px;
+  @include body-p12;
+  color: #666666;
+}
+.line{
+  width: 210px;
+  height: 2px;
+  left: 0px;
+  top: 252px;
+  background: #E6E6E6;
+}
+.setting{
+  display: flex;
+  margin-top: 5px;
+}
+.bandSetting{
+  @include body-p12;
+  color: #999999;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.postPicture{
+  width: auto;
+  max-height: 300px;
+  margin: 5px 0 5px 0;
+}
+
+.postHeader{
+  display: flex;
+  width: auto;
+  height: 40px;
+  left: 15px;
+  top: 896px;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+.profile{
+  display: flex;
+  width: auto;
+  height: 40px;
+  left: 15px;
+  top: 896px;
+}
+.profileMeta{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.userName{
+  width: 36px;
+  height: 13px;
+  left: 60px;
+  top: 900px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.day{
+  width: 125px;
+  height: 12px;
+  left: 60px;
+  top: 920px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #999999;
+  padding-top: 7px;
+  //PND 랑 SM 을 감싸는 div PDNS
+  //PDNS 를 감싸는 clolum PDNST
+}
+.postBody{
+  display: flex;
+  flex-direction: column;
+}
+.postFooter{
+  padding-top: 5px;
+}
+.postLabel{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin: 5px 0 5px 0;
+}
+#profileImage{
+  position: static;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: 15px;
+  top: 188px;
+}
+.moreIcon{
+  border-radius: 50%;
+}
+
+.Emogi{
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.Comment{
+  border-radius: 50%;
+}
+
+.postBox {
+  align-items:center;
+  margin-top: 10px;
+  width: 510px;
+  height: auto;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  padding: 15px;
+}
+.scheduleBox{
+  display: flex;
+  width: 510px;
+  height: 80px;
+  left: 15px;
+  top: 746px;
+  background: #F5F5F5;
+  border: 0.5px solid #E6E6E6;
+  box-sizing: border-box;
+}
+.postSchedule{
+  margin: 5px 0 5px 0;
+}
+.scheduleHead{
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.scheduleDate{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin-top: 21px;
+  text-align: center;
+}
+
+.scheduleDay{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #FF8080;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.scheduleBody{
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduleName{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+  margin-top: 26px;
+}
+.scheduleDDay{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #666666;
+  margin-top: 8px;
+}

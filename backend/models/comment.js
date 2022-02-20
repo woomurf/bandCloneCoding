@@ -32,12 +32,15 @@ module.exports = function(sequelize, DataTypes) {
 
   comment.associate = function(models) {
     comment.belongsTo(models.POST, {
-      foreignKey: 'postId'
+      foreignKey: "postId",
+      as: "post",
+      onDelete: "CASCADE",
     });
 
-    comment.belongsToMany(models.USER, {
-      foreignKey: 'author',
-      through: 'USER_COMMENT',
+    comment.belongsTo(models.USER, {
+      foreignKey: "userId",
+      as: "author",
+      onDelete: "CASCADE",
     });
   }
 
