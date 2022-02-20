@@ -21,34 +21,4 @@ router.get('/:id', authValidator, async (req, res) => {
   };
 });
 
-router.post('/', async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const user = await USER.findOne({
-      where: {
-        email,
-      }
-    });
-
-    if (user) {
-      res.status(400).json({
-        message: `${email} already used.`,
-      });
-      return;
-    }
-    const result = await USER.create({
-      name,
-      email, // TODO: Need to check email format.
-      password, // TODO: Need to encryption.
-    });
-  
-    res.json({ id: result.id });
-  } catch (e) {
-    console.error(`[USER CREATE] failed to create user: ${e}`);
-    res.status(500).json({
-      message: 'Failed to create user',
-    });
-  }
-});
-
 module.exports = router;
