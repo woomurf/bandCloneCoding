@@ -23,7 +23,7 @@ class WebSite extends Component {
               }
             />
           }/>
-          <Route path="/main/post" element={
+          <Route path="/main" element={
             <MainScreen
               onClick={
                 (result) => this.onChangePage(result)

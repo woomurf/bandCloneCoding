@@ -16,7 +16,7 @@ class MemberFrame extends Component {
           <div className="Box" onClick={function(e){
             alert("로그인화면으로");
             // this.props.onClick("");
-          }.bind(this)}/>
+          }}/>
         </div>
         <div id="centerFrame">
           <div id="postList">

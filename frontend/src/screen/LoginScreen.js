@@ -77,7 +77,7 @@ class LoginScreen extends Component {
                   }); 
                   this.showAlertPopup();
                 } else {
-                  this.props.onClick("main/post");
+                  this.props.onClick("main");
                 }
               }.bind(this)}
             />

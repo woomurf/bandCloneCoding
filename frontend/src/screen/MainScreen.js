@@ -6,56 +6,74 @@ import MemberFrame from "./MemberFrame";
 import '../scss/page.scss';
 
 class MainScreen extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      selectTab:'post'
+    }
+  }
+
   render() {
     return (
       <div>
         <div id="pageHeader">
           {/* 프로필 및 설정 있는 부분 */}
           <div id="pageTopBar">
-            <div id="menuTab">
+            <div id="menuTab" className="mt4">
               <TextButton
                 label="게시글"
-                className="mt4"
-                selectYn={true}
+                selectYn={this.state.selectTab === "post" ? true : false}
                 onClick={function(){
-                  this.onChangeFrame("");
+                  this.onChangeTab("post");
                 }.bind(this)}
               />
               <TextButton
                 label="캘린더"
-                className="mt4"
-                selectYn={false}
+                selectYn={this.state.selectTab === "calendar" ? true : false}
                 onClick={function(){
-                  this.onChangeFrame("calendar");
+                  this.onChangeTab("calendar");
                 }.bind(this)}
               />
               <TextButton
                 label="멤버"
-                className="mt4"
-                selectYn={false}
+                selectYn={this.state.selectTab === "member" ? true : false}
                 onClick={function(){
-                  this.onChangeFrame("member");
+                  this.onChangeTab("member");
                 }.bind(this)}
               />
             </div>
           </div>
         </div>
         <div>
-          라우트 말고 텝으로구현해야해 바보야
-            {/* <Routes>
-              <Route path="/post" element={
-                <PostFrame/>
-              }/>
-              <Route path="/calendar" element={
-                <CalendarFrame/>
-              }/>
-              <Route path="/member" element={
-                <MemberFrame/>
-              }/>
-            </Routes> */}
+          {this.getSelectTab()}
         </div>
       </div>
     );
+  }
+
+  onChangeTab(pagePath) {
+    this.setState({ 
+      selectTab:pagePath
+    });
+  }
+
+  getSelectTab() {
+    var tabPage;
+    switch(this.state.selectTab) {
+      case 'post':
+        tabPage = <PostFrame/>;
+        break;
+      case 'calendar':
+        tabPage = <CalendarFrame/>;
+        break;
+      case 'member':
+        tabPage = <MemberFrame/>;
+        break;
+      default:
+        console.log('tab select error');
+        break;
+    }
+    return tabPage;
   }
 };
 

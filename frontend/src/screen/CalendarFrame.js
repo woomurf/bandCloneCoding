@@ -13,10 +13,10 @@ class CalendarFrame extends Component {
     return (
       <div id="pageBody">
         <div id="leftFrame">
-          <div className="Box" onClick={function(e){
+          <div className="Box" onClick={function(){
             alert("로그인화면으로");
             // this.props.onClick("");
-          }.bind(this)}/>
+          }}/>
         </div>
         <div id="centerFrame">
           <div id="postList">

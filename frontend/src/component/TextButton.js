@@ -2,31 +2,27 @@ import React from "react";
 import '../scss/common.scss';
 import '../scss/component.scss';
 
-class TextButton extends React.PureComponent {
+class TextButton extends React.Component {
   state = {
-    activeYn: !(this.props.selectYn),
-    selectYn: (this.props.selectYn)
+    activeYn: true
   }
   
   render() {
     return (
       <div 
-        className="noDrag"
+        className={"noDrag" + (!this.props.selectYn ?
+          (this.state.activeYn ? ' pushButton' : '')
+           : '')}
         onMouseEnter={this.btnState.bind(this, false)}
         onMouseLeave={this.btnState.bind(this, true)}
-        onClick={this.props.onClick}
+        onClick={function(){
+          this.props.onClick();
+        }.bind(this)}
       >
-        <div 
-          className={(!this.state.selectYn ?
-           this.state.activeYn ? 'pushButton' : ''
-            : '')
-          }
-        >
-          <div className={'textButton ' + this.props.className}>
-            {this.props.label}
-          </div>
-          <div className={(this.state.selectYn ? 'selectPoint' : '')}/>
+        <div className={'textButton ' + this.props.className}>
+          {this.props.label}
         </div>
+        <div className={this.props.selectYn ? 'selectPoint' : ''}/>
       </div>
     );
   }
