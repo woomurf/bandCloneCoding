@@ -1,5 +1,8 @@
 import React, {Component} from "react";
+import Calendar_1 from 'react-calendar';
+import Calendar from '../component/Calendar';
 import '../scss/page.scss';
+import '../scss/calendar.css';
 
 class CalendarFrame extends Component {
   constructor(props){
@@ -13,21 +16,19 @@ class CalendarFrame extends Component {
     return (
       <div id="pageBody">
         <div id="leftFrame">
-          <div className="Box" onClick={function(){
+          <div className="Box" onClick={function(e){
             alert("로그인화면으로");
-            // this.props.onClick("");
-          }}/>
+            this.props.onClick("");
+          }.bind(this)}/>
         </div>
         <div id="centerFrame">
           <div id="postList">
-            <div className="postBox"/>
-            <div className="searchBox">
-              아무튼 여기가 캘린더
-            </div>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
+            <Calendar_1 
+              className="mt15"
+              calendarType="US"
+              selectRange={true}
+            />
+            <Calendar/>
           </div>
         </div>
         <div id="rightFrame">
