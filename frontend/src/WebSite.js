@@ -5,9 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import LoginScreen from "./screen/LoginScreen";
-import PostScreen from "./screen/PostScreen";
-import CalenderScreen from "./screen/CalenderScreen";
-import MemberScreen from "./screen/MemberScreen";
+import MainScreen from "./screen/MainScreen";
 
 class WebSite extends Component {
   onChangePage(pagePath) {
@@ -25,22 +23,8 @@ class WebSite extends Component {
               }
             />
           }/>
-          <Route path="/post" element={
-            <PostScreen
-              onClick={
-                (result) => this.onChangePage(result)
-              }
-            />
-          }/>
-          <Route path="/calender" element={
-            <CalenderScreen
-              onClick={
-                (result) => this.onChangePage(result)
-              }
-            />
-          }/>
-          <Route path="/member" element={
-            <MemberScreen
+          <Route path="/main/post" element={
+            <MainScreen
               onClick={
                 (result) => this.onChangePage(result)
               }

@@ -10,7 +10,7 @@ class Main_Lside extends Component {
             <div id="leftFrame">
             <div className="bandImage" onClick={function(e){
               alert("로그인화면으로");
-              this.props.onClick("");
+              // this.props.onClick("");
             }.bind(this)}
             >
             <img alt="" className="bandImage" src={this.props.bandImage} id="bandImage"/>
