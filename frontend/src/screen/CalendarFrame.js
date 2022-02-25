@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Calendar_1 from 'react-calendar';
 import Calendar from '../component/Calendar';
 import '../scss/page.scss';
 import '../scss/calendar.css';
@@ -23,11 +22,6 @@ class CalendarFrame extends Component {
         </div>
         <div id="centerFrame">
           <div id="postList">
-            <Calendar_1 
-              className="mt15"
-              calendarType="US"
-              selectRange={true}
-            />
             <Calendar/>
           </div>
         </div>

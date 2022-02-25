@@ -13,7 +13,7 @@ class TextButton extends React.Component {
         className={"noDrag" + (!this.props.selectYn ?
           (this.state.activeYn ? ' pushButton' : '')
            : '')}
-        onMouseEnter={this.btnState.bind(this, false)}
+        onMouseEnter={this.btnState.bind(this, false) /**hover기능 사용해서 축약 */}
         onMouseLeave={this.btnState.bind(this, true)}
         onClick={function(){
           this.props.onClick();

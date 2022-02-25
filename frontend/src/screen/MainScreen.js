@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import TextButton from '../component/TextButton';
 import PostFrame from "./PostFrame";
-import CalendarFrame from "./CalendarFrame";
+import SettingFrame from "./SettingFrame";
 import MemberFrame from "./MemberFrame";
 import '../scss/page.scss';
 
@@ -22,23 +22,23 @@ class MainScreen extends Component {
             <div id="menuTab" className="mt4">
               <TextButton
                 label="게시글"
-                selectYn={this.state.selectTab === "post" ? true : false}
+                selectYn={this.state.selectTab === "post"}
                 onClick={function(){
                   this.onChangeTab("post");
                 }.bind(this)}
               />
               <TextButton
-                label="캘린더"
-                selectYn={this.state.selectTab === "calendar" ? true : false}
+                label="멤버"
+                selectYn={this.state.selectTab === "member"}
                 onClick={function(){
-                  this.onChangeTab("calendar");
+                  this.onChangeTab("member");
                 }.bind(this)}
               />
               <TextButton
-                label="멤버"
-                selectYn={this.state.selectTab === "member" ? true : false}
+                label="설정"
+                selectYn={this.state.selectTab === "setting"}
                 onClick={function(){
-                  this.onChangeTab("member");
+                  this.onChangeTab("setting");
                 }.bind(this)}
               />
             </div>
@@ -63,11 +63,11 @@ class MainScreen extends Component {
       case 'post':
         tabPage = <PostFrame/>;
         break;
-      case 'calendar':
-        tabPage = <CalendarFrame/>;
-        break;
       case 'member':
         tabPage = <MemberFrame/>;
+        break;
+      case 'setting':
+        tabPage = <SettingFrame/>;
         break;
       default:
         console.log('tab select error');
