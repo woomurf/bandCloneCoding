@@ -5,6 +5,7 @@ import TextBox from '../component/TextBox';
 import Button from '../component/Button';
 import AlertPopup from '../popup/AlertPopup';
 import RegisterPopup from '../popup/RegisterPopup';
+// import axios from 'axios'
 import '../scss/common.scss';
 import '../scss/page.scss';
 
@@ -69,15 +70,31 @@ class LoginScreen extends Component {
               label="Login" 
               className="mainButton largeButton"
               onClick={function(e){
-                if ("" !== this.state.inputId
-                  || "" !== this.state.inputPw) {
+                var rtnResult = this.loginCheck(this.state.inputId, this.state.inputPw);
+                var failContent = "";
+                rtnResult = 'success'; //api 구현전 임시방편
+
+                switch(rtnResult) {
+                  case 'success':
+                    this.props.onClick("main");
+                    break;
+                  case 'fail':
+                    failContent = "아이디 또는 비밀번호가 일치하지 않습니다."
+                    break;
+                  case 'error':
+                    failContent = "시스템의 문제가 발생했습니다."
+                    break;
+                  default:
+                    failContent = "FAIL LOGIN_CHECK = {" + rtnResult + "}"
+                    break;
+                }
+
+                if (rtnResult !== 'success') {
                   this.setState({
                     alertPurpose:"",
-                    alertContent:"아이디 또는 비밀번호가 일치하지 않습니다."
+                    alertContent:failContent
                   }); 
                   this.showAlertPopup();
-                } else {
-                  this.props.onClick("post");
                 }
               }.bind(this)}
             />
@@ -103,6 +120,40 @@ class LoginScreen extends Component {
         </div>
       </div>
     );
+  }
+
+  loginCheck(inputId, inputPw) {
+    var checkResult;
+    var axios = require('axios');
+    var data = JSON.stringify({
+      "Id": inputId,
+      "password": inputPw
+    });
+    var config = {
+      method: '',
+      url: 'localhost:3000',
+      headers: { 
+        'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHT01VSlVMIiwiZW1haWwiOiJkbmd1c2RuZDJAZ21haWwuY29tIiwiaWF0IjoxNjQ1NDQxODEwLCJleHAiOjE2NDU0NDI3MTB9.an3BL5tRbkBIp4aXIRVAn0ucBs_GJcwE65NZvMjUurw', 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      if (response.length > 0) {
+        checkResult = 'success';
+      } else {
+        checkResult = 'fail';
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      checkResult = 'error';
+    });
+    
+    return checkResult;
   }
 
   showAlertPopup() {
