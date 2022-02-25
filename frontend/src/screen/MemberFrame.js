@@ -11,27 +11,16 @@ class MemberFrame extends Component {
 
   render() {
     return (
-      <div id="pageBody">
-        <div id="leftFrame">
-          <div className="Box" onClick={function(e){
-            alert("로그인화면으로");
-            // this.props.onClick("");
-          }}/>
-        </div>
-        <div id="centerFrame">
-          <div id="postList">
-            <div className="searchBox">
-              아무튼 여기가 멤버
-            </div>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
-            <div className="postBox"/>
+      <div id="centerFrame">
+        <div id="postList">
+          <div className="searchBox">
+            아무튼 여기가 멤버
           </div>
-        </div>
-        <div id="rightFrame">
-          <div className="Box"/>
+          <div className="postBox"/>
+          <div className="postBox"/>
+          <div className="postBox"/>
+          <div className="postBox"/>
+          <div className="postBox"/>
         </div>
       </div>
     );

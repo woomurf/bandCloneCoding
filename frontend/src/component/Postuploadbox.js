@@ -13,7 +13,7 @@ class Postuploadbox extends Component {
         this.state = {
             value: '',
             username:"권영준",
-            nowTime: year+"년"+month+"월"+date+"일"+" "+hours+":"+min,
+            nowTime: year+"년"+month+"월"+date+"일 "+hours+":"+min,
             // pictures:""
         };
         // this.ondrop = this.ondrop.bind(this);

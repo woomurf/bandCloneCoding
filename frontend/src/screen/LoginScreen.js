@@ -72,6 +72,7 @@ class LoginScreen extends Component {
               onClick={function(e){
                 var rtnResult = this.loginCheck(this.state.inputId, this.state.inputPw);
                 var failContent = "";
+                rtnResult = 'success'; //api 구현전 임시방편
 
                 switch(rtnResult) {
                   case 'success':

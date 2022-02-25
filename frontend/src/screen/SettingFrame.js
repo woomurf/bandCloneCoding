@@ -12,19 +12,11 @@ class SettingFrame extends Component {
 
   render() {
     return (
-      <div id="pageBody">
-        <div id="leftFrame">
-          <div className="Box" onClick={function(e){
-            alert("로그인화면으로");
-            this.props.onClick("");
-          }.bind(this)}/>
-        </div>
-        <div id="centerFrame">
-          <div id="postList">
-          </div>
-        </div>
-        <div id="rightFrame">
-          <div className="Box"/>
+      <div id="centerFrame">
+        <div id="settingList">
+            <div className="settingBox">
+                암튼 설정 머시기
+            </div>
         </div>
       </div>
     );

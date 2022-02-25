@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import Post from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
-import Main_Lside from '../component/Main_Lside';
-import Main_Rside from '../component/Main_Rside';
 import Sky from '../image/Sky.png';
 import Pic from '../image/Pic.png';
 import Taco from '../image/Taco.png';
@@ -88,76 +86,29 @@ class PostFrame extends Component {
   render() {
     return (
       <div>
-        <div id="pageHeader">
-          {/* 프로필 및 설정 있는 부분 */}
-          <div id="pageTopBar">
-            <div id="menuTab">
-              <TextButton
-                label="게시글"
-                className="mt4"
-                selectYn={true}
-                onClick={function(){
-                  // this.props.onClick("post");
-                }}
-              />
-              <TextButton
-                label="캘린더"
-                className="mt4"
-                selectYn={false}
-                onClick={function(){
-                  this.props.onClick("calender");
-                }.bind(this)}
-              />
-              <TextButton
-                label="멤버"
-                className="mt4"
-                selectYn={false}
-                onClick={function(){
-                  this.props.onClick("member");
-                }.bind(this)}
-              />
-            </div>
-          </div>
+        <div id="centerFrame" className="centerFrame">
+          <SearchBox/>
+          <Postuploadbox/>
+          {this.state.posts.map((post,index)=>{
+            return(
+              <Post
+              key={index}
+              userName={post.userName}
+              year={post.year} 
+              month={post.month}
+              date={post.date} 
+              hours={post.hours} 
+              min = {post.min}
+              profileImage={post.profileImage}
+              text={post.text} 
+              picture={post.picture} 
+              scheduleDate={post.scheduleDate}
+              scheduleDay={post.scheduleDay}
+              scheduleDDay={post.scheduleDDay}
+              scheduleName={post.scheduleName}
+            />
+            )})}
         </div>
-        <div id="pageBody">
-          <Main_Lside
-          onClick={this.props.onClick}
-          bandImage={Sky}
-          bandName={"우리의밴드이름은?"}
-          memberCount={"멤버 3"}
-          bandIntroduce={"몰?루"}
-          />
-          <div id="centerFrame" className="centerFrame">
-            <SearchBox/>
-            <Postuploadbox/>
-            {this.state.posts.map((post)=>{
-              return(
-                <Post
-                userName={post.userName}
-                year={post.year} 
-                month={post.month}
-                date={post.date} 
-                hours={post.hours} 
-                min = {post.min}
-                profileImage={post.profileImage}
-                text={post.text} 
-                picture={post.picture} 
-                scheduleDate={post.scheduleDate}
-                scheduleDay={post.scheduleDay}
-                scheduleDDay={post.scheduleDDay}
-                scheduleName={post.scheduleName}
-              />
-              )})}
-          </div>
-          <Main_Rside 
-          //DB 연결이되면 수정
-          pictures = {[Taco,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic]}
-          />
-        </div>
-        <Main_Rside 
-        //DB 연결이되면 수정
-        pictures = {[Taco,Sky,Pic]}
-        />
       </div>
     );
   }

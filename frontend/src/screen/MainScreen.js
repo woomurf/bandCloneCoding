@@ -1,16 +1,23 @@
 import React, {Component} from "react";
 import TextButton from '../component/TextButton';
 import PostFrame from "./PostFrame";
-import SettingFrame from "./SettingFrame";
 import MemberFrame from "./MemberFrame";
+import SettingFrame from "./SettingFrame";
+import MainLside from '../component/Main_Lside';
+import MainRside from '../component/Main_Rside';
 import '../scss/page.scss';
+
+//DB 연결전 사진파일 임시방편
+import Sky_ from '../image/Sky.png';
+import Pic_ from '../image/Pic.png';
+import Taco_ from '../image/Taco.png';
 
 class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
       selectTab:'post'
-    }
+    } 
   }
 
   render() {
@@ -45,7 +52,20 @@ class MainScreen extends Component {
           </div>
         </div>
         <div>
-          {this.getSelectTab()}
+          <div id="pageBody">
+            <MainLside
+              onClick={this.onChangeTab.bind(this, "setting")}
+              bandImage={Sky_}
+              bandName={"우리의밴드이름은?"}
+              memberCount={"멤버 3"}
+              bandIntroduce={"몰?루"}
+            />
+            {this.getSelectTab()}
+            <MainRside 
+              //DB 연결이되면 수정
+              pictures = {[Taco_,Sky_,Pic_,Sky_,Pic_,Sky_,Pic_,Sky_,Pic_,Sky_,Pic_,Sky_,Pic_]}
+            />
+          </div>
         </div>
       </div>
     );

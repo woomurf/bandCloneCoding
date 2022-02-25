@@ -5,7 +5,7 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
 
-class Main_Lside extends Component {
+class MainLside extends Component {
     render() {
         return (
           <div id="leftFrame">
@@ -13,7 +13,7 @@ class Main_Lside extends Component {
             <div className="bandImage" onClick={function(e){
               alert("로그인화면으로");
               // this.props.onClick("");
-            }.bind(this)}
+            }}
             >
             <img alt="" className="bandImage" src={this.props.bandImage} id="bandImage"/>
             </div>
@@ -38,13 +38,13 @@ class Main_Lside extends Component {
               </div>
               <div className="bandSetting">
                 <TextButton
-                label="밴드설정"
-                className="mt4"
-                selectYn={false}
-                onClick={function(){
-                  this.props.onClick("bandSetting");
-                }.bind(this)}
-              />
+                  label="밴드설정"
+                  className="mt4"
+                  selectYn={false}
+                  onClick={function(){
+                    this.props.onClick("setting");
+                  }.bind(this)}
+                />
               </div>
             </div>
           </div>
@@ -52,4 +52,4 @@ class Main_Lside extends Component {
     }
 };
 
-export default Main_Lside;
+export default MainLside;
