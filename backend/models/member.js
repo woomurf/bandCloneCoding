@@ -24,14 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 
   member.associate = function(models) {
     member.belongsTo(models.USER, {
-      foreignKey: "userId",
       as: "user",
-      onDelete: "CASCADE",
-    });
-
-    member.belongsTo(models.GROUP, {
-      foreignKey: "groupId",
-      as: "group",
       onDelete: "CASCADE",
     });
   }

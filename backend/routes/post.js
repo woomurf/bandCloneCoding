@@ -1,6 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const auth = require('../middleware/auth');
+const { authValidator } = require('../middleware/auth');
 const { POST, POST_LIKE, USER } = require('../models');
+const router = express.Router();
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -11,7 +13,7 @@ router.get('/:id', async (req, res) => {
       },
       include: {
         model: USER,
-        as: 'author',
+        as: 'user',
         attributes: ['id', 'name']
       }
     });
@@ -23,7 +25,7 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    // TODO(hyeonwoong): increse view count.
+    // TODO(hyeonwoong): increase view count.
 
     res.json(post);
   } catch (err) {
@@ -34,8 +36,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  const { groupId, title, content, files, userId } = req.body;
+router.post('/', authValidator, async (req, res) => {
+  const user = res.locals.user;
+  const { groupId, title, content, files } = req.body;
+  // TODO(hyeonwoong): How to save files?
   try {
     const post = await POST.create({
       title,
@@ -43,7 +47,7 @@ router.post('/', async (req, res) => {
       groupId,
       public: true,
       isPinned: false,
-      userId,
+      userId: user.id,
     });
 
     res.json(post);
@@ -55,14 +59,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authValidator, async (req, res) => {
+  const user = res.locals.user;
   const { id } = req.params;
   const { title, content, files, public, isPinned } = req.body;
   try {
-    // TODO(hyeonwoong): permission check.
-    
-    if (public !== undefined || isPinned !== undefined) {
-      // TODO(hyeonwoong): permission check.
+      if (public !== undefined || isPinned !== undefined) {
+      // TODO(hyeonwoong): permission check (admin only can update public & isPinned).
     }
     const posts = await POST.update({
       title,
@@ -72,8 +75,11 @@ router.put('/:id', async (req, res) => {
     }, {
       where: {
         id,
+        userId: user.id
       }
     });
+
+    // TODO(hyeonwoong): How to update files?
 
     if (posts.length !== 1 ) {
       res.status(404).json({
@@ -93,12 +99,14 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authValidator, async (req, res) => {
+  const user = res.locals.user;
   const { id } = req.params;
   try {
     const count = await POST.destroy({
       where: {
         id,
+        userId: user.id
       }
     });
 
@@ -120,27 +128,35 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/:id/like', async (req, res) => {
+router.post('/:id/like', authValidator, async (req, res) => {
+  const user = res.locals.user;
   const { id } = req.params;
-  const userId = 1; // FIXME
   try {
-    // TODO(hyeonwoong): check if user already like this post.
+    console.log({ user });
     const post = await POST.findOne({
       where: {
         id,
-      },
+      }
     });
-
-    if (!post) { 
-      res.status(404).json({
-        message: `Not found post(${id}).`,
+    if (!post) {
+      return res.status(404).json({
+        message: 'Post does not exists'
       });
-      return;
     }
-
-    const postLike = await POST_LIKE.create({
+    const postLike = await POST_LIKE.findOne({
+      where: {
+        id,
+        userId: user.id
+      }
+    });
+    if (postLike) {
+      return res.status(400).json({
+        message: 'Already like post.'
+      });
+    }
+    await POST_LIKE.create({
       postId: id,
-      userId,
+      userId: user.id
     });
 
     res.json({
@@ -154,27 +170,25 @@ router.post('/:id/like', async (req, res) => {
   }
 });
 
-router.post('/:id/unlike', async (req, res) => {
+router.post('/:id/unlike', authValidator, async (req, res) => {
+  const user = res.locals.user;
   const { id } = req.params;
   try {
-    // TODO(hyeonwoong): check if user like this post.
     const post = await POST.findOne({
       where: {
         id,
       },
     });
-
     if (!post) { 
       res.status(404).json({
-        message: `Not found post(${id}).`,
+        message: 'Post does not exists',
       });
       return;
     }
-
     const postLikes = await POST_LIKE.destroy({
       postId: id,
-      userId: 3, // user id need.
-    });
+      userId: user.id,
+    })
 
     if (postLikes.length !== 1) {
       res.status(400).json({

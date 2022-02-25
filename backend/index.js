@@ -4,6 +4,7 @@ const db = require('./models/index');
 const userRouter = require('./routes/user');
 const groupRouter = require('./routes/group');
 const postRouter = require('./routes/post');
+const authRouter = require('./routes/auth');
 
 const PORT = process.env.port || 3000;
 const app = express();
@@ -21,6 +22,7 @@ db.sequelize.sync()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/group', groupRouter);
 app.use('/post', postRouter);
