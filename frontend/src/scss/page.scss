@@ -175,7 +175,7 @@ PostScreen CSS
   align-items: center;
   justify-content: center;
   overflow-y: scroll;
-  height: 850px;
+  height: calc(100vh - 120px); // 100% - 120px(90px pageHeader + 30px centerFrame margin)
   border-radius: 20px;
   overflow-x: visible;
 }
@@ -293,7 +293,7 @@ PostScreen CSS
   padding: 8px;
 }
 .userName{
-  width: 36px;
+  width: auto;
   height: 13px;
   left: 60px;
   top: 900px;
