@@ -8,6 +8,7 @@ import LoginScreen from "./screen/LoginScreen";
 import PostScreen from "./screen/PostScreen";
 import CalenderScreen from "./screen/CalenderScreen";
 import MemberScreen from "./screen/MemberScreen";
+import BandSettingScreen from "./screen/BandSettingScreen";
 
 class WebSite extends Component {
   onChangePage(pagePath) {
@@ -41,6 +42,13 @@ class WebSite extends Component {
           }/>
           <Route path="/member" element={
             <MemberScreen
+              onClick={
+                (result) => this.onChangePage(result)
+              }
+            />
+          }/>
+          <Route path="/bandsetting" element={
+            <BandSettingScreen
               onClick={
                 (result) => this.onChangePage(result)
               }
