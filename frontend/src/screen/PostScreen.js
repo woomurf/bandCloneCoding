@@ -152,7 +152,7 @@ class PostScreen extends Component {
           </div>
           <Main_Rside 
           //DB 연결이되면 수정
-          pictures = {[Taco,Sky,Pic]}
+          pictures = {[Taco,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic,Sky,Pic]}
           />
         </div>
       </div>
@@ -183,3 +183,13 @@ if(min<10){
 }
 
 export default PostScreen;
+
+
+
+// 영준이가 공부해야 할것  
+// API 보내는 법 (fetch)
+// promise, async, await 공부하기
+// onClick 이벤트 공부하기0
+// post 작성 버튼 onClick 이벤트 만들기 -> 일단 alert으로 뜨도록 (post upload box에서...)0
+// css api(사이트가 있다고 한다.)가서 input에 대한 개념을 익혀보자..
+
