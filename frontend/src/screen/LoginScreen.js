@@ -18,7 +18,7 @@ class LoginScreen extends Component {
       alertPurpose:'',
       alertContent:''
     }
-  }
+  } 
 
   render() {
     return (
