@@ -1,7 +1,8 @@
 import React, {Component} from "react";
+import Button from '../component/Button';
 import TextBox from '../component/TextBox';
 import ConfirmPopup from '../popup/ConfirmPopup';
-import Button from '../component/Button';
+import AlertPopup from '../popup/AlertPopup';
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/popup.scss';
@@ -11,7 +12,9 @@ class RegisterPopup extends Component {
     regId:'',
     regPw:'',
     regNm:'',
-    regBd:''
+    regBd:'',
+    alertPurpose:'',
+    alertContent:''
   }
 
   render() {
@@ -63,14 +66,7 @@ class RegisterPopup extends Component {
                 onClick={function(){
                   if(join_vali(this.state.regId,this.state.regPw,this.state.regNm)){
                     if(Birth_vali(this.state.regBd)){
-                    this.props.onClick();
-                    this.addMember(); // DB 반영
-                    this.setState({
-                      regId:'',
-                      regPw:'',
-                      regNm:'',
-                      regBd:''
-                    });
+                    this.addMember(this.state.regId,this.state.regPw,this.state.regNm,this.state.regBd); // DB 반영
                   }
                 }
                 }.bind(this)}
@@ -78,6 +74,13 @@ class RegisterPopup extends Component {
             </div>
           </div>
         </div>
+        <AlertPopup 
+          content={this.state.alertContent} 
+          purpose={this.state.alertPurpose}
+          onClick={function(e) { 
+            
+          }}
+        />
         <ConfirmPopup content="회원가입을 취소하겠습니까?" 
           onClick={function(){
             this.closeRegisterPopup();
@@ -120,8 +123,77 @@ class RegisterPopup extends Component {
     }
   }
   
-  addMember() {
-    alert("ID : " + this.state.regId + "\nPW : " + this.state.regPw +  "\nName : " + this.state.regNm + "\nBirthday : " + this.state.regBd);
+  async addMember(regId, regPw, regNm, regBd) {
+    var axios = require('axios');
+    var checkResult;
+    var failContent = "";
+    var data = JSON.stringify({
+      "name": regNm,
+      "email": regId,
+      "password": regPw,
+      "birthday": regBd
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://1c31-110-10-225-160.ngrok.io/auth/register',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    await axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      if (response.length > 0) {
+        checkResult = 'success';
+      } else {
+        checkResult = 'fail';
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      checkResult = 'error';
+    });
+
+    switch(checkResult) {
+      case 'success':
+        alert("ID : " + this.state.regId + "\nPW : " + this.state.regPw +  "\nName : " + this.state.regNm + "\nBirthday : " + this.state.regBd);
+        this.props.onClick();
+        this.setState({
+          regId:'',
+          regPw:'',
+          regNm:'',
+          regBd:''
+        });
+        break;
+      case 'fail':
+        failContent = "회원가입에 실패했습니다."
+        break;
+      case 'error':
+        failContent = "시스템의 문제가 발생했습니다."
+        break;
+      default:
+        failContent = "FAIL REGISTER_CHECK = {" + checkResult + "}"
+        break;
+    }
+
+    if (checkResult !== 'success') {
+      this.setState({
+        alertPurpose:"",
+        alertContent:failContent
+      }); 
+      this.showAlertPopup();
+    }
+  }
+
+  showAlertPopup() {
+    const alertPopup = document.querySelector('#alertPopup');
+    alertPopup.classList.remove('hide');
+    if (this.props.alertPurpose === "REG") {
+      alertPopup.classList.add('idxZ2');
+    }
   }
 
   showConfirmPopup() {
@@ -164,7 +236,7 @@ function join_vali(regId, regPw, regNm){
        return false;
     }
 	if(!n_RegExp.test(regNm)){
-         alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
+         alert("이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
          return false;
     }
 
@@ -177,7 +249,7 @@ function Birth_vali(_inputBd) {
         return false;
     }
 
-    var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/
+    var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
     var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
     var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
     var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 

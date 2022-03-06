@@ -11,22 +11,13 @@ class Button extends React.PureComponent {
     return (
       <div 
         className={'noDrag button ' + (this.props.className)}
-        onMouseDown={this.btnState.bind(this, true)}
-        onMouseUp={this.btnState.bind(this, false)}
-        onMouseLeave={this.btnState.bind(this, false)}
         onClick={this.props.onClick}
       >
-        <div className={(this.state.activeYn ? 'pushButton' : '')}>
+        <div>
           {this.props.label}
         </div>
       </div>
     );
-  }
-  
-  btnState(stateValue) {
-    this.setState({
-      activeYn: stateValue
-    });
   }
 };
 

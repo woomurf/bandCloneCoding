@@ -69,35 +69,8 @@ class LoginScreen extends Component {
             <Button 
               label="Login" 
               className="mainButton largeButton"
-              onClick={function(e){
-                var rtnResult = this.loginCheck(this.state.inputId, this.state.inputPw);
-                var failContent = "";
-                rtnResult = 'success'; //api 구현전 임시방편
-
-                switch(rtnResult) {
-                  case 'success':
-                    this.props.onClick("main");
-                    break;
-                  case 'fail':
-                    failContent = "아이디 또는 비밀번호가 일치하지 않습니다."
-                    break;
-                  case 'error':
-                    failContent = "시스템의 문제가 발생했습니다."
-                    break;
-                  default:
-                    failContent = "FAIL LOGIN_CHECK = {" + rtnResult + "}"
-                    break;
-                }
-
-                if (rtnResult !== 'success') {
-                  this.setState({
-                    alertPurpose:"",
-                    alertContent:failContent
-                  }); 
-                  this.showAlertPopup();
-                }
-              }.bind(this)}
-            />
+              onClick={this.loginCheck.bind(this, this.state.inputId, this.state.inputPw)}
+            /> 
           </div>
           <RegisterPopup
             onClick={function() {
@@ -122,24 +95,25 @@ class LoginScreen extends Component {
     );
   }
 
-  loginCheck(inputId, inputPw) {
+  async loginCheck(inputId, inputPw) {
     var checkResult;
+    var failContent;
     var axios = require('axios');
     var data = JSON.stringify({
-      "Id": inputId,
+      "email": inputId,
       "password": inputPw
     });
+
     var config = {
-      method: '',
-      url: 'localhost:3000',
+      method: 'post',
+      url: 'https://1c31-110-10-225-160.ngrok.io/auth/login',
       headers: { 
-        'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHT01VSlVMIiwiZW1haWwiOiJkbmd1c2RuZDJAZ21haWwuY29tIiwiaWF0IjoxNjQ1NDQxODEwLCJleHAiOjE2NDU0NDI3MTB9.an3BL5tRbkBIp4aXIRVAn0ucBs_GJcwE65NZvMjUurw', 
         'Content-Type': 'application/json'
       },
       data : data
     };
-
-    axios(config)
+ 
+    await axios(config) 
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       if (response.length > 0) {
@@ -153,7 +127,28 @@ class LoginScreen extends Component {
       checkResult = 'error';
     });
     
-    return checkResult;
+    switch(checkResult) {
+      case 'success':
+        this.props.onClick("main");
+        break;
+      case 'fail':
+        failContent = "아이디 또는 비밀번호가 일치하지 않습니다."
+        break;
+      case 'error':
+        failContent = "시스템의 문제가 발생했습니다."
+        break;
+      default:
+        failContent = "FAIL LOGIN_CHECK = {" + checkResult + "}"
+        break;
+    } 
+
+    if (checkResult !== 'success') {
+      this.setState({
+        alertPurpose:"",
+        alertContent:failContent
+      }); 
+      this.showAlertPopup();
+    }
   }
 
   showAlertPopup() {
