@@ -3,10 +3,6 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 
 class Button extends React.PureComponent {
-  state = {
-    activeYn: false
-  }
-  
   render() {
     return (
       <div 

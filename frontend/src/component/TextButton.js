@@ -3,10 +3,6 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 
 class TextButton extends React.Component {
-  state = {
-    activeYn: true
-  }
-  
   render() {
     return (
       <div 

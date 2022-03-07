@@ -126,7 +126,7 @@ class LoginScreen extends Component {
       console.log(error);
       checkResult = 'error';
     });
-    
+    checkResult = 'success'; //임시
     switch(checkResult) {
       case 'success':
         this.props.onClick("main");
