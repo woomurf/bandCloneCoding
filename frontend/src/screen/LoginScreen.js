@@ -5,7 +5,6 @@ import TextBox from '../component/TextBox';
 import Button from '../component/Button';
 import AlertPopup from '../popup/AlertPopup';
 import RegisterPopup from '../popup/RegisterPopup';
-// import axios from 'axios'
 import '../scss/common.scss';
 import '../scss/page.scss';
 
@@ -16,7 +15,7 @@ class LoginScreen extends Component {
       inputId:'',
       inputPw:'',
       alertPurpose:'',
-      alertContent:''
+      alertContent:'',
     }
   } 
 
@@ -73,19 +72,26 @@ class LoginScreen extends Component {
             /> 
           </div>
           <RegisterPopup
-            onClick={function() {
-              this.setState({
-                alertPurpose:"REG",
-                alertContent:"회원가입이 완료되었습니다.",
-              }); 
-              this.showAlertPopup(); 
+            onClick={function(result, content) {
+              if (result === 'success') {
+                this.setState({
+                  alertPurpose:"REG_COMPLETE",
+                  alertContent:content,
+                }); 
+              } else {
+                this.setState({
+                  alertPurpose:"REG",
+                  alertContent:content,
+                }); 
+              } 
+              this.showAlertPopup();
             }.bind(this)}
           />
           <AlertPopup 
             content={this.state.alertContent} 
             purpose={this.state.alertPurpose}
             onClick={function(e) { 
-              if (this.state.alertPurpose === "REG") {  
+              if (this.state.alertPurpose === "REG_COMPLETE") {  
                 this.closeRegisterPopup();
               }
             }.bind(this)}
@@ -97,7 +103,7 @@ class LoginScreen extends Component {
 
   async loginCheck(inputId, inputPw) {
     var checkResult;
-    var failContent;
+    var failContent = 'fail';
     var axios = require('axios');
     var data = JSON.stringify({
       "email": inputId,
@@ -106,7 +112,7 @@ class LoginScreen extends Component {
 
     var config = {
       method: 'post',
-      url: 'https://1c31-110-10-225-160.ngrok.io/auth/login',
+      url: 'https://9b7e-183-98-213-104.ngrok.io/auth/login',
       headers: { 
         'Content-Type': 'application/json'
       },
@@ -116,31 +122,24 @@ class LoginScreen extends Component {
     await axios(config) 
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      if (response.length > 0) {
-        checkResult = 'success';
-      } else {
-        checkResult = 'fail';
-      }
+      checkResult = 'success';
     })
     .catch(function (error) {
       console.log(error);
       checkResult = 'error';
     });
-    checkResult = 'success'; //임시
+    
     switch(checkResult) {
       case 'success':
         this.props.onClick("main");
         break;
-      case 'fail':
+      case 'error':
         failContent = "아이디 또는 비밀번호가 일치하지 않습니다."
         break;
-      case 'error':
+      default:
         failContent = "시스템의 문제가 발생했습니다."
         break;
-      default:
-        failContent = "FAIL LOGIN_CHECK = {" + checkResult + "}"
-        break;
-    } 
+    }
 
     if (checkResult !== 'success') {
       this.setState({
@@ -154,9 +153,6 @@ class LoginScreen extends Component {
   showAlertPopup() {
     const alertPopup = document.querySelector('#alertPopup');
     alertPopup.classList.remove('hide');
-    if (this.props.alertPurpose === "REG") {
-      alertPopup.classList.add('idxZ2');
-    }
   }
 
   showRegisterPopup() {
