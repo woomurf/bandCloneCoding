@@ -155,15 +155,25 @@ Fonts
   margin-top: 19px;
   margin-left: 450px;
 }
+
 .vectorImage{
   margin-top: 2.7px;
 }
+
 .button {
   border-radius: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: -0.16px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:active {
+  opacity: 0.55;
 }
 
 .mainButton {
@@ -188,13 +198,19 @@ Fonts
   @include button-sm;
 }
 
-.pushButton {
-  opacity: 0.32;
-}
-
 .textButton {
+  opacity: 0.4;
   color: $primary-4-text;
   @include headline-h5;
+}
+
+.textButton:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.selectButton {
+  opacity: 1;
 }
 
 .selectPoint {
@@ -203,4 +219,15 @@ Fonts
   height: 2px;
   margin-top: 2px;
   background-color: $primary-4-text;
+}
+
+.settingBox{
+  align-items:center;
+  margin-top: 10px;
+  width: 510px;
+  height: 300px;
+  border-radius: 20px;
+  background-color: rgb(245, 186, 186);
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  padding: 15px;
 }
