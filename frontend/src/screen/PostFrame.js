@@ -7,82 +7,42 @@ import Pic from '../image/Pic.png';
 import Taco from '../image/Taco.png';
 import '../scss/component.scss';
 import '../scss/page.scss';
+import axios from "axios";
 
 class PostFrame extends Component {
   constructor(props){
     super(props);
     this.state = {
-      posts :[{
-        userName:"정의창",
-        year:year,
-        month:month,
-        date:date, 
-        hours:hours,
-        min:min,
-        profileImage:Pic,
-        text:"일정입니다", 
+      posts :[ {
+        user:{name:"sampleName"},
+        // profileImage:Pic,
+        content:"일정입니다",
+        today:time,
         scheduleDate:"22",
         scheduleDay:"화요일",
         scheduleDDay:"2022년 04월 22일",
         scheduleName:"일정이라구요"
-      },{
-        userName:"권영준",
-        year:year, 
-        month:month, 
-        date:date, 
-        hours:hours, 
-        min:min,
-        profileImage:Taco,
-        picture:Pic,
-        text:"크림파스타먹고싶다 ㅎㅅㅎ" , 
-        scheduleDate:"22",
-        scheduleDay:"일요일",
-        scheduleDDay:"2022년 02월 22일",
-        scheduleName:"밥먹는날"
-      },{
-        userName:"우현웅",
-        year:year, 
-        month:month, 
-        date:date, 
-        hours:hours, 
-        min:min,
-        profileImage:Sky,
-        text:"와!",
-      },{
-        userName:"정의창",
-        year:year, 
-        month:month, 
-        date:date, 
-        hours:hours, 
-        min:min,
-        profileImage:Sky,
-        picture:Sky
-      },{
-        userName:"권영준",
-        year:year, 
-        month:month, 
-        date:date, 
-        hours:hours, 
-        min:min,
-        profileImage:Taco,
-        picture:Taco,
-        text:"이게 슬픈문어야!" , 
-      },{
-        userName:"우현웅",
-        year:year, 
-        month:month, 
-        date:date, 
-        hours:hours, 
-        min:min,
-        profileImage:Sky,
-        scheduleDate:"15",
-        scheduleDay:"목요일",
-        scheduleDDay:"2022년 06월 15일",
-        scheduleName:"^^7"        
-      }]
+      }
+      ]
     }
   }
 
+  async getPostList() {
+    axios.get('https://bc1e-110-10-225-160.ngrok.io/post/list')
+      .then(function(res){
+        this.setState({posts:res.data})
+        console.log(res.data[0])
+        // console.log(this);
+      }.bind(this));
+  }
+
+  componentDidMount(){
+    this.getPostList()
+  }
+
+  // 이미지 넣을때 {post.user.profileImage}||디폴트 이미지
+
+  //life sycle 찾아보기
   render() {
     return (
       <div>
@@ -93,14 +53,10 @@ class PostFrame extends Component {
             return(
               <Post
               key={index}
-              userName={post.userName}
-              year={post.year} 
-              month={post.month}
-              date={post.date} 
-              hours={post.hours} 
-              min = {post.min}
+              userName={post.user.name}
+              today={post.today}
               profileImage={post.profileImage}
-              text={post.text} 
+              text={post.content} 
               picture={post.picture} 
               scheduleDate={post.scheduleDate}
               scheduleDay={post.scheduleDay}
@@ -114,26 +70,8 @@ class PostFrame extends Component {
   }
 };    
 
-//DB 연결후 지울 데이터입니다.
-var now = new Date();
-var year = now.getFullYear();
-var month = now.getMonth();
-month = month+1;
-
-if(month<10){
-  month = "0" + month
-}
-var date = now.getDate();
-if(date<10){
-  date = "0"+date
-}
-var hours = now.getHours();
-if(hours<10){
-  hours = "0"+hours
-}
-var min = now.getMinutes();
-if(min<10){
-  min = "0"+min
-}
+const moment = require('moment');
+const today = moment();
+const time = today.format('YYYY년 MM월 DD일 hh:mm')
 
 export default PostFrame;

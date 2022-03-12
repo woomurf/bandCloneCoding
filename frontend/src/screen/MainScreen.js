@@ -55,6 +55,7 @@ class MainScreen extends Component {
           <div id="pageBody">
             <MainLside
               onClick={this.onChangeTab.bind(this, "setting")}
+              selectYn={this.state.selectTab === "setting"}
               bandImage={Sky_}
               bandName={"우리의밴드이름은?"}
               memberCount={"멤버 32"}

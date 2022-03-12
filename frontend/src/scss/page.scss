@@ -262,7 +262,7 @@ PostScreen CSS
   @include body-p12;
   color: #999999;
   margin-left: 5px;
-  margin-top: 2px;
+  margin-top: 5px;
 }
 
 .postPicture{
@@ -307,7 +307,6 @@ PostScreen CSS
 }
 
 .day{
-  width: 125px;
   height: 12px;
   left: 60px;
   top: 920px;
@@ -318,9 +317,7 @@ PostScreen CSS
   line-height: 100%;
   letter-spacing: -0.01em;
   color: #999999;
-  padding-top: 7px;
-  //PND 랑 SM 을 감싸는 div PDNS
-  //PDNS 를 감싸는 clolum PDNST
+  padding-top: 3px;
 }
 .postBody{
   display: flex;
@@ -437,4 +434,149 @@ PostScreen CSS
   letter-spacing: -0.01em;
   color: #666666;
   margin-top: 8px;
+}
+/*
+  settingFrame Css
+*/
+.settingPageUserName{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.settingButton{
+  margin-right: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  width: 80px;
+  height: 25px;
+  background-color: #dcdff7;
+  @include button-sm;
+  transition-duration: 0.3s;
+}
+
+.settingButton:hover {
+  background-color: #8e97d6;
+  color: white;
+  opacity: 1;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.settingButton:active{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
+}
+
+.settingHeader{
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-1;
+  border-radius: 20px;
+  padding: 8px;
+  width: 525px;
+}
+.settingChangeButton{
+  align-self: center;
+}
+
+.settingLine{
+  width: 500px;
+  height: 0.5px;
+  background: rgb(185, 184, 184);
+  margin-top: 10px ;
+}
+
+#settingPageProfileImage{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.settingBody{
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-1;
+  border-radius: 20px;
+  padding: 8px;
+  margin-top: 10px;
+  width: 525px;
+  padding-bottom: 20px;
+}
+
+.settingBox{
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  width: 510px;
+  height: auto;
+  border-radius: 20px;
+  background-color: #E5E5E5;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  padding: 15px;
+}
+
+.settingProfileDiv{
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingTitle{
+  margin-left: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+.settingExplain{
+  margin-left: 5px;
+  margin-top: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #adadad;
+}
+
+.settingInfoExplain{
+  display: flex;
+  flex-direction: column;
+}
+
+.settingMenuBody{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingMenuBox{
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.settingHeadTitle{
+  margin-left: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: #ff9898;
+}
+
+.settingProfile{
+  display: flex;
+  align-items: center;
 }
