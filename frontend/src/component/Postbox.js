@@ -3,6 +3,7 @@ import SeeMore from '../image/See_More.png';
 import Emogi from '../image/Emogi.png';
 import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
+import asd from "../image/de";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -14,15 +15,14 @@ class Post extends Component {
             <div className="postHeader">
               <div className="profile">
                 <div className="profileImage">
-                  <img alt="" className="profileImage" src={this.props.profileImage} id="profileImage"/>
+                  <img alt="" className="profileImage" src={this.props.profileImage||asd} id="profileImage"/>
                 </div>
                 <div className="profileMeta">
                   <div className="userName">
                     {this.props.userName}
                   </div>
                   <div className="day">
-                    {this.props.year}년 {this.props.month}월 
-                    {this.props.date}일 {this.props.hours}:{this.props.min}
+                    {this.props.today}
                   </div>
                 </div>
               </div>

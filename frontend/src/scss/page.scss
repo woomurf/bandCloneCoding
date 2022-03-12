@@ -307,7 +307,6 @@ PostScreen CSS
 }
 
 .day{
-  width: 125px;
   height: 12px;
   left: 60px;
   top: 920px;
@@ -318,9 +317,7 @@ PostScreen CSS
   line-height: 100%;
   letter-spacing: -0.01em;
   color: #999999;
-  padding-top: 7px;
-  //PND 랑 SM 을 감싸는 div PDNS
-  //PDNS 를 감싸는 clolum PDNST
+  padding-top: 3px;
 }
 .postBody{
   display: flex;
