@@ -39,7 +39,7 @@ class MainLside extends Component {
               <div className="bandSetting">
                 <TextButton
                   label="밴드설정"
-                  className="set"
+                  className="mt4white"
                   selectYn={this.props.selectYn}
                   onClick={function(){
                     this.props.onClick("setting");
