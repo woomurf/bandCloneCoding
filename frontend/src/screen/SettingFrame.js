@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import '../scss/page.scss';
-import '../scss/calendar.css';
 
 class SettingFrame extends Component {
   constructor(props){

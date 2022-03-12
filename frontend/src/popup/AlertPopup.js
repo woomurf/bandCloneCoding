@@ -4,11 +4,6 @@ import '../scss/common.scss';
 import '../scss/popup.scss';
 
 class AlertPopup extends Component {
-  closeAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.add('hide');
-  }
-
   render() {
     return (
       <div id="alertPopup" className="hide"> 
@@ -29,6 +24,11 @@ class AlertPopup extends Component {
         </div>
       </div>
     );
+  }
+
+  closeAlertPopup() {
+    const alertPopup = document.querySelector('#alertPopup');
+    alertPopup.classList.add('hide');
   }
 };
 
