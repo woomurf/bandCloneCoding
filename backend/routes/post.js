@@ -4,6 +4,24 @@ const { authValidator } = require('../middleware/auth');
 const { POST, POST_LIKE, USER } = require('../models');
 const router = express.Router();
 
+router.get('/list', async (req, res) => {
+  try {
+    const posts = await POST.findAll({
+      include: {
+        model: USER,
+        as: 'user',
+        attributes: ['id', 'name']
+      }
+    });
+    res.json(posts);
+  } catch (error) {
+    console.error(`[POST list] ${err}`);
+    res.status(500).json({
+      message: 'Failed to get post list'
+    });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
