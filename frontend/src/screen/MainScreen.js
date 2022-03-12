@@ -57,7 +57,7 @@ class MainScreen extends Component {
               onClick={this.onChangeTab.bind(this, "setting")}
               bandImage={Sky_}
               bandName={"우리의밴드이름은?"}
-              memberCount={"멤버 3"}
+              memberCount={"멤버 32"}
               bandIntroduce={"몰?루"}
             />
             {this.getSelectTab()}
