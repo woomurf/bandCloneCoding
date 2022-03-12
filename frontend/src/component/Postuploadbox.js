@@ -48,13 +48,14 @@ class Postuploadbox extends Component {
         })
         e.preventDefault();
       }
+
     render() {
         return (
                 <div className="postuploadbox">
                     <div className="postupload">
                         <textarea type="text" rows="4" placeholder="새로운 소식을 남겨보세요." id="postupload"
                         value={this.state.value}
-                        username={this.state.username}
+                        // username={this.state.username}
                         onChange={this.handleChange}/>
                     </div>
                     <div className="pictureImage">

@@ -451,8 +451,24 @@ PostScreen CSS
 .settingButton{
   margin-right: 5px;
   border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  width: 80px;
+  height: 25px;
   background-color: #dcdff7;
   @include button-sm;
+  transition-duration: 0.3s;
+}
+
+.settingButton:hover {
+  background-color: #8e97d6;
+  color: white;
+  opacity: 1;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.settingButton:active{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
 }
 
 .settingHeader{
@@ -461,7 +477,7 @@ PostScreen CSS
   background-color: $primary-1;
   border-radius: 20px;
   padding: 8px;
-  width: 500px;
+  width: 525px;
 }
 .settingChangeButton{
   align-self: center;
@@ -489,7 +505,7 @@ PostScreen CSS
   border-radius: 20px;
   padding: 8px;
   margin-top: 10px;
-  width: 500px;
+  width: 525px;
   padding-bottom: 20px;
 }
 
@@ -546,7 +562,7 @@ PostScreen CSS
 .settingMenuBox{
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .settingHeadTitle{

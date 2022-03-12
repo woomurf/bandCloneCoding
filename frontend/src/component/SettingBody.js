@@ -34,7 +34,6 @@ class SettingBody extends Component {
                             <button className="settingButton">변경</button>
                         </div>
                     </div>
-                    <div className="settingLine"/>
                 </div>
 )})}
             </div>

@@ -3,7 +3,7 @@ import SeeMore from '../image/See_More.png';
 import Emogi from '../image/Emogi.png';
 import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
-import asd from "../image/de";
+import asd from "../image/DefaultProfileImage.png";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'

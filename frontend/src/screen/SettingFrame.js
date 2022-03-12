@@ -46,9 +46,8 @@ class SettingFrame extends Component {
 
   render() {
     return (
+      <div>
       <div id="centerFrame">
-        <div className="settingBox">
-
           <div className="settingHeader">
             <div className="settingProfileDiv">
               <div className="settingProfile">
