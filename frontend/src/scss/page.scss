@@ -478,6 +478,7 @@ PostScreen CSS
   border-radius: 20px;
   padding: 8px;
   width: 525px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 .settingChangeButton{
   align-self: center;
@@ -507,6 +508,7 @@ PostScreen CSS
   margin-top: 10px;
   width: 525px;
   padding-bottom: 20px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
 .settingBox{
