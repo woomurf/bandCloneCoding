@@ -262,7 +262,7 @@ PostScreen CSS
   @include body-p12;
   color: #999999;
   margin-left: 5px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .postPicture{
@@ -474,7 +474,7 @@ PostScreen CSS
 .settingHeader{
   display: flex;
   flex-direction: column;
-  background-color: $primary-1;
+  background-color: white;
   border-radius: 20px;
   padding: 8px;
   width: 525px;
@@ -501,7 +501,7 @@ PostScreen CSS
 .settingBody{
   display: flex;
   flex-direction: column;
-  background-color: $primary-1;
+  background-color: white;
   border-radius: 20px;
   padding: 8px;
   margin-top: 10px;

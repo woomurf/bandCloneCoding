@@ -5,6 +5,7 @@ import MemberFrame from "./MemberFrame";
 import SettingFrame from "./SettingFrame";
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
+import LoginScreen from "../screen/LoginScreen";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -88,7 +89,11 @@ class MainScreen extends Component {
         tabPage = <MemberFrame/>;
         break;
       case 'setting':
-        tabPage = <SettingFrame/>;
+        tabPage = <SettingFrame
+        onClick={function(e){
+          this.props.onClick("")
+        }.bind(this)}
+        />;
         break;
       default:
         console.log('tab select error');
