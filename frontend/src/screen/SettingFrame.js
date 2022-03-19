@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import '../scss/page.scss';
 import Sky from '../image/Sky.png';
 import SettingBody from "../component/SettingBody";
+import LogoutPopup from "../popup/LogoutPopup";
 
 
 class SettingFrame extends Component {
@@ -47,8 +48,7 @@ class SettingFrame extends Component {
               <div className="settingChangeButton">
                 <button className="settingButton" 
                   onClick={function(e){
-                    alert("로그아웃 하시겠습니까?");
-                    this.props.onClick();
+                    this.showLogoutPopup();
                     }.bind(this)}>
                   로그아웃
                 </button>
@@ -65,11 +65,17 @@ class SettingFrame extends Component {
               />
             )
           })}
+          <LogoutPopup
+            onClick={this.props.onClick}
+          />
         </div>
       </div>
     );
   }
+  showLogoutPopup() {
+    const logoutPopup = document.querySelector('#logoutPopup');
+    logoutPopup.classList.remove('hide');
+  }  
 };
-
 
 export default SettingFrame;
