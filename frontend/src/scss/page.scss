@@ -484,7 +484,7 @@ PostScreen CSS
 }
 
 .settingLine{
-  width: 500px;
+  width: 510px;
   height: 0.5px;
   background: rgb(185, 184, 184);
   margin-top: 10px ;
@@ -536,6 +536,7 @@ PostScreen CSS
   letter-spacing: -0.01em;
   color: #000000;
 }
+
 .settingExplain{
   margin-left: 5px;
   margin-top: 5px;
@@ -579,4 +580,57 @@ PostScreen CSS
 .settingProfile{
   display: flex;
   align-items: center;
+}
+
+.memberFrameBody{
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin-top: 10px;
+  width: 510px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  padding: 15px;
+}
+
+.memberHeader{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  letter-spacing: -0.01em;
+  @include headline-h5;
+  color: #ff9898;
+}
+
+.memberBodyDiv{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.memberBody{
+  display: flex;
+  align-items: center;
+}
+
+#memberProfileImage{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.memberName{
+  margin-left: 5px;
+  letter-spacing: -0.01em;
+  @include headline-h6;
+}
+
+.memberLine{
+  width: 510px;
+  height: 0.5px;
+  background: rgba(185, 184, 184, 0.3);
+  margin-top: 10px ;
 }

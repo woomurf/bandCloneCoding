@@ -47,7 +47,9 @@ class PostFrame extends Component {
     return (
       <div>
         <div id="centerFrame" className="centerFrame">
-          <SearchBox/>
+          <SearchBox
+            label="글 내용, #태그, @작성자 검색"
+          />
           <Postuploadbox/>
           {this.state.posts.map((post,index)=>{
             return(
