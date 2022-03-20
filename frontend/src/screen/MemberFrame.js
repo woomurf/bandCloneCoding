@@ -18,6 +18,10 @@ class MemberFrame extends Component {
           <SearchBox
             label="멤버 검색"
           />
+          {/* API 떠서 memberFrame 컴포넌트로 따로 제외 후 
+          API로 받아온 카운트로 멤버 인원 입력,
+          카운트에 맞게 map 사용으로 멤버 출력,
+          SearchBox로 멤버 검색 기능 구현 */}
           <div className="memberFrameBody">
             <div className="memberHeader">
               멤버 3
