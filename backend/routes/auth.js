@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
     if (!_user) {
       return res.status(400).json({
         code: LoginResultCode.USER_NOT_EXIST,
-        message: 'user not exist'
+        message: '유저가 존재하지 않습니다. 이메일을 확인해주세요.'
       });
     }
 
@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
     if (!valid) {
       return res.status(400).json({
         code: LoginResultCode.INCORRECT_PASSWORD,
-        message: 'Incorrect password.'
+        message: '올바른 비밀번호가 아닙니다.'
       });
     }
 
@@ -116,7 +116,7 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({
       code: UnexpectedErrorCode,
-      message: 'Failed to login',
+      message: '시스템 상의 문제로 로그인에 실패했습니다. 관리자에게 연락해주세요.',
     });
   }
 })
