@@ -11,7 +11,8 @@ router.get('/list', async (req, res) => {
         model: USER,
         as: 'user',
         attributes: ['id', 'name']
-      }
+      },
+      order: [['createdAt', 'DESC']]
     });
     res.json(posts);
   } catch (error) {
