@@ -1,5 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
@@ -23,6 +24,7 @@ db.sequelize.sync()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
+app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
