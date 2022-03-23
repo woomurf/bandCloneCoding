@@ -11,6 +11,8 @@ const {
   REFRESH_TOKEN_SECRET,
   ITERATION,
   ISS,
+  LoginResultCode,
+  UnexpectedErrorCode,
 } = require('../const');
 
 // access token을 secret key 기반으로 생성
@@ -81,6 +83,7 @@ router.post('/login', async (req, res) => {
 
     if (!_user) {
       return res.status(400).json({
+        code: LoginResultCode.USER_NOT_EXIST,
         message: 'user not exist'
       });
     }
@@ -88,6 +91,7 @@ router.post('/login', async (req, res) => {
     const valid = await verifyPassword(password, _user.salt, _user.password);
     if (!valid) {
       return res.status(400).json({
+        code: LoginResultCode.INCORRECT_PASSWORD,
         message: 'Incorrect password.'
       });
     }
@@ -98,14 +102,21 @@ router.post('/login', async (req, res) => {
     _user.refreshToken = refreshToken;
     _user.save();
 
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+
     res.json({
-      id: _user.id,
-      accessToken,
-      refreshToken,
+      code: LoginResultCode.SUCCESS,
+      message: 'Success',
+      data: {
+        id: _user.id,
+        accessToken,
+        refreshToken,
+      }
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Failed to login'
+      code: UnexpectedErrorCode,
+      message: 'Failed to login',
     });
   }
 })
