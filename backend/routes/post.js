@@ -15,7 +15,7 @@ router.get('/list', async (req, res) => {
     });
     res.json(posts);
   } catch (error) {
-    console.error(`[POST list] ${err}`);
+    console.error(`[POST list] ${error}`);
     res.status(500).json({
       message: 'Failed to get post list'
     });
