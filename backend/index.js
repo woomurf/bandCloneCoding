@@ -1,4 +1,5 @@
 const express = require('express');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
@@ -6,7 +7,7 @@ const groupRouter = require('./routes/group');
 const postRouter = require('./routes/post');
 const authRouter = require('./routes/auth');
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // DB initialize
@@ -21,6 +22,7 @@ db.sequelize.sync()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(logger('dev'));
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
