@@ -28,16 +28,19 @@ class PostFrame extends Component {
   }
 
   async getPostList() {
-    axios.get('https://bc1e-110-10-225-160.ngrok.io/post/list')
-      .then(function(res){
-        this.setState({posts:res.data})
-        console.log(res.data[0])
-        // console.log(this);
-      }.bind(this));
+    return axios.get('/post/list')
+      .then(function (res) {
+        return res.data;
+      })
+      .catch(function (error) {
+        console.error(`${error.name}: ${error.message}`);
+        return [];
+      });
   }
 
-  componentDidMount(){
-    this.getPostList()
+  async componentDidMount(){
+    const posts = await this.getPostList();
+    this.setState({ ...this.state, posts });
   }
 
   // 이미지 넣을때 {post.user.profileImage}||디폴트 이미지
