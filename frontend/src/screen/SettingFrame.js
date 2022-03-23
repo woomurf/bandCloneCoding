@@ -10,23 +10,24 @@ class SettingFrame extends Component {
     super(props);
     this.state = {
 
-      informations:[{
-        headTitle: "밴드 정보 관리",
-        arr : [{              
-          title : "밴드 소개",
-          explain : "밴드 주소, 키워드, 소개글을 관리하세요"  
-        },{
-          title : "밴드 이름 및 커버"
-          }
-        ]
-        },{
+      informations:[
+        {
+          headTitle: "밴드 정보 관리",
+          arr : [{              
+            title : "밴드 소개",
+            explain : "밴드 주소, 키워드, 소개글을 관리하세요"  
+          }, {
+            title : "밴드 이름 및 커버"
+          }]
+        }, {
           headTitle: "밴드 활동 관리",
           arr : [{
             title : "멤버들의 권한 설정",
-        },{
+          }, {
             title : "멤버 탈퇴, 차단 설정",
-        }]
-      }]            
+          }]
+        }
+      ]            
     }
   }
 
@@ -59,9 +60,9 @@ class SettingFrame extends Component {
           {this.state.informations.map((info,i)=>{
             return(
               <SettingBody
-              key={i}
-              headTitle={info.headTitle}
-              informations={info.arr}
+                key={i}
+                headTitle={info.headTitle}
+                informations={info.arr}
               />
             )
           })}

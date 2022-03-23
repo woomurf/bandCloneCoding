@@ -210,19 +210,20 @@ Fonts
   #logoutPopup.hide {
     display: none;
   }
-  #logoutPopup .content {
-    width: 420px;
-    height: 270px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #FFFFED;
-    border-radius: 3px;
-    font-family: "Inter";
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 120%;
+  
+#logoutPopup .content {
+  width: 420px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #FFFFED;
+  border-radius: 3px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
 }
 
 #logoutPopup {

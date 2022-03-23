@@ -12,7 +12,7 @@ class MainLside extends Component {
 
         <div className="bandImage" 
           onClick={function(e){
-          alert("로그인화면으로");
+            alert("로그인화면으로");
           }}>
           <img alt="" className="bandImage" src={this.props.bandImage} id="bandImage"/>
         </div>
@@ -44,7 +44,8 @@ class MainLside extends Component {
               selectYn={this.props.selectYn}
               onClick={function(){
                 this.props.onClick("setting");
-              }.bind(this)}/>
+              }.bind(this)}
+            />
           </div>
           
         </div>
