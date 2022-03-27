@@ -80,129 +80,187 @@ Fonts
 }
 
 #alertPopup {
-    position: absolute;
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: $transparent-black;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    z-index: 1;
-  }
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#alertPopup.hide {
+  display: none;
+}
+
+#alertPopup .content {
+  width: 420px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+}
+
+#alertPopup .text {
+  padding-top: 70px;
+}
+
+#alertPopup .btn {
+  padding-bottom: 50px;
+}
+
+#confirmPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+#confirmPopup.hide {
+  display: none;
+}
+
+#confirmPopup .content {
+  width: 420px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+  z-index: 1;
+}
+
+#confirmPopup .text {
+  padding-top: 70px;
+}
+
+#confirmPopup .btn {
+  padding-bottom: 50px;
+}
+
+.idxZ1 {
+  z-index: 1;
+}
+
+.idxZ2 {
+  z-index: 2;
+}
+
+#registerPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#registerPopup.hide {
+  display: none;
+}
+
+#registerPopup .content {
+  width: 480px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+}
+
+#registerPopup .text {
+  padding-top: 70px;
+}
+
+#registerPopup .btn {
+  padding-bottom: 20px;
+}
+
   
-  #alertPopup.hide {
-    display: none;
-  }
-  
-  #alertPopup .content {
-    width: 420px;
-    height: 270px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $primary-1;
-    border-radius: 3px;
-    box-shadow: 2px 2px 2px $transparent-black;
-    @include body-p14;
-  }
-  
-  #alertPopup .text {
-    padding-top: 70px;
-  }
-  
-  #alertPopup .btn {
-    padding-bottom: 50px;
-  }
-  
-  #confirmPopup {
-    position: absolute;
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: $transparent-black;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-  }
-  
-  #confirmPopup.hide {
-    display: none;
-  }
-  
-  #confirmPopup .content {
-    width: 420px;
-    height: 270px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $primary-1;
-    border-radius: 3px;
-    box-shadow: 2px 2px 2px $transparent-black;
-    @include body-p14;
-    z-index: 1;
-  }
-  
-  #confirmPopup .text {
-    padding-top: 70px;
-  }
-  
-  #confirmPopup .btn {
-    padding-bottom: 50px;
-  }
-  
-  .idxZ1 {
-    z-index: 1;
-  }
-  
-  .idxZ2 {
-    z-index: 2;
-  }
-  
-  #registerPopup {
-    position: absolute;
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: $transparent-black;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    z-index: 1;
-  }
-  
-  #registerPopup.hide {
-    display: none;
-  }
-  
-  #registerPopup .content {
-    width: 480px;
-    height: 360px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: $primary-1;
-    border-radius: 3px;
-    box-shadow: 2px 2px 2px $transparent-black;
-    @include body-p14;
-  }
-  
-  #registerPopup .text {
-    padding-top: 70px;
-  }
-  
-  #registerPopup .btn {
-    padding-bottom: 20px;
-  }
+#memberInfoPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#memberInfoPopup.hide {
+  display: none;
+}
+
+#memberInfoPopup .content {
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+}
+#memberInfoPopup .profileInfo {
+  width: auto;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  @include body-p14;
+}
+
+#memberInfoPopup .text {
+  padding-top: 10px;
+}
+
+#memberInfoPopup .btn {
+  padding-bottom: 50px;
+}
+
+#memberInfoPopup .infoProfileImage {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
+}
