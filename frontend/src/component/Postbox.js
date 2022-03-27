@@ -28,7 +28,12 @@ class Post extends Component {
             </div>
           </div>
           <div className="moreIcon">
-            <img alt="" className="moreIcon" src={SeeMore} id="moreIcon"/>
+            <img alt="" className="moreIcon" src={SeeMore} id="moreIcon"
+              // 더보기 클릭시 => 팝업이켜짐
+              // 팝업 선택창 (포스팅삭제,수정)정도?
+              // 수정을 누르면 팝업을 하나더 띄우고 쓸수있는 텍스트창을띄운다
+              // 화면한가운데 말고 조그맣게 만들어볼것
+            />
           </div>     
         </div>
 

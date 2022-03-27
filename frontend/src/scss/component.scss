@@ -154,6 +154,19 @@ Fonts
 .uploadButton{
   margin-top: 19px;
   margin-left: 450px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.uploadButton:hover {
+  background-color: #ffffff;
+  color: white;
+  opacity: 1;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.uploadButton:active{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
 }
 
 .vectorImage{
