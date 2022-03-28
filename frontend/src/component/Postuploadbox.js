@@ -30,10 +30,10 @@ class Postuploadbox extends Component {
       title: '없어질거임 타이틀은',
       groupId: 1,
     }).then(res => {
-      // TODO(selp0100): post 생성 성공 시 popup 작업 필요.
+      this.props.updatePostList();
       console.log('post', res);
     }).catch(err => {
-      // TODO(selp0100): post 생성 실패 시 popup 작업 필요.
+      this.showPostErrorPopup();
     })
     e.preventDefault();
   }
