@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
 const groupRouter = require('./routes/group');
@@ -21,6 +22,7 @@ db.sequelize.sync()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
