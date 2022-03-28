@@ -31,7 +31,8 @@ const registerValidator = async (req, res, next) => {
 }
 
 const authValidator = async (req, res, next) => {
-  const token = req.headers['access-token'];
+  // const token = req.headers['access-token'];
+  const token = req.cookies['accessToken'];
   if (!token) {
     return res.status(401).json({
       message: 'Token required.'

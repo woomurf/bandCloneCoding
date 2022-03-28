@@ -23,28 +23,17 @@ class Postuploadbox extends Component {
       handleChange(e) {
         this.setState({value: e.target.value});
       }
-      
-      login = async () => {
-        const res = await axios.post('https://bc1e-110-10-225-160.ngrok.io/auth/login', {
-          email: "1234@gmail.com",
-          password: "1234",
-        });
-        return res.data['accessToken'];
-      }
 
       async handleSubmit(e) {
-        const token = await this.login();
-
-        axios.post('https://bc1e-110-10-225-160.ngrok.io/post', {
+        axios.post('/post', {
           content: this.state.value,
           title: '없어질거임 타이틀은',
           groupId: 1,
-        }, {
-          headers: {
-            'access-token': token
-          }
         }).then(res => {
+          // TODO(selp0100): post 생성 성공 시 popup 작업 필요.
           console.log('post', res);
+        }).catch(err => {
+          // TODO(selp0100): post 생성 실패 시 popup 작업 필요.
         })
         e.preventDefault();
       }
