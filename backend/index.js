@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('./models/index');
 const userRouter = require('./routes/user');
 const groupRouter = require('./routes/group');
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
