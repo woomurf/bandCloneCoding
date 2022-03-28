@@ -69,8 +69,8 @@ class PostFrame extends Component {
 
 
   componentDidMount(){ // lifeCycle 에대한 부분 공부좀더할것. 컴포넌트가 마운트 된후에 호출됨
-    this.getPostList()
-    this.getPostUpdatedAt()
+    this.getPostList();
+    this.getPostUpdatedAt();
   }
 
   componentDidUpdate(prevprops,prevstate){ // 갱신이 일어난 직후에 호출 최초렌더링에서는 호출되지않는다. 컴포넌트가 갱신됬을때 dom을 조작하기위해 사용하면 좋다.
@@ -78,13 +78,13 @@ class PostFrame extends Component {
       this.getPostUpdatedAt();
     }
   }
-
+  
   render() {
     return (
       <div>
         <div id="centerFrame" className="centerFrame">
           <SearchBox/>
-          <Postuploadbox/>
+          <Postuploadbox getPostList={this.getPostList}/>
           {this.state.posts.map((post,index)=>{
             return(
               <Post
