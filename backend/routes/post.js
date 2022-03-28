@@ -4,6 +4,25 @@ const { authValidator } = require('../middleware/auth');
 const { POST, POST_LIKE, USER } = require('../models');
 const router = express.Router();
 
+router.get('/list', async (req, res) => {
+  try {
+    const posts = await POST.findAll({
+      include: {
+        model: USER,
+        as: 'user',
+        attributes: ['id', 'name']
+      },
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(posts);
+  } catch (error) {
+    console.error(`[POST list] ${error}`);
+    res.status(500).json({
+      message: 'Failed to get post list'
+    });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -38,11 +57,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', authValidator, async (req, res) => {
   const user = res.locals.user;
-  const { groupId, title, content, files } = req.body;
+  const { groupId, content, files } = req.body;
   // TODO(hyeonwoong): How to save files?
   try {
     const post = await POST.create({
-      title,
       content,
       groupId,
       public: true,

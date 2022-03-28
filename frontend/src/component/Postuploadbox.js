@@ -28,20 +28,13 @@ class Postuploadbox extends Component {
   async handleSubmit(e) {
     axios.post('/post', {
       content: this.state.value,
+      title: '없어질거임 타이틀은',
       groupId: 1,
     }).then(res => {
-      // 리엑트에서 리렌더링되는 경우 조건이많다. 대표적인것 state 의값이 바뀌었을때 리렌더링이된다
-      // setState 공부, postFrame 에서 받아오는 데이터를 다시받아오기
-      // 최종적으로 postFrame의 state를 업데이트해야됨
-
-      // postFrame의 리스트를 받아온다
-      // 내가 싸지른 글을 추가시킨다 => setState로
-      // 보낸다 postframe으로
-
-      this.props.getPostList();
+      // TODO(selp0100): post 생성 성공 시 popup 작업 필요.
       console.log('post', res);
     }).catch(err => {
-      this.showPostErrorPopup();
+      // TODO(selp0100): post 생성 실패 시 popup 작업 필요.
     })
     e.preventDefault();
   }

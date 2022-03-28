@@ -11,6 +11,8 @@ const {
   REFRESH_TOKEN_SECRET,
   ITERATION,
   ISS,
+  LoginResultCode,
+  UnexpectedErrorCode,
 } = require('../const');
 
 // access token을 secret key 기반으로 생성
@@ -47,7 +49,7 @@ const verifyPassword = async (password, salt, hash) => {
 }
 
 router.post('/register', registerValidator, async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, birth } = req.body;
 
   // TODO(hyeonwoong): check name, email, password rule.
   try {
@@ -57,6 +59,7 @@ router.post('/register', registerValidator, async (req, res) => {
       email,
       password: hash,
       salt,
+      birth: new Date(birth),
     });
 
     return res.json({
@@ -81,14 +84,16 @@ router.post('/login', async (req, res) => {
 
     if (!_user) {
       return res.status(400).json({
-        message: 'user not exist'
+        code: LoginResultCode.USER_NOT_EXIST,
+        message: '유저가 존재하지 않습니다. 이메일을 확인해주세요.'
       });
     }
 
     const valid = await verifyPassword(password, _user.salt, _user.password);
     if (!valid) {
       return res.status(400).json({
-        message: 'Incorrect password.'
+        code: LoginResultCode.INCORRECT_PASSWORD,
+        message: '올바른 비밀번호가 아닙니다.'
       });
     }
 
@@ -98,14 +103,21 @@ router.post('/login', async (req, res) => {
     _user.refreshToken = refreshToken;
     _user.save();
 
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+
     res.json({
-      id: _user.id,
-      accessToken,
-      refreshToken,
+      code: LoginResultCode.SUCCESS,
+      message: 'Success',
+      data: {
+        id: _user.id,
+        accessToken,
+        refreshToken,
+      }
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Failed to login'
+      code: UnexpectedErrorCode,
+      message: '시스템 상의 문제로 로그인에 실패했습니다. 관리자에게 연락해주세요.',
     });
   }
 })
