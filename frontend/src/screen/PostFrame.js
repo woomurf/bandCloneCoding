@@ -2,12 +2,9 @@ import React, {Component} from "react";
 import Post from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
-import Sky from '../image/Sky.png';
 import Pic from '../image/Pic.png';
-import Taco from '../image/Taco.png';
 import '../scss/component.scss';
 import '../scss/page.scss';
-import moment from 'moment'
 import axios from "axios";
 
 class PostFrame extends Component {
@@ -16,7 +13,6 @@ class PostFrame extends Component {
     this.state = {
       posts :[ {
         user:{name:"sampleName"},
-        // profileImage:Pic,
         content:"일정입니다",
         updatedAt:Date(),
         scheduleDate:"22",
@@ -33,26 +29,15 @@ class PostFrame extends Component {
   }
 
   async getPostList() {
-    axios.get('https://4b2d-110-10-225-160.ngrok.io/post/list')
-      .then(function(res){
-        this.setState({posts:res.data})
-        console.log(res.data[0])
-        // console.log(this);
-      }.bind(this));
+    return axios.get('/post/list')
+      .then(function (res) {
+        return res.data;
+      })
+      .catch(function (error) {
+        console.error(`${error.name}: ${error.message}`);
+        return [];
+      });
   }
-  // async getPostUpdatedAt(){
-  //   const newPost = [];
-  //   for(let i = 0; i < this.state.posts.length; i++){
-  //     const post = this.state.posts[i];
-  //     const updatedAt = post.updatedAt;
-  //     const time = moment(updatedAt).format('YYYY년 MM월 DD일 hh:mm');
-  //     post.updatedAt = time;
-  //     newPost.push(post);
-  //   }
-  //   this.setState({
-  //     post : newPost
-  //   })
-  // }
 
   async getPostUpdatedAt(){
     const newPost = this.state.posts.map(post=>{//post 라는이름을가진 객체에다가 state.posts배열의 값을 각각 나눠주겠다.
@@ -65,16 +50,14 @@ class PostFrame extends Component {
       post : newPost // state에 post 라고 선언한걸 newPost로 바꾼다
     })
   }
-  // object,lifecycle,map,array
 
-
-  componentDidMount(){ // lifeCycle 에대한 부분 공부좀더할것. 컴포넌트가 마운트 된후에 호출됨
-    this.getPostList();
-    this.getPostUpdatedAt();
+  async componentDidMount(){
+    const posts = await this.getPostList();
+    this.setState({ ...this.state, posts });
   }
 
-  componentDidUpdate(prevprops,prevstate){ // 갱신이 일어난 직후에 호출 최초렌더링에서는 호출되지않는다. 컴포넌트가 갱신됬을때 dom을 조작하기위해 사용하면 좋다.
-    if(prevstate.posts !== this.state.posts){
+  componentDidUpdate(prevprops, prevState){ // 갱신이 일어난 직후에 호출 최초렌더링에서는 호출되지않는다. 컴포넌트가 갱신됬을때 dom을 조작하기위해 사용하면 좋다.
+    if(prevState.posts !== this.state.posts){
       this.getPostUpdatedAt();
     }
   }
