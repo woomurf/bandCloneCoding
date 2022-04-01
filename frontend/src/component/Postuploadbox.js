@@ -5,7 +5,6 @@ import Upload_Button from '../image/Upload_Button.png'
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
-import PostErrorPopup from "../popup/PostErrorPopup";
 
 
 class Postuploadbox extends Component {
@@ -33,7 +32,7 @@ class Postuploadbox extends Component {
       this.props.updatePostList();
       console.log('post', res);
     }).catch(err => {
-      this.showPostErrorPopup();
+      this.props.postErrorPopup();
     })
     e.preventDefault();
   }
@@ -56,13 +55,8 @@ class Postuploadbox extends Component {
               onClick={this.handleSubmit}/>
           </div>
         </div>
-        <PostErrorPopup/>
       </div>
     );
-  }
-  showPostErrorPopup() {
-    const postErrorPopup = document.querySelector('#postErrorPopup');
-    postErrorPopup.classList.remove('hide');
   }
 };
 

@@ -94,7 +94,10 @@ class PostFrame extends Component {
       <div>
         <div id="centerFrame" className="centerFrame">
           <SearchBox/>
-          <Postuploadbox updatePostList={this.updatePostList.bind(this)}/>
+          <Postuploadbox 
+            updatePostList={this.updatePostList.bind(this)} 
+            postErrorPopup={this.props.postErrorPopup.bind(this)}
+          />
           {this.state.posts.map((post,index)=>{
             return(
               <PostBox
