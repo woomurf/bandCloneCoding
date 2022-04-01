@@ -212,8 +212,8 @@ Fonts
 }
   
 #logoutPopup .content {
-  width: 420px;
-  height: 270px;
+  width: 320px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -224,6 +224,16 @@ Fonts
   font-size: 14px;
   font-weight: 500;
   line-height: 120%;
+}
+
+.logoutPopuptext{
+  margin-top: 20px;
+}
+
+.logoutPopupflexWrapperTwo{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
 }
 
 #logoutPopup {
@@ -261,6 +271,40 @@ Fonts
 }
 
 #uploadPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#postErrorPopup.hide {
+  display: none;
+}
+  
+#postErrorPopup .content {
+  width: 420px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #FFFFED;
+  border-radius: 3px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+#postErrorPopup {
   position: absolute;
   display: flex; 
   justify-content: center;

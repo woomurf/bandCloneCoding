@@ -8,7 +8,7 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
 
-class Post extends Component {
+class PostBox extends Component {
   render() {
     return (
       <div className="postBox">
@@ -70,4 +70,4 @@ class Post extends Component {
 };
 
 
-export default Post;
+export default PostBox;

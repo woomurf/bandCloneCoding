@@ -10,14 +10,14 @@ class PostErrorPopup extends Component {
   render() {
     return (
       <div>
-        <div id="logoutPopup" className="hide"> 
+        <div id="postErrorPopup" className="hide"> 
           <div className="content">
             <div className="text"> 암튼실패했음 </div>
             <div className="flexWrapperTwo">
               <Button 
                 label="Confirm" 
                 className="mainButton smallButton"
-                onClick={this.closeUploadPopup}
+                onClick={this.closePostErrorPopup}
               />
             </div>
           </div>
@@ -26,9 +26,9 @@ class PostErrorPopup extends Component {
     );
   }
 
-  closeUploadPopup() {
-    const uploadPopup = document.querySelector('#logoutPopup');
-    uploadPopup.classList.add('hide');
+  closePostErrorPopup() {
+    const postErrorPopup = document.querySelector('#postErrorPopup');
+    postErrorPopup.classList.add('hide');
   }
 };
 

@@ -61,8 +61,8 @@ class Postuploadbox extends Component {
     );
   }
   showPostErrorPopup() {
-    const logoutPopup = document.querySelector('#logoutPopup');
-    logoutPopup.classList.remove('hide');
+    const postErrorPopup = document.querySelector('#postErrorPopup');
+    postErrorPopup.classList.remove('hide');
   }
 };
 
