@@ -12,10 +12,9 @@ class MemberInfoPopup extends Component {
         <div className="content">
           <div className="profileInfo">
             <img alt="" src={this.props.profileImage||DefaultProfileImage} className="infoProfileImage"/>  
-            <div className="text">
-              {this.props.name}
-            </div>
-            <div className="birthday">
+            <div className="text taCenter">
+              {this.props.name} <br/>
+              {this.props.email} <br/>
               {this.setBirthdayFormet(this.props.birthday)}
             </div>
           </div>

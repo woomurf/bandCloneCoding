@@ -207,7 +207,6 @@ Fonts
   padding-bottom: 20px;
 }
 
-  
 #memberInfoPopup {
   position: absolute;
   display: flex; 
@@ -239,6 +238,7 @@ Fonts
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
 }
+
 #memberInfoPopup .profileInfo {
   width: auto;
   height: 200px;
@@ -263,4 +263,25 @@ Fonts
   width: 100px;
   height: 100px;
   margin-top: 50px;
+}
+
+#settingPopup {
+  float: right;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#settingPopup .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $gray-white;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
 }

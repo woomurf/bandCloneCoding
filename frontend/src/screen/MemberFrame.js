@@ -12,25 +12,32 @@ class MemberFrame extends Component {
       memberInfo :{
         name:"",
         image:"",
+        email:"",
         birthday:""
       },
       members :[{
         name:"권영준",
+        email:"dudwns@gjrn.gjtkd",
         birthday:"19961000"
       }, {
         name:"우현웅",
+        email:"gusdnd@gjrn.gjtkd",
         birthday:"19961100"
       }, {
         name:"정의창",
+        email:"dmlckd@gjrn.gjtkd",
         birthday:"19961200"
       }, {
         name:"가상인물",
+        email:"rktkd@gjrn.gjtkd",
         birthday:"19480202"
       }, {
         name:"가장인물",
+        email:"rkwkd@gjrn.gjtkd",
         birthday:"19430204"
       }, {
         name:"가정인물",
+        email:"rkwjd@gjrn.gjtkd",
         birthday:"19520207"
       }]
     }
@@ -63,13 +70,15 @@ class MemberFrame extends Component {
                   key={index}
                   name={member.name}
                   profileImage={member.profileImage}
+                  email={member.email}
                   birthday={member.birthday}
                   lastIndexYn={this.state.members.length === index + 1}
-                  onClick={function(nameInfo, imageInfo, birthdayInfo) {
+                  onClick={function(nameInfo, imageInfo, emailInfo, birthdayInfo) {
                     this.setState({
                       memberInfo:{
                         name:nameInfo,
                         image:imageInfo,
+                        email:emailInfo,
                         birthday:birthdayInfo
                       }
                     }); 
@@ -83,6 +92,7 @@ class MemberFrame extends Component {
         <MemberInfoPopup
           name={this.state.memberInfo.name}
           image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
           birthday={this.state.memberInfo.birthday}
         />
       </div>

@@ -3,6 +3,7 @@ import TextButton from '../component/TextButton';
 import PostFrame from "./PostFrame";
 import MemberFrame from "./MemberFrame";
 import SettingFrame from "./SettingFrame";
+import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import '../scss/page.scss';
@@ -24,7 +25,12 @@ class MainScreen extends Component {
     return (
       <div>
         <div id="pageHeader">
-          {/* 프로필 및 설정 있는 부분 */}
+          <div id="pageTopMenu">
+            <div id="postSearch">
+              {/*할까?*/}
+            </div>
+            <Profile/>
+          </div>
           <div id="pageTopBar">
             <div id="menuTab" className="mt4">
               <TextButton
