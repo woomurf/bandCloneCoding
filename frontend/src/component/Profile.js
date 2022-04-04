@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import ProfileSetting from "../popup/SettingPopup";
+import SettingPopup from "../popup/SettingPopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss';
@@ -9,52 +9,55 @@ class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      profileSetting: false
+      profileSetting: false,
+      menuList:[
+        "내 정보", "내가 쓴글", "설정", "로그아웃"
+      ]
     } 
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.onClickOutside.bind(this));
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  /**
-   * Set the wrapper ref
-   */
-  setWrapperRef(node) {
-    this.wrapperRef = node;
-  }
-
-  /**
-   * Alert if clicked on outside of element
-   */
-  handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.onBlurProdile();
-    }
+    document.removeEventListener('mousedown', this.onClickOutside.bind(this));
   }
 
   render() {
     return (
       <div 
-        ref={this.setWrapperRef}
         id="myProfile"
         className="noDrag"
       >
         <img 
           id="memberProfileImage"
+          ref={this.setWrapperRef_1.bind(this)}
           alt="" 
           src={DefaultProfileImage} 
           onClick={this.onClickProfile.bind(this)}
         />
-        {this.getProfileSetting()}
+        <div ref={this.setWrapperRef_2.bind(this)} className="zidx1">
+          {this.getProfileSetting()}
+        </div>
       </div>
     );
+  }
+
+  /* WrapperRef 를 하나로 쓰는법을 모르겠다.. */
+  setWrapperRef_1(node) {
+    this.wrapperRef_1=node;
+  }
+
+  setWrapperRef_2(node) {
+    this.wrapperRef_2=node;
+  }
+
+  onClickOutside(e) {
+    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
+      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
+      this.onBlurProfile();
+    }
   }
 
   onClickProfile() {
@@ -63,7 +66,7 @@ class Profile extends Component {
     });
   }
 
-  onBlurProdile() {
+  onBlurProfile() {
     this.setState({
       profileSetting:false
     });
@@ -71,7 +74,9 @@ class Profile extends Component {
   
   getProfileSetting() {
     if (this.state.profileSetting) {
-      return <ProfileSetting/>
+      return <SettingPopup
+        menuList={this.state.menuList}
+      />
     } else {
       return null;
     }

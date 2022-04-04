@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import TextButton from '../component/TextButton';
 import '../scss/popup.scss';
 
 class SettingPopup extends Component {
@@ -6,7 +7,21 @@ class SettingPopup extends Component {
     return (
       <div id="settingPopup"> 
         <div className="content">
-          이게뭐임
+          {this.props.menuList.map((menu,index) => {
+            return(
+              <div key={index}>
+                <TextButton
+                  label={menu}
+                  className="text"
+                  selectYn={false}
+                  onClick={function(){
+                    alert(menu);
+                  }}
+                />
+                <div className={index+1!==this.props.menuList.length? "divPoint" : ""}/>
+              </div>
+            )
+          })}
         </div>
       </div>
     );
