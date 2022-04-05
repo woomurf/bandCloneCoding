@@ -30,6 +30,7 @@ class Postuploadbox extends Component {
       groupId: 1,
     }).then(res => {
       this.props.updatePostList();
+      // postarea 부분 초기화되게 에러나는조건 추가
       console.log('post', res);
     }).catch(err => {
       this.props.postErrorPopup();

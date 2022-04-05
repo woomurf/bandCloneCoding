@@ -4,6 +4,7 @@ import Emogi from '../image/Emogi.png';
 import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import SeeMorePopup from "../popup/SeeMorePopup"
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -16,7 +17,7 @@ class PostBox extends Component {
         <div className="postHeader">
           <div className="profile">
             <div className="profileImage">
-              <img alt="" className="profileImage" src={this.props.profileImage||DefaultProfileImage} id="profileImage"/>
+              <img alt="" className="profileImage" src={this.props.profileImage || DefaultProfileImage} id="profileImage"/>
             </div>
             <div className="profileMeta">
               <div className="userName">
@@ -27,13 +28,24 @@ class PostBox extends Component {
               </div>
             </div>
           </div>
+          <SeeMorePopup/>
           <div className="moreIcon">
-            <img alt="" className="moreIcon" src={SeeMore} id="moreIcon"
-              // 더보기 클릭시 => 팝업이켜짐
-              // 팝업 선택창 (포스팅삭제,수정)정도?
-              // 수정을 누르면 팝업을 하나더 띄우고 쓸수있는 텍스트창을띄운다
-              // 화면한가운데 말고 조그맣게 만들어볼것
-            />
+            <button className="postMoreMenuBtn">
+              <img alt="" className="moreIconButton" src={SeeMore} id="moreIconButton"
+                onClick={this.showPostMoreMenu}
+              />
+            </button>
+            
+            <div id = "postMoreMenuview">
+              <ul id="postMoreMenu" className="hide">
+                <li>
+                  수정
+                </li>
+                <li>
+                  삭제
+                </li>
+              </ul>
+            </div>
           </div>     
         </div>
 
@@ -67,6 +79,12 @@ class PostBox extends Component {
       </div>
     );
   }
+  showPostMoreMenu() {
+    const postMoreMenu = document.querySelector('#postMoreMenu');
+    postMoreMenu.classList.remove('hide');
+  }
+
+  // state 사용해서 조건부렌더링으로 해결해볼것.
 };
 
 

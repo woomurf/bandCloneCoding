@@ -77,9 +77,9 @@ class PostFrame extends Component {
     })
   }
 
-  // async componentDidMount(){
-  //   this.updatePostList();
-  // }
+  async componentDidMount(){
+    this.updatePostList();
+  }
 
   // 더보기 팝업을위한 임시조치
 

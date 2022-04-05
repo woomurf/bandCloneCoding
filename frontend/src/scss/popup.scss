@@ -206,3 +206,25 @@ Fonts
 #registerPopup .btn {
   padding-bottom: 20px;
 }
+
+#seeMorePopup {
+  display: flex;
+}
+
+#seeMorePopup.hide {
+  display: none;
+}
+
+#seeMorePopup .content {
+  width: 130px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+  z-index: 1;
+}
