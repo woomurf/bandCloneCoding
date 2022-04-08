@@ -74,9 +74,11 @@ class PostFrame extends Component {
     })
   }
 
-  async componentDidMount(){
-    this.updatePostList();
-  }
+  // async componentDidMount(){
+  //   this.updatePostList();
+  // }
+
+  // 더보기팝업 임시조치
 
   componentDidUpdate(prevprops, prevState) {
     if(prevState.posts !== this.state.posts){

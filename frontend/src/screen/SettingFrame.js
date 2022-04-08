@@ -39,7 +39,7 @@ class SettingFrame extends Component {
             <div className="settingProfileDiv">
               <div className="settingProfile">
                 <div className="settingPageProfileImage">
-                  <img alt="" src={Sky} id="settingPageProfileImage"/>
+                  <img alt="" src={Sky}/>
                 </div>
                 <div className="settingPageUserName">
                   권영준

@@ -42,9 +42,14 @@ class Postuploadbox extends Component {
     return (
       <div className="postuploadbox">
         <div className="postupload">
-          <textarea type="text" rows="4" placeholder="새로운 소식을 남겨보세요." id="postupload"
-          value={this.state.value}
-          onChange={this.handleChange}/>
+          <textarea 
+            type="text" 
+            rows="4" 
+            placeholder="새로운 소식을 남겨보세요." 
+            className="postupload"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
         </div>
 
         <div className="pictureImage">

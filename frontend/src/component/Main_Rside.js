@@ -12,7 +12,7 @@ class MainRside extends Component {
             {images.map((image, index)=> {
               return(
                 <div key={index} className="pictureSort">
-                  <img alt="" className="pictureSort" src ={image} id="pictureSort"/>
+                  <img alt="" className="pictureSort" src ={image}/>
                 </div>
               );
             })}

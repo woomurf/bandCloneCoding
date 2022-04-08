@@ -4,7 +4,6 @@ import Emogi from '../image/Emogi.png';
 import Comment from '../image/Comment.png';
 import Schedule from "../component/Schedule";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
-import SeeMorePopup from "../popup/SeeMorePopup"
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -17,8 +16,39 @@ class PostBox extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.onClickOutside.bind(this));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.onClickOutside.bind(this));
+  }
+  
+  setWrapperRef_1(node) {
+    this.wrapperRef_1=node;
+  }
+
+  setWrapperRef_2(node) {
+    this.wrapperRef_2=node;
+  }
+
+  onClickOutside(e) {
+    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
+      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
+      this.onBlurSeeMorePopup();
+    }
+  }
+
   showSeeMorePopup() {
-    this.setState({condition:true})
+    this.setState({
+      condition:true
+    })
+  }
+
+  onBlurSeeMorePopup() {
+    this.setState({
+      condition:false
+    });
   }
 
   render() {
@@ -28,7 +58,11 @@ class PostBox extends Component {
         <div className="postHeader">
           <div className="profile">
             <div className="profileImage">
-              <img alt="" className="profileImage" src={this.props.profileImage || DefaultProfileImage} id="profileImage"/>
+              <img 
+                alt="" 
+                src={this.props.profileImage || DefaultProfileImage} 
+                className="profileImage"
+              />
             </div>
             <div className="profileMeta">
               <div className="userName">
@@ -39,14 +73,33 @@ class PostBox extends Component {
               </div>
             </div>
           </div>
+
           <div className="moreIcon">
             <button className="postMoreMenuBtn">
-              <img alt="" className="moreIconButton" src={SeeMore} id="moreIconButton"
+              <img 
+                alt="" 
+                src={SeeMore} 
+                ref={this.setWrapperRef_1.bind(this)}
                 onClick={this.showSeeMorePopup.bind(this)}
               />
             </button>
-            {this.state.condition && <SeeMorePopup />}
-          </div>     
+            {this.state.condition && 
+              <div 
+                id="seeMorePopup" 
+                ref={this.setWrapperRef_2.bind(this)}
+              > 
+                <div className="content">
+                  <li className="moreContent">
+                    수정
+                  </li>
+                  <li className="moreContent">
+                    삭제
+                  </li>
+                </div>
+              </div>
+            }
+          </div>
+
         </div>
 
         <div className="postBody">
@@ -65,16 +118,15 @@ class PostBox extends Component {
             )
           }
           {this.props.picture &&  (
-            <div className="post_Picture">
-              <img alt="" className="postPicture" 
-              src={this.props.picture} id="postPicture"/>
+            <div className="postPicture">
+              <img alt="" className="postPicture" src={this.props.picture}/>
             </div>)
           }
         </div>
 
         <div className="postFooter">
-          <img alt="" className="Emogi" src={Emogi} id="Emogi"/>
-          <img alt="" className="Comment" src={Comment} id="Comment"/>
+          <img alt="" className="Emogi" src={Emogi}/>
+          <img alt="" className="Comment" src={Comment}/>
         </div>
       </div>
     );

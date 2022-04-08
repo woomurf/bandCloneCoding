@@ -14,7 +14,7 @@ class MainLside extends Component {
           onClick={function(e){
             alert("로그인화면으로");
           }}>
-          <img alt="" className="bandImage" src={this.props.bandImage} id="bandImage"/>
+          <img alt="" className="bandImage" src={this.props.bandImage}/>
         </div>
 
         <div className="bandName">
@@ -34,7 +34,7 @@ class MainLside extends Component {
         <div className="setting">
 
           <div className="vectorImage">
-            <img alt=""  className="vectorImage" src={vector} id="vectorImage"/>
+            <img alt=""  className="vectorImage" src={vector}/>
           </div>
 
           <div className="bandSetting">
