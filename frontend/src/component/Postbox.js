@@ -10,6 +10,17 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 class PostBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      condition: false
+    };
+  }
+
+  showSeeMorePopup() {
+    this.setState({condition:true})
+  }
+
   render() {
     return (
       <div className="postBox">
@@ -28,31 +39,20 @@ class PostBox extends Component {
               </div>
             </div>
           </div>
-          <SeeMorePopup/>
           <div className="moreIcon">
             <button className="postMoreMenuBtn">
               <img alt="" className="moreIconButton" src={SeeMore} id="moreIconButton"
-                onClick={this.showPostMoreMenu}
+                onClick={this.showSeeMorePopup.bind(this)}
               />
             </button>
-            
-            <div id = "postMoreMenuview">
-              <ul id="postMoreMenu" className="hide">
-                <li>
-                  수정
-                </li>
-                <li>
-                  삭제
-                </li>
-              </ul>
-            </div>
+            {this.state.condition && <SeeMorePopup />}
           </div>     
         </div>
 
         <div className="postBody">
-          {this.props.text &&(
+          {this.props.content &&(
             <div className="postLabel">
-              {this.props.text}
+              {this.props.content}
             </div>)
           }
           {this.props.scheduleDay &&(
@@ -79,13 +79,6 @@ class PostBox extends Component {
       </div>
     );
   }
-  showPostMoreMenu() {
-    const postMoreMenu = document.querySelector('#postMoreMenu');
-    postMoreMenu.classList.remove('hide');
-  }
-
-  // state 사용해서 조건부렌더링으로 해결해볼것.
 };
-
 
 export default PostBox;

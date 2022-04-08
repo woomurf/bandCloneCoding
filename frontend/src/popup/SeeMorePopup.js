@@ -4,34 +4,16 @@ import '../scss/common.scss';
 import '../scss/popup.scss';
 
 class SeeMorePopup extends Component {
-  closeSeeMorePopup() {
-    const seeMorePopup = document.querySelector('#seeMorePopup');
-    seeMorePopup.classList.add('hide');
-  }
-
-  onConfirmCallback() {
-    console.log(this);
-  }
-
   render() {
     return (
-      <div id="seeMorePopup" className="hide"> 
+      <div id="seeMorePopup"> 
         <div className="content">
-          <div className="btn">
-            <Button 
-                label="Close" 
-                className="subButton smallButton mt4"
-                onClick={this.closeSeeMorePopup.bind(this)}
-            />
-             <Button 
-                label="수정" 
-                className="subButton smallButton mt4"
-            />
-            <Button 
-               label="삭제" 
-               className="subButton smallButton mt4"
-           />
-          </div>
+          <li className="moreContent">
+            수정
+          </li>
+          <li className="moreContent">
+            삭제
+          </li>
         </div>
       </div>
     );

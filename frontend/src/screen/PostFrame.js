@@ -15,7 +15,7 @@ class PostFrame extends Component {
       posts :[ {
         user:{name:"sampleName"},
         content:"일정입니다",
-        updatedAt:Date(),
+        updatedAt:"2022년 02월 22일 10:22",
         scheduleDate:"22",
         scheduleDay:"화요일",
         scheduleDDay:"2022년 04월 22일",
@@ -23,26 +23,23 @@ class PostFrame extends Component {
       },{
         user:{name:"sampleName"},
         profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
       },{
         user:{name:"sampleName"},
         profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
+        content:"일정입니다",
+        picture:Pic
+      },{
+        user:{name:"sampleName"},
+        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
       },{
         user:{name:"sampleName"},
         profileImage:Pic,
-        content:"일정입니다",
-      },{
-        user:{name:"sampleName"},
-        profileImage:Pic,
-        content:"일정입니다",
-      },{
-        user:{name:"sampleName"},
-        profileImage:Pic,
-        content:"일정입니다",
-      },{
-        user:{name:"sampleName"},
-        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
       }
       ]
@@ -81,8 +78,6 @@ class PostFrame extends Component {
     this.updatePostList();
   }
 
-  // 더보기 팝업을위한 임시조치
-
   componentDidUpdate(prevprops, prevState) {
     if(prevState.posts !== this.state.posts){
       this.getPostUpdatedAt();
@@ -105,7 +100,7 @@ class PostFrame extends Component {
               userName={post.user.name}
               updatedAt={post.updatedAt}
               profileImage={post.profileImage}
-              text={post.content} 
+              content={post.content} 
               picture={post.picture} 
               scheduleDate={post.scheduleDate}
               scheduleDay={post.scheduleDay}

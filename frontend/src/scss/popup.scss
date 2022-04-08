@@ -216,15 +216,34 @@ Fonts
 }
 
 #seeMorePopup .content {
-  width: 130px;
-  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: $primary-1;
-  border-radius: 3px;
+  background-color: $gray-white;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
   z-index: 1;
+  margin-left: 30px;
+}
+
+.moreContent{
+  text-align: center;
+  display: block;
+  padding: 5px 25px 5px;
+  margin: 5px 0px 5px;
+  white-space: nowrap;
+  background-color: white;
+  @include body-p12;
+  cursor: pointer;
+}
+
+.moreContent:hover {
+  background-color: $gray-2;
+  // color: white;
+  opacity: 1;
+  box-shadow: 0 2px 0px 0 rgba(0,0,0,0.24)
+}
+
+.moreContent:active{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
 }

@@ -160,6 +160,7 @@ Fonts
 
 ul,li{
   list-style: none;
+  padding-left:0px;
 }
 
 .postMoreMenuBtn{
@@ -168,22 +169,7 @@ ul,li{
   background-color: white;
   transition: 0.3s;
   cursor: pointer;
-}
-
-#postMoreMenuview{
-  display: flex;
-  flex-direction: column;
-  // z-index: 1;
-  background-color: #c8c0da;
-  @include body-p14;
-}
-
-#postMoreMenuview .hide{
-  display: none;
-}
-
-.postMoreMenu{
-  margin-right: 40px;
+  margin-left: 65px;
 }
 
 .vectorImage{
