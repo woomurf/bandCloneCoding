@@ -30,12 +30,22 @@ class Postuploadbox extends Component {
       groupId: 1,
     }).then(res => {
       this.props.updatePostList();
-      // postarea 부분 초기화되게 에러나는조건 추가
+      this.setState ({
+        value:''
+      })
       console.log('post', res);
     }).catch(err => {
       this.props.postErrorPopup();
     })
     e.preventDefault();
+  }
+
+  textRef = React.createRef();
+
+  textResize = () =>{
+    const textAreaBox = this.textRef.current;
+    textAreaBox.style.height = 'auto';
+    textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
 
   render() {
@@ -47,6 +57,10 @@ class Postuploadbox extends Component {
             rows="4" 
             placeholder="새로운 소식을 남겨보세요." 
             className="postupload"
+            maxLength={3000}
+            ref={this.textRef}
+            onKeyUp={this.textResize}
+            onKeyDown={this.textResize}
             value={this.state.value}
             onChange={this.handleChange}
           />

@@ -23,6 +23,7 @@ class Comment extends Component {
             ref={this.textRef}
             onKeyUp={this.textResize}
             onKeyDown={this.textResize}
+            maxLength={3000}
             placeholder="새로운 댓글을 남겨보세요." 
           />            
           <button className="commentUploadBtn">
