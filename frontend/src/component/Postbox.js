@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import SeeMore from '../image/See_More.png';
 import Emogi from '../image/Emogi.png';
-import Comment from '../image/Comment.png';
+import CommentImage from '../image/Comment.png';
 import Schedule from "../component/Schedule";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import Comment from "./Comment";
+import SeeMorePopup from "../popup/SeeMorePopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -12,43 +13,20 @@ class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      condition: false
+      conditionComment: false
     };
   }
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.onClickOutside.bind(this));
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.onClickOutside.bind(this));
-  }
-  
-  setWrapperRef_1(node) {
-    this.wrapperRef_1=node;
-  }
-
-  setWrapperRef_2(node) {
-    this.wrapperRef_2=node;
-  }
-
-  onClickOutside(e) {
-    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
-      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
-      this.onBlurSeeMorePopup();
-    }
-  }
-
-  showSeeMorePopup() {
+  showCommentArea(){
     this.setState({
-      condition:true
-    })
+      conditionComment:true
+    })  
   }
 
-  onBlurSeeMorePopup() {
+  closeCommentArea(){
     this.setState({
-      condition:false
-    });
+      conditionComment:false
+    })  
   }
 
   render() {
@@ -73,33 +51,7 @@ class PostBox extends Component {
               </div>
             </div>
           </div>
-
-          <div className="moreIcon">
-            <button className="postMoreMenuBtn">
-              <img 
-                alt="" 
-                src={SeeMore} 
-                ref={this.setWrapperRef_1.bind(this)}
-                onClick={this.showSeeMorePopup.bind(this)}
-              />
-            </button>
-            {this.state.condition && 
-              <div 
-                id="seeMorePopup" 
-                ref={this.setWrapperRef_2.bind(this)}
-              > 
-                <div className="content">
-                  <li className="moreContent">
-                    수정
-                  </li>
-                  <li className="moreContent">
-                    삭제
-                  </li>
-                </div>
-              </div>
-            }
-          </div>
-
+          <SeeMorePopup/>
         </div>
 
         <div className="postBody">
@@ -123,10 +75,24 @@ class PostBox extends Component {
             </div>)
           }
         </div>
-
+        
         <div className="postFooter">
-          <img alt="" className="Emogi" src={Emogi}/>
-          <img alt="" className="Comment" src={Comment}/>
+          <div className="addOn">
+            <img alt="" className="Emogi" src={Emogi}/>
+            <img 
+              alt="" 
+              className="Comment" 
+              src={CommentImage}
+              onClick={
+                this.state.conditionComment === false 
+                ? this.showCommentArea.bind(this)
+                : this.closeCommentArea.bind(this)
+              }
+            />
+          </div>
+          {this.state.conditionComment && 
+            <Comment/>
+          }
         </div>
       </div>
     );
