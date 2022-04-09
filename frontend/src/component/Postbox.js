@@ -90,9 +90,13 @@ class PostBox extends Component {
               }
             />
           </div>
-          {this.state.conditionComment && 
-            <Comment/>
-          }
+            {this.state.conditionComment && 
+              <Comment
+                userName={'권영준'}
+                commnetUpdatedAt={this.props.commnetUpdatedAt}
+                // profileImage={Emogi}
+              />
+            }
         </div>
       </div>
     );
