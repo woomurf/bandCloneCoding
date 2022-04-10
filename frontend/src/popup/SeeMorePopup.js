@@ -63,8 +63,14 @@ class SeeMorePopup extends Component {
             ref={this.setWrapperRef_2.bind(this)}
           > 
             <div className="content">
-              <li className="moreContent">
+              <li 
+                className="moreContent"
+                onClick={this.props.showModifyPopup}
+              >
                 수정
+                {/* <button                 
+                onClick={this.props.showModifyPopup}>
+                tnwjd</button> */}
               </li>
               <li className="moreContent">
                 삭제

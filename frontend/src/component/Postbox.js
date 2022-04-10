@@ -51,7 +51,9 @@ class PostBox extends Component {
               </div>
             </div>
           </div>
-          <SeeMorePopup/>
+          <SeeMorePopup
+            showModifyPopup={this.props.showModifyPopup}
+          />
         </div>
 
         <div className="postBody">
@@ -92,7 +94,7 @@ class PostBox extends Component {
           </div>
             {this.state.conditionComment && 
               <Comment
-                userName={'권영준'}
+                userName={this.props.userName}
                 commnetUpdatedAt={this.props.commnetUpdatedAt}
                 // profileImage={Emogi}
               />

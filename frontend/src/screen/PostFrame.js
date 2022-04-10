@@ -21,18 +21,18 @@ class PostFrame extends Component {
         scheduleDDay:"2022년 04월 22일",
         scheduleName:"일정이라구요"
       },{
-        user:{name:"sampleName"},
+        user:{name:"니니니"},
         profileImage:Pic,
         updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
       },{
-        user:{name:"sampleName"},
+        user:{name:"나나나"},
         profileImage:Pic,
         updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
         picture:Pic
       },{
-        user:{name:"sampleName"},
+        user:{name:"노노노"},
         profileImage:Pic,
         updatedAt:"2022년 02월 22일 10:22",
         content:"일정입니다",
@@ -108,6 +108,7 @@ class PostFrame extends Component {
               scheduleDay={post.scheduleDay}
               scheduleDDay={post.scheduleDDay}
               scheduleName={post.scheduleName}
+              showModifyPopup={this.props.showModifyPopup}
             />
             )})}
         </div>

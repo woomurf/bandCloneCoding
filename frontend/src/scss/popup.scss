@@ -91,7 +91,7 @@ Fonts
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
+  z-index: 3;
 }
   
 #alertPopup.hide {
@@ -165,6 +165,10 @@ Fonts
 
 .idxZ2 {
   z-index: 2;
+}
+
+.idxZ3 {
+  z-index: 3;
 }
 
 #registerPopup {
@@ -246,4 +250,71 @@ Fonts
 
 .moreContent:active{
   box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
+}
+
+#modifyPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+#modifyPopup.hide {
+  display: none;
+}
+
+#modifyPopup .content {
+  width: 420px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+  z-index: 1;
+}
+
+.modifyCancel{
+  text-align: right;
+  margin-top: 5px;
+  margin-right: 5px
+}
+.modifyCancelBtn{
+  @include body-p12;
+  border: 0;
+  outline: 0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.modifyCancelBtn:hover {
+  background-color: $gray-2;
+  // color: white;
+  opacity: 1;
+  box-shadow: 0 2px 0px 0 rgba(0,0,0,0.24)
+}
+
+.modifyCancelBtn:active{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
+}
+.modifyPostuploadbox{
+  display: flex;
+  width: 540px;
+  height: 500px;
+  border-radius: 20px;
+  background-color: $gray-white;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+  margin-top: 10px;
+  flex-direction: column;
+  justify-content: space-between;
 }

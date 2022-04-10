@@ -7,6 +7,7 @@ import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
+import ModifyPopup from "../popup/ModifyPopup";
 import '../scss/page.scss';
 
 
@@ -80,7 +81,10 @@ class MainScreen extends Component {
           onClick={function(e){
             this.props.onClick("")
           }.bind(this)}
-        />  
+        />
+        <ModifyPopup
+          postErrorPopup={this.showAlertPopup.bind(this)}
+        />
       </div>
     );
   }
@@ -98,6 +102,7 @@ class MainScreen extends Component {
         tabPage = 
           <PostFrame 
             postErrorPopup={this.showAlertPopup.bind(this)}
+            showModifyPopup={this.showModifyPopup.bind(this)}
           />;
         break;
       case 'member':
@@ -124,6 +129,12 @@ class MainScreen extends Component {
   showConfirmPopup() {
     const confirmPopup = document.querySelector('#confirmPopup');
     confirmPopup.classList.remove('hide');
+  }
+
+  showModifyPopup() {
+    const modifyPopup = document.querySelector('#modifyPopup');
+    modifyPopup.classList.remove('hide');
+    modifyPopup.classList.add('idxZ2');
   }
 };
 
