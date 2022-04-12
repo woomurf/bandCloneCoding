@@ -134,7 +134,6 @@ class MainScreen extends Component {
   showModifyPopup() {
     const modifyPopup = document.querySelector('#modifyPopup');
     modifyPopup.classList.remove('hide');
-    modifyPopup.classList.add('idxZ2');
   }
 };
 

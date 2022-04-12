@@ -26,13 +26,13 @@ class ModifyPopup extends Component {
   async handleSubmit(e) {
     axios.post('/post', {
       content: this.state.value,
-      title: '없어질거임 타이틀은',
       groupId: 1,
     }).then(res => {
       this.props.updatePostList();
       this.setState ({
         value:''
       })
+      this.closeModifyPopup();
       console.log('post', res);
     }).catch(err => {
       this.props.postErrorPopup();
@@ -40,15 +40,27 @@ class ModifyPopup extends Component {
     e.preventDefault();
   }
 
+  // async modifyPost(e) {
+  //   axios.post('/post', {
+  //     content: this.state.value,
+  //     groupId: 1,
+  //   }).then(res => {
+  //     this.props.updatePostList();
+  //     this.setState ({
+  //       value:''
+  //     })
+  //     this.closeModifyPopup();
+  //     console.log('post', res);
+  //   }).catch(err => {
+  //     this.props.postErrorPopup();
+  //   })
+  //   e.preventDefault();
+  // }
+
   closeModifyPopup() {
     const modifyPopup = document.querySelector('#modifyPopup');
     modifyPopup.classList.add('hide');
-    modifyPopup.classList.remove('idxZ2');
   }
-
-  onConfirmCallback() {
-    console.log(this);
-  }  
   
   textRef = React.createRef();
 
@@ -57,7 +69,7 @@ class ModifyPopup extends Component {
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
-
+ // child component?
   render() {
     return (
       <div id="modifyPopup" className="hide"> 
