@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import Post from "../component/Postbox";
+import PostBox from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
-import Sky from '../image/Sky.png';
 import Pic from '../image/Pic.png';
-import Taco from '../image/Taco.png';
 import '../scss/component.scss';
 import '../scss/page.scss';
+import moment from "moment"
 import axios from "axios";
 
 class PostFrame extends Component {
@@ -15,13 +14,33 @@ class PostFrame extends Component {
     this.state = {
       posts :[ {
         user:{name:"sampleName"},
-        // profileImage:Pic,
         content:"일정입니다",
-        today:time,
+        updatedAt:"2022년 02월 22일 10:22",
         scheduleDate:"22",
         scheduleDay:"화요일",
         scheduleDDay:"2022년 04월 22일",
         scheduleName:"일정이라구요"
+      },{
+        user:{name:"니니니"},
+        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
+        content:"일정입니다",
+      },{
+        user:{name:"나나나"},
+        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
+        content:"일정입니다",
+        picture:Pic
+      },{
+        user:{name:"노노노"},
+        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
+        content:"일정입니다",
+      },{
+        user:{name:"sampleName"},
+        profileImage:Pic,
+        updatedAt:"2022년 02월 22일 10:22",
+        content:"일정입니다",
       }
       ]
     }
@@ -38,33 +57,58 @@ class PostFrame extends Component {
       });
   }
 
-  async componentDidMount(){
+  async updatePostList(){
     const posts = await this.getPostList();
     this.setState({ ...this.state, posts });
   }
 
-  // 이미지 넣을때 {post.user.profileImage}||디폴트 이미지
+  async getPostUpdatedAt(){
+    const newPost = this.state.posts.map(post=> {
+      const updatedAt = post.updatedAt;
+      const time = moment(updatedAt).format("YYYY년 MM월 DD일 hh:mm");
+      post.updatedAt = time;
+      return post
+    })
+    this.setState({
+      post : newPost
+    })
+  }
 
-  //life sycle 찾아보기
+  // async componentDidMount(){
+  //   this.updatePostList();
+  // }
+
+  // 더보기팝업 임시조치
+
+  componentDidUpdate(prevprops, prevState) {
+    if(prevState.posts !== this.state.posts){
+      this.getPostUpdatedAt();
+    }
+  }
+  
   render() {
     return (
       <div>
         <div id="centerFrame" className="centerFrame">
           <SearchBox/>
-          <Postuploadbox/>
+          <Postuploadbox 
+            updatePostList={this.updatePostList.bind(this)} 
+            postErrorPopup={this.props.postErrorPopup.bind(this)}
+          />
           {this.state.posts.map((post,index)=>{
             return(
-              <Post
+              <PostBox
               key={index}
               userName={post.user.name}
-              today={post.today}
+              updatedAt={post.updatedAt}
               profileImage={post.profileImage}
-              text={post.content} 
+              content={post.content} 
               picture={post.picture} 
               scheduleDate={post.scheduleDate}
               scheduleDay={post.scheduleDay}
               scheduleDDay={post.scheduleDDay}
               scheduleName={post.scheduleName}
+              showModifyPopup={this.props.showModifyPopup}
             />
             )})}
         </div>
@@ -73,8 +117,5 @@ class PostFrame extends Component {
   }
 };    
 
-const moment = require('moment');
-const today = moment();
-const time = today.format('YYYY년 MM월 DD일 hh:mm')
 
 export default PostFrame;

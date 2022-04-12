@@ -180,27 +180,27 @@ class RegisterPopup extends Component {
   }
 };
 
-function join_vali(regId, regPw, regNm){
+function join_vali(regId, regPw, regNm) {
 	var RegExp = /^[a-zA-Z0-9]{4,15}$/;
   var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
   var n_RegExp = /^[가-힣]{2,15}$/;
 
-	if(!regId) {
+	if (!regId) {
     return "E-mail을 입력해 주세요";
   }
-	if(!e_RegExp.test(regId)){
+	if (!e_RegExp.test(regId)) {
     return "올바른 이메일 형식이 아닙니다.";
   }
-	if(!regPw) {
+	if (!regPw) {
     return "password 를 입력해 주세요";
   }
-	if(!RegExp.test(regPw)){
+	if (!RegExp.test(regPw)) {
     return "Password는 4~15자의 영문 대소문자와 숫자로만 입력하여 주세요.";
   }
-	if(!regNm) {
+	if (!regNm) {
     return "성함을 입력해 주세요";
   }
-	if(!n_RegExp.test(regNm)){
+	if (!n_RegExp.test(regNm)) {
     return "이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.";
   }
   return "";
@@ -224,9 +224,9 @@ function Birth_vali(_inputBd) {
     return "1900년~"+yearNow+"년 사이를 입력해주세요";
   } else if (month < 1 || month > 12) {
     return "정확한 달(월)을 입력해주세요"; 
-  } else if (day < 1 || day > 31){
+  } else if (day < 1 || day > 31) {
     return "정확한 날(일) 을 입력해주세요"; 
-  } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === 31 ){
+  } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === 31) {
     return "정확한 날(일) 을 입력해주세요"; 
   } else if (month === 2) { 
     var leapYear = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)); 

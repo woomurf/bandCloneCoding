@@ -134,12 +134,13 @@ Fonts
   margin: 15px;
 }
 
-#postupload{
+.postupload{
   outline:none;
   border: $gray-white;
-  margin: 15px;
+  margin: 6px;
   width: 510px;
   resize: none;
+  overflow: hidden;
 }
 
 #pictureImage{
@@ -154,6 +155,22 @@ Fonts
 .uploadButton{
   margin-top: 19px;
   margin-left: 450px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+ul,li{
+  list-style: none;
+  padding-left:0px;
+}
+
+.postMoreMenuBtn{
+  border: 0;
+  border-radius: 30px;
+  background-color: white;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-left: 65px;
 }
 
 .vectorImage{
