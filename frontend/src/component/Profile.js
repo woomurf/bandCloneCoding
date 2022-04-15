@@ -10,6 +10,12 @@ class Profile extends Component {
     super(props);
     this.state = {
       profileSetting: false,
+      memberInfo :{
+        name:"?",
+        image:"?",
+        email:"?",
+        birthday:"19999999"
+      },
       menuList:[
         "내 정보", "내가 쓴글", "설정", "로그아웃"
       ]
@@ -76,9 +82,30 @@ class Profile extends Component {
     if (this.state.profileSetting) {
       return <SettingPopup
         menuList={this.state.menuList}
+        onClickMenu={this.onClickMenu.bind(this)}
       />
     } else {
       return null;
+    }
+  }
+
+  onClickMenu(menuName) {
+    switch(menuName) {
+      case '내 정보':
+        this.props.onClickProfileInfo();
+        break;
+      case '내가 쓴글':
+        alert(menuName);
+        break;
+      case '설정':
+        alert(menuName);
+        break;
+      case '로그아웃':
+        this.props.onClickLogout();
+        break;
+      default:
+        console.log('menu select error');
+        break;
     }
   }
 };

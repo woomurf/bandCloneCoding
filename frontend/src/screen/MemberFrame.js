@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import SearchBox from "../component/SearchBox";
 import MemberBox from "../component/MemberBox";
-import MemberInfoPopup from "../popup/MemberInfoPopup";
 import '../scss/page.scss';
 import axios from "axios";
 
@@ -73,35 +72,14 @@ class MemberFrame extends Component {
                   email={member.email}
                   birthday={member.birthday}
                   lastIndexYn={this.state.members.length === index + 1}
-                  onProfilePopup={function(nameInfo, imageInfo, emailInfo, birthdayInfo) {
-                    this.setState({
-                      memberInfo:{
-                        name:nameInfo,
-                        image:imageInfo,
-                        email:emailInfo,
-                        birthday:birthdayInfo
-                      }
-                    });
-                    this.showMemberInfoPopup();
-                  }.bind(this)}
+                  onProfilePopup={this.props.onClickMemberInfo.bind(this)}
                 />
               )
             })}
           </div>
         </div>
-        <MemberInfoPopup
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birthday={this.state.memberInfo.birthday}
-        />
       </div>
     );
-  }
-
-  showMemberInfoPopup() {
-    const memberInfoPopup = document.querySelector('#memberInfoPopup');
-    memberInfoPopup.classList.remove('hide');
   }
 };
 

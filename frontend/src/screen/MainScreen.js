@@ -9,6 +9,7 @@ import MainRside from '../component/Main_Rside';
 import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
 import ModifyPopup from "../popup/ModifyPopup";
+import MemberInfoPopup from "../popup/MemberInfoPopup";
 import '../scss/page.scss';
 
 
@@ -21,9 +22,43 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
+      profileInfo:{
+        name:"퉤스트",
+        image:"",
+        email:"test@test.te.st",
+        birthday:"19000101"
+      },
+      memberInfo:{
+        name:"nameInfo",
+        image:"imageInfo",
+        email:"emailInfo",
+        birthday:"birthdayInfo"
+      },
       selectTab:'post',
       alertContent:'Err!'
     } 
+  }
+
+  componentDidMount() {
+    this.setState({
+      profileInfo:{
+        name:"정의창",
+        image:"",
+        email:"zvzvz@zvzv.zv",
+        birthday:"19961213"
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      profileInfo:{
+        name:"정의창",
+        image:"",
+        email:"zvzvz@zvzv.zv",
+        birthday:"19961213"
+      }
+    });
   }
 
   render() {
@@ -34,7 +69,14 @@ class MainScreen extends Component {
             <div id="postSearch">
               {/*할까?*/}
             </div>
-            <Profile/>
+            <Profile
+              name={this.state.profileInfo.name}
+              profileImage={this.state.profileInfo.profileImage}
+              email={this.state.profileInfo.email}
+              birthday={this.state.profileInfo.birthday}
+              onClickLogout={this.showConfirmPopup.bind(this)}
+              onClickProfileInfo={this.showProfileInfoPopup.bind(this)}
+            />
           </div>
           <div id="pageTopBar">
             <div id="menuTab" className="mt4">
@@ -91,6 +133,12 @@ class MainScreen extends Component {
         <ModifyPopup
           postErrorPopup={this.showAlertPopup.bind(this)}
         />
+        <MemberInfoPopup
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birthday={this.state.memberInfo.birthday}
+        />
       </div>
     );
   }
@@ -112,7 +160,10 @@ class MainScreen extends Component {
           />;
         break;
       case 'member':
-        tabPage = <MemberFrame/>;
+        tabPage = 
+          <MemberFrame
+            onClickMemberInfo={this.showMemberInfoPopup.bind(this)}
+          />;
         break;
       case 'setting':
         tabPage = 
@@ -141,6 +192,33 @@ class MainScreen extends Component {
     const modifyPopup = document.querySelector('#modifyPopup');
     modifyPopup.classList.remove('hide');
     modifyPopup.classList.add('idxZ2');
+  }
+
+  showMemberInfoPopup(nameInfo,imageInfo,emailInfo,birthdayInfo) {
+    console.log(nameInfo);
+    this.setState({
+      memberInfo:{
+        name:nameInfo,
+        image:imageInfo,
+        email:emailInfo,
+        birthday:birthdayInfo
+      }
+    });
+    const memberInfoPopup = document.querySelector('#memberInfoPopup');
+    memberInfoPopup.classList.remove('hide');
+  }
+
+  showProfileInfoPopup() {
+    this.setState({
+      memberInfo:{
+        name:this.state.profileInfo.name,
+        image:this.state.profileInfo.image,
+        email:this.state.profileInfo.email,
+        birthday:this.state.profileInfo.birthday
+      }
+    });
+    const memberInfoPopup = document.querySelector('#memberInfoPopup');
+    memberInfoPopup.classList.remove('hide');
   }
 };
 

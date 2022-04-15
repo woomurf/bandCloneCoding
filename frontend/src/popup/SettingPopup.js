@@ -14,9 +14,7 @@ class SettingPopup extends Component {
                   label={menu}
                   className="text"
                   selectYn={false}
-                  onClick={function(){
-                    alert(menu);
-                  }}
+                  onClick={this.props.onClickMenu.bind(this, menu)}
                 />
                 <div className={index+1!==this.props.menuList.length? "divPoint" : ""}/>
               </div>

@@ -24,7 +24,6 @@ class MemberInfoPopup extends Component {
               className="subButton smallButton mt8"
               onClick={function(e){ 
                 this.closeMemberInfoPopup();
-                this.props.onClick();
               }.bind(this)}
             />
           </div>
