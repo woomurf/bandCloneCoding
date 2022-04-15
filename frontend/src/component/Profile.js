@@ -10,14 +10,8 @@ class Profile extends Component {
     super(props);
     this.state = {
       profileSetting: false,
-      memberInfo :{
-        name:"?",
-        image:"?",
-        email:"?",
-        birthday:"19999999"
-      },
       menuList:[
-        "내 정보", "내가 쓴글", "설정", "로그아웃"
+        "내 정보", "내가 쓴글", "로그아웃"
       ]
     } 
   }
@@ -95,10 +89,7 @@ class Profile extends Component {
         this.props.onClickProfileInfo();
         break;
       case '내가 쓴글':
-        alert(menuName);
-        break;
-      case '설정':
-        alert(menuName);
+        alert(menuName + "은 게시글 검색 API 구현 시 재작업");
         break;
       case '로그아웃':
         this.props.onClickLogout();

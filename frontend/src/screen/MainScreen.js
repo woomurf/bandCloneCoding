@@ -12,7 +12,6 @@ import ModifyPopup from "../popup/ModifyPopup";
 import MemberInfoPopup from "../popup/MemberInfoPopup";
 import '../scss/page.scss';
 
-
 //DB 연결전 사진파일 임시방편
 import Sky_ from '../image/Sky.png';
 import Pic_ from '../image/Pic.png';
@@ -40,6 +39,7 @@ class MainScreen extends Component {
   }
 
   componentDidMount() {
+    // 쿠키에서 데이터를 받아올 API가 필요함
     this.setState({
       profileInfo:{
         name:"정의창",
@@ -51,12 +51,13 @@ class MainScreen extends Component {
   }
 
   componentWillUnmount() {
+    // 로그아웃 시 프로필 정보 초기화
     this.setState({
       profileInfo:{
-        name:"정의창",
+        name:"",
         image:"",
-        email:"zvzvz@zvzv.zv",
-        birthday:"19961213"
+        email:"",
+        birthday:""
       }
     });
   }
