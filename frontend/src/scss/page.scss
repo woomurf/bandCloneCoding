@@ -159,6 +159,7 @@ PostScreen CSS
   height: 790px;
   width: 540px;
 }
+
 #postp::-webkit-scrollbar {
   width: 3px;
 }
@@ -190,6 +191,7 @@ PostScreen CSS
   border-radius: 20px;
   overflow-x: visible;
 }
+
 .centerFrame::-webkit-scrollbar{
   width: 0px; 
 }
@@ -220,9 +222,11 @@ PostScreen CSS
   width: 210px;
   height: 210px;
   border-radius: 20px;
-  background-color: $gray-3;
+  background-color: $gray-2;
   box-shadow: 2px 2px 2px 0 $transparent-black;
   overflow-y: scroll;
+  padding-bottom: 10px;
+  padding-left: 5px;
 }
 
 .pictureSort{
@@ -247,16 +251,19 @@ PostScreen CSS
   margin-top: 10px;
   @include headline-h5;
 }
+
 .memberCount{
   margin-top: 10px;
   @include body-p14;
   color: #666666;
 }
+
 .bandIntroduce{
   margin-top: 5px;
   @include body-p12;
   color: #666666;
 }
+
 .line{
   width: 210px;
   height: 2px;
@@ -265,15 +272,17 @@ PostScreen CSS
   background: #E6E6E6;
   margin-top:7px ;
 }
+
 .setting{
   display: flex;
   margin-top: 5px;
 }
+
 .bandSetting{
   @include body-p12;
   color: #999999;
   margin-left: 5px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .postPicture{
@@ -291,6 +300,7 @@ PostScreen CSS
   margin-bottom: 5px;
   justify-content: space-between;
 }
+
 .profile{
   display: flex;
   width: auto;
@@ -298,11 +308,13 @@ PostScreen CSS
   left: 15px;
   top: 896px;
 }
+
 .profileMeta{
   display: flex;
   flex-direction: column;
   padding: 8px;
 }
+
 .userName{
   width: auto;
   height: 13px;
@@ -330,13 +342,56 @@ PostScreen CSS
   color: #999999;
   padding-top: 3px;
 }
+
 .postBody{
   display: flex;
   flex-direction: column;
 }
+
 .postFooter{
   padding-top: 5px;
 }
+
+.postComment{
+  outline: none;
+  resize: none;
+  border: white;
+  width: 430px;
+  height: max-content;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: 16px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.commentAreaOutLine{
+  color: $gray-4;
+  border-radius: 20px;
+  border:1px solid #dedede;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentUploadBtn{
+  margin-right: 10px;
+  border-radius: 20px;
+  border: $gray-2;
+  background-color: $gray-2;
+  color: blue;
+  cursor: pointer;
+  @include body-p12;
+}
+
+.commentUploadBtn:hover {
+  opacity: 1;
+}
+
+.commentUploadBtn:active{
+  color: rgb(72, 72, 255)
+}
+
 .postLabel{
   font-family: Inter;
   font-style: normal;
@@ -347,16 +402,14 @@ PostScreen CSS
   color: #000000;
   margin: 5px 0 5px 0;
 }
-#profileImage{
+
+.profileImage{
   position: static;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   left: 15px;
   top: 188px;
-}
-.moreIcon{
-  border-radius: 50%;
 }
 
 .Emogi{
@@ -366,6 +419,7 @@ PostScreen CSS
 
 .Comment{
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .postBox {
@@ -378,6 +432,7 @@ PostScreen CSS
   box-shadow: 2px 2px 2px 0 $transparent-black;
   padding: 15px;
 }
+
 .scheduleBox{
   display: flex;
   width: 510px;
@@ -388,15 +443,18 @@ PostScreen CSS
   border: 0.5px solid #E6E6E6;
   box-sizing: border-box;
 }
+
 .postSchedule{
   margin: 5px 0 5px 0;
 }
+
 .scheduleHead{
   display: flex;
   flex-direction: column;
   margin-right: 20px;
   margin-left: 20px;
 }
+
 .scheduleDate{
   font-family: Inter;
   font-style: normal;
@@ -446,6 +504,63 @@ PostScreen CSS
   color: #666666;
   margin-top: 8px;
 }
+
+.commentProfileImage{
+  position: static;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  left: 15px;
+  top: 188px;
+}
+
+.commentProfile{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.commentProfileDiv{
+  display: flex;
+  width: auto;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.commentContent{
+  @include body-p12;
+  margin-bottom: 3px;
+}
+
+.commentProfileMeta{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+}
+
+.CommentUserName{
+  height: 13px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.CommentDay{
+  height: 12px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 8px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: #999999;
+}
 /*
   settingFrame Css
 */
@@ -485,11 +600,13 @@ PostScreen CSS
 .settingHeader{
   display: flex;
   flex-direction: column;
-  background-color: $primary-1;
+  background-color: white;
   border-radius: 20px;
   padding: 8px;
   width: 525px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
+
 .settingChangeButton{
   align-self: center;
 }
@@ -501,23 +618,23 @@ PostScreen CSS
   margin-top: 10px ;
 }
 
-#settingPageProfileImage{
+.settingPageProfileImage{
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  margin-top: 4px;
   margin-right: 5px;
 }
 
 .settingBody{
   display: flex;
   flex-direction: column;
-  background-color: $primary-1;
+  background-color: white;
   border-radius: 20px;
   padding: 8px;
   margin-top: 10px;
   width: 525px;
   padding-bottom: 20px;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
 .settingBox{

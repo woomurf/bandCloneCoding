@@ -6,7 +6,11 @@ import SettingFrame from "./SettingFrame";
 import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
+import AlertPopup from '../popup/AlertPopup';
+import ConfirmPopup from '../popup/ConfirmPopup';
+import ModifyPopup from "../popup/ModifyPopup";
 import '../scss/page.scss';
+
 
 //DB 연결전 사진파일 임시방편
 import Sky_ from '../image/Sky.png';
@@ -17,7 +21,8 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectTab:'post'
+      selectTab:'post',
+      alertContent:'Err!'
     } 
   }
 
@@ -74,6 +79,18 @@ class MainScreen extends Component {
             />
           </div>
         </div>
+        <AlertPopup
+          content={this.state.alertContent} // 에러의 값을 담아줘야해! 아마도
+        />
+        <ConfirmPopup
+          content="로그아웃 하시겠습니까?"
+          onClick={function(e){
+            this.props.onClick("")
+          }.bind(this)}
+        />
+        <ModifyPopup
+          postErrorPopup={this.showAlertPopup.bind(this)}
+        />
       </div>
     );
   }
@@ -88,19 +105,42 @@ class MainScreen extends Component {
     var tabPage;
     switch(this.state.selectTab) {
       case 'post':
-        tabPage = <PostFrame/>;
+        tabPage = 
+          <PostFrame 
+            postErrorPopup={this.showAlertPopup.bind(this)}
+            showModifyPopup={this.showModifyPopup.bind(this)}
+          />;
         break;
       case 'member':
         tabPage = <MemberFrame/>;
         break;
       case 'setting':
-        tabPage = <SettingFrame/>;
+        tabPage = 
+          <SettingFrame
+            onClick={this.showConfirmPopup.bind(this)}
+          />;
         break;
       default:
         console.log('tab select error');
         break;
     }
     return tabPage;
+  }
+
+  showAlertPopup() {
+    const alertPopup = document.querySelector('#alertPopup');
+    alertPopup.classList.remove('hide');
+  }
+
+  showConfirmPopup() {
+    const confirmPopup = document.querySelector('#confirmPopup');
+    confirmPopup.classList.remove('hide');
+  }
+
+  showModifyPopup() {
+    const modifyPopup = document.querySelector('#modifyPopup');
+    modifyPopup.classList.remove('hide');
+    modifyPopup.classList.add('idxZ2');
   }
 };
 

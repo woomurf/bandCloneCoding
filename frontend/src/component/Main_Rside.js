@@ -4,21 +4,22 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 class MainRside extends Component {
-    render() {
-      const images = this.props.pictures
+  render() {
+    const images = this.props.pictures
       return (
         <div id="rightFrame">
           <div className="pictureCollect">
             {images.map((image, index)=> {
               return(
                 <div key={index} className="pictureSort">
-                  <img alt="" className="pictureSort" src ={image} id="pictureSort"/>
+                  <img alt="" className="pictureSort" src ={image}/>
                 </div>
-              )})}
+              );
+            })}
           </div>
         </div>
       );
-    }
+  }
 };
 
 export default MainRside;

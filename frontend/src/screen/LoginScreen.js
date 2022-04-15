@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import axios from 'axios';
+import { LoginResultCode } from '../constants';
 import Banner from '../image/LoginBanner.png';
 import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox';
@@ -101,53 +103,30 @@ class LoginScreen extends Component {
     );
   }
 
-  async loginCheck(inputId, inputPw) {
-    var checkResult;
-    var failContent = 'fail';
-    var axios = require('axios');
-    var data = JSON.stringify({
-      "email": inputId,
-      "password": inputPw
-    });
-
-    var config = {
+  async loginCheck(email, password) {
+    const res = await axios({
       method: 'post',
-      url: 'https://9b7e-183-98-213-104.ngrok.io/auth/login',
+      url: '/auth/login',
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : data
-    };
- 
-    await axios(config) 
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      checkResult = 'success';
-    })
-    .catch(function (error) {
-      console.log(error);
-      checkResult = 'error';
-    });
+      data: JSON.stringify({
+        email,
+        password
+      })
+    }).then(res => res.data)
+    .catch((err) => err.response.data);
     
-    switch(checkResult) {
-      case 'success':
-        this.props.onClick("main");
-        break;
-      case 'error':
-        failContent = "아이디 또는 비밀번호가 일치하지 않습니다."
-        break;
-      default:
-        failContent = "시스템의 문제가 발생했습니다."
-        break;
+    if (res.code === LoginResultCode.SUCCESS) {
+      return this.props.onClick("main");
     }
 
-    if (checkResult !== 'success') {
-      this.setState({
-        alertPurpose:"",
-        alertContent:failContent
-      }); 
-      this.showAlertPopup();
-    }
+    const failContent = res.message;
+    this.setState({
+      alertPurpose:"",
+      alertContent: failContent
+    }); 
+    this.showAlertPopup();
   }
 
   showAlertPopup() {

@@ -1,67 +1,108 @@
 import React, {Component} from "react";
-import SeeMore from '../image/See_More.png';
 import Emogi from '../image/Emogi.png';
-import Comment from '../image/Comment.png';
+import CommentImage from '../image/Comment.png';
 import Schedule from "../component/Schedule";
-import asd from "../image/DefaultProfileImage.png";
+import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import Comment from "./Comment";
+import SeeMorePopup from "../popup/SeeMorePopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
 
-class Post extends Component {
-    render() {
-        return (
-          <div className="postBox">
-            <div className="postHeader">
-              <div className="profile">
-                <div className="profileImage">
-                  <img alt="" className="profileImage" src={this.props.profileImage||asd} id="profileImage"/>
-                </div>
-                <div className="profileMeta">
-                  <div className="userName">
-                    {this.props.userName}
-                  </div>
-                  <div className="day">
-                    {this.props.today}
-                  </div>
-                </div>
-              </div>
-              <div className="moreIcon">
-                <img alt="" className="moreIcon" src={SeeMore} id="moreIcon"/>
-              </div>
-            </div>
+class PostBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      conditionComment: false
+    };
+  }
 
-            <div className="postBody">
-              {this.props.text &&(
-                <div className="postLabel">
-                  {this.props.text}
-                </div>)
-              }
-              {this.props.scheduleDay &&(
-                <Schedule 
-                  scheduleDate={this.props.scheduleDate}
-                  scheduleDay={this.props.scheduleDay}
-                  scheduleName={this.props.scheduleName}
-                  scheduleDDay={this.props.scheduleDDay}
-                />
-                )
-              }
-              {this.props.picture &&  (
-                <div className="post_Picture">
-                  <img alt="" className="postPicture" 
-                  src={this.props.picture} id="postPicture"/>
-                </div>)
-              }
-            </div>
+  showCommentArea(){
+    this.setState({
+      conditionComment:true
+    })  
+  }
 
-            <div className="postFooter">
-              <img alt="" className="Emogi" src={Emogi} id="Emogi"/>
-              <img alt="" className="Comment" src={Comment} id="Comment"/>
+  closeCommentArea(){
+    this.setState({
+      conditionComment:false
+    })  
+  }
+
+  render() {
+    return (
+      <div className="postBox">
+
+        <div className="postHeader">
+          <div className="profile">
+            <div className="profileImage">
+              <img 
+                alt="" 
+                src={this.props.profileImage || DefaultProfileImage} 
+                className="profileImage"
+              />
             </div>
+            <div className="profileMeta">
+              <div className="userName">
+                {this.props.userName}
+              </div>
+              <div className="day">
+                {this.props.updatedAt}
+              </div>
+            </div>
+          </div>
+          <SeeMorePopup
+            showModifyPopup={this.props.showModifyPopup}
+          />
         </div>
-      );
-    }
+
+        <div className="postBody">
+          {this.props.content &&(
+            <div className="postLabel">
+              {this.props.content}
+            </div>)
+          }
+          {this.props.scheduleDay &&(
+            <Schedule 
+              scheduleDate={this.props.scheduleDate}
+              scheduleDay={this.props.scheduleDay}
+              scheduleName={this.props.scheduleName}
+              scheduleDDay={this.props.scheduleDDay}
+            />
+            )
+          }
+          {this.props.picture &&  (
+            <div className="postPicture">
+              <img alt="" className="postPicture" src={this.props.picture}/>
+            </div>)
+          }
+        </div>
+        
+        <div className="postFooter">
+          <div className="addOn">
+            <img alt="" className="Emogi" src={Emogi}/>
+            <img 
+              alt="" 
+              className="Comment" 
+              src={CommentImage}
+              onClick={
+                this.state.conditionComment === false 
+                ? this.showCommentArea.bind(this)
+                : this.closeCommentArea.bind(this)
+              }
+            />
+          </div>
+            {this.state.conditionComment && 
+              <Comment
+                userName={this.props.userName}
+                commnetUpdatedAt={this.props.commnetUpdatedAt}
+                // profileImage={Emogi}
+              />
+            }
+        </div>
+      </div>
+    );
+  }
 };
 
-
-export default Post;
+export default PostBox;
