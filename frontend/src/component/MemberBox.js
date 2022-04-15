@@ -16,7 +16,7 @@ class MemberBox extends Component {
           <button 
             className="settingButton"
             onClick={function(){
-              this.props.onClick(this.props.name, this.props.profileImage, this.props.email, this.props.birthday);
+              this.props.onProfilePopup(this.props.name, this.props.profileImage, this.props.email, this.props.birthday);
             }.bind(this)}
           >
             정보

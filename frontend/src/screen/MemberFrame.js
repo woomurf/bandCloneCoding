@@ -18,7 +18,7 @@ class MemberFrame extends Component {
       members :[{
         name:"권영준",
         email:"dudwns@gjrn.gjtkd",
-        birthday:"19961000"
+        birthday:"19960900"
       }, {
         name:"우현웅",
         email:"gusdnd@gjrn.gjtkd",
@@ -73,7 +73,7 @@ class MemberFrame extends Component {
                   email={member.email}
                   birthday={member.birthday}
                   lastIndexYn={this.state.members.length === index + 1}
-                  onClick={function(nameInfo, imageInfo, emailInfo, birthdayInfo) {
+                  onProfilePopup={function(nameInfo, imageInfo, emailInfo, birthdayInfo) {
                     this.setState({
                       memberInfo:{
                         name:nameInfo,
@@ -81,7 +81,7 @@ class MemberFrame extends Component {
                         email:emailInfo,
                         birthday:birthdayInfo
                       }
-                    }); 
+                    });
                     this.showMemberInfoPopup();
                   }.bind(this)}
                 />
