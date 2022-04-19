@@ -26,14 +26,13 @@ class Postuploadbox extends Component {
   async handleSubmit(e) {
     axios.post('/post', {
       content: this.state.value,
-      title: '없어질거임 타이틀은',
+      title: '',
       groupId: 1,
     }).then(res => {
       this.props.updatePostList();
       this.setState ({
         value:''
       })
-      console.log('post', res);
     }).catch(err => {
       this.props.postErrorPopup();
     })
@@ -51,7 +50,7 @@ class Postuploadbox extends Component {
   render() {
     return (
       <div className="postuploadbox">
-        <div className="postupload">
+        <div className="postuploadDiv">
           <textarea 
             type="text" 
             rows="4" 
