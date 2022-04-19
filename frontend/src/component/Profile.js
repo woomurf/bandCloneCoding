@@ -32,25 +32,19 @@ class Profile extends Component {
       >
         <img 
           id="memberProfileImage"
-          ref={this.setWrapperRef_1.bind(this)}
+          ref={(el) => this.wrapperRef_1 = el}
           alt="" 
           src={DefaultProfileImage} 
           onClick={this.onClickProfile.bind(this)}
         />
-        <div ref={this.setWrapperRef_2.bind(this)} className="zidx1">
+        <div 
+          ref={(el) => this.wrapperRef_2 = el} 
+          className="zidx1"
+        >
           {this.getProfileSetting()}
         </div>
       </div>
     );
-  }
-
-  /* WrapperRef 를 하나로 쓰는법을 모르겠다.. */
-  setWrapperRef_1(node) {
-    this.wrapperRef_1=node;
-  }
-
-  setWrapperRef_2(node) {
-    this.wrapperRef_2=node;
   }
 
   onClickOutside(e) {
