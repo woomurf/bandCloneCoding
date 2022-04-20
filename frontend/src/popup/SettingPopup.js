@@ -16,7 +16,7 @@ class SettingPopup extends Component {
                   selectYn={false}
                   onClick={this.props.onClickMenu.bind(this, menu)}
                 />
-                <div className={index+1!==this.props.menuList.length? "divPoint" : ""}/>
+                <div className={index+1 !== this.props.menuList.length ? "divPoint" : ""}/>
               </div>
             )
           })}

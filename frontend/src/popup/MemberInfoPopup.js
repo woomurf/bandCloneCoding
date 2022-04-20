@@ -22,9 +22,7 @@ class MemberInfoPopup extends Component {
             <Button 
               label="Close" 
               className="subButton smallButton mt8"
-              onClick={function(e){ 
-                this.closeMemberInfoPopup();
-              }.bind(this)}
+              onClick={this.closeMemberInfoPopup.bind(this)}
             />
           </div>
         </div>

@@ -35,13 +35,17 @@ class Profile extends Component {
           ref={(el) => this.wrapperRef_1 = el}
           alt="" 
           src={DefaultProfileImage} 
-          onClick={this.onClickProfile.bind(this)}
+          onClick={this.profileSettingEvent.bind(this, "profile")}
         />
         <div 
           ref={(el) => this.wrapperRef_2 = el} 
           className="zidx1"
         >
-          {this.getProfileSetting()}
+          {this.state.profileSetting && 
+          <SettingPopup
+            menuList={this.state.menuList}
+            onClickMenu={this.onClickMenu.bind(this)}
+          />}
         </div>
       </div>
     );
@@ -50,37 +54,20 @@ class Profile extends Component {
   onClickOutside(e) {
     if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
       && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
-      this.onBlurProfile();
+      this.profileSettingEvent("outside");
     }
   }
 
-  onClickProfile() {
+  profileSettingEvent(focusCursor) {
     this.setState({
-      profileSetting:!this.state.profileSetting
+      profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
     });
-  }
-
-  onBlurProfile() {
-    this.setState({
-      profileSetting:false
-    });
-  }
-  
-  getProfileSetting() {
-    if (this.state.profileSetting) {
-      return <SettingPopup
-        menuList={this.state.menuList}
-        onClickMenu={this.onClickMenu.bind(this)}
-      />
-    } else {
-      return null;
-    }
   }
 
   onClickMenu(menuName) {
     switch(menuName) {
       case '내 정보':
-        this.props.onClickProfileInfo();
+        this.props.onClickProfileInfo("profile");
         break;
       case '내가 쓴글':
         alert(menuName + "은 게시글 검색 API 구현 시 재작업");

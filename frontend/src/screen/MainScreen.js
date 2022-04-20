@@ -76,7 +76,7 @@ class MainScreen extends Component {
               email={this.state.profileInfo.email}
               birthday={this.state.profileInfo.birthday}
               onClickLogout={this.showConfirmPopup.bind(this)}
-              onClickProfileInfo={this.showProfileInfoPopup.bind(this)}
+              onClickProfileInfo={this.showUserInfoPopup.bind(this)}
             />
           </div>
           <div id="pageTopBar">
@@ -163,7 +163,7 @@ class MainScreen extends Component {
       case 'member':
         tabPage = 
           <MemberFrame
-            onClickMemberInfo={this.showMemberInfoPopup.bind(this)}
+            onClickUserInfo={this.showUserInfoPopup.bind(this)}
           />;
         break;
       case 'setting':
@@ -195,29 +195,16 @@ class MainScreen extends Component {
     modifyPopup.classList.add('idxZ2');
   }
 
-  showMemberInfoPopup(nameInfo,imageInfo,emailInfo,birthdayInfo) {
-    console.log(nameInfo);
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
     this.setState({
       memberInfo:{
-        name:nameInfo,
-        image:imageInfo,
-        email:emailInfo,
-        birthday:birthdayInfo
+        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
+        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
+        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
+        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
       }
     });
-    const memberInfoPopup = document.querySelector('#memberInfoPopup');
-    memberInfoPopup.classList.remove('hide');
-  }
 
-  showProfileInfoPopup() {
-    this.setState({
-      memberInfo:{
-        name:this.state.profileInfo.name,
-        image:this.state.profileInfo.image,
-        email:this.state.profileInfo.email,
-        birthday:this.state.profileInfo.birthday
-      }
-    });
     const memberInfoPopup = document.querySelector('#memberInfoPopup');
     memberInfoPopup.classList.remove('hide');
   }

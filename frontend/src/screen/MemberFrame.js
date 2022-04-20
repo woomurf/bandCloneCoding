@@ -72,7 +72,7 @@ class MemberFrame extends Component {
                   email={member.email}
                   birthday={member.birthday}
                   lastIndexYn={this.state.members.length === index + 1}
-                  onProfilePopup={this.props.onClickMemberInfo.bind(this)}
+                  onClickProfileInfo={this.props.onClickUserInfo.bind(this)}
                 />
               )
             })}
