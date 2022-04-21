@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios";
 import SeeMore from '../image/See_More.png';
 import '../scss/common.scss';
 import '../scss/component.scss';
@@ -30,11 +31,11 @@ class SeeMorePopup extends Component {
   onClickOutside(e) {
     if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
       && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
-      this.onBlurSeeMorePopup();
+      this.closeSeeMorePopup();
     }
   }
 
-  onBlurSeeMorePopup() {
+  closeSeeMorePopup() {
     this.setState({
       conditionSeemore:false
     });
@@ -43,6 +44,19 @@ class SeeMorePopup extends Component {
   showSeeMorePopup() {
     this.setState({
       conditionSeemore:true
+    })
+  }
+
+  async deletePost() {
+    axios.delete(`/post/${this.props.postId}`) 
+
+    .then(res => {
+      // do you want delete? => *TODO* confirmPopup create
+      this.props.updatePostList();
+      this.closeSeeMorePopup();
+    })
+    .catch(err => {
+      this.props.postErrorPopup();
     })
   }
 
@@ -68,11 +82,10 @@ class SeeMorePopup extends Component {
                 onClick={this.props.showModifyPopup}
               >
                 수정
-                {/* <button                 
-                onClick={this.props.showModifyPopup}>
-                tnwjd</button> */}
               </li>
-              <li className="moreContent">
+              <li className="moreContent"
+                onClick={this.deletePost.bind(this)}
+              >
                 삭제
               </li>
             </div>
