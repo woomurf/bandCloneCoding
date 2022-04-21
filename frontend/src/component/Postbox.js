@@ -8,6 +8,7 @@ import SeeMorePopup from "../popup/SeeMorePopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
+import ModifyPopup from "../popup/ModifyPopup";
 
 class PostBox extends Component {
   constructor(props) {
@@ -53,8 +54,15 @@ class PostBox extends Component {
           </div>
           <SeeMorePopup
             showModifyPopup={this.props.showModifyPopup}
+            postErrorPopup={this.props.postErrorPopup}
+            updatePostList={this.props.updatePostList}
+            postId={this.props.postId}
           />
         </div>
+        <ModifyPopup 
+          content={this.props.content}
+          updatePostList={this.props.updatePostList}
+        />
 
         <div className="postBody">
           {this.props.content &&(
@@ -96,7 +104,6 @@ class PostBox extends Component {
               <Comment
                 userName={this.props.userName}
                 commnetUpdatedAt={this.props.commnetUpdatedAt}
-                // profileImage={Emogi}
               />
             }
         </div>
