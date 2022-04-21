@@ -10,10 +10,10 @@ class Comment extends Component {
     super(props);
     this.state = {
       comments :[ {
-        commnetUpdatedAt: "04월 23일",
+        commnetUpdatedAt: "2022년 02월 22일 10:22",
         comment:"히히몰루"
       }, {
-        commnetUpdatedAt: "04월 29일",
+        commnetUpdatedAt: "2022년 02월 22일 10:22",
         comment:"히히히히 몰루우짤몰루"
       } ]
     }
