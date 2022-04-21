@@ -215,12 +215,9 @@ Fonts
   display: flex;
 }
 
-#seeMorePopup.hide {
-  display: none;
-}
-
 #seeMorePopup .content {
   display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: center;
   background-color: $gray-white;
@@ -264,6 +261,7 @@ Fonts
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
+  z-index: 2;
 }
 
 #modifyPopup.hide {
@@ -281,7 +279,6 @@ Fonts
   border-radius: 3px;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
-  z-index: 1;
 }
 
 .modifyCancel{
@@ -289,6 +286,7 @@ Fonts
   margin-top: 5px;
   margin-right: 5px
 }
+
 .modifyCancelBtn{
   @include body-p12;
   border: 0;
@@ -307,6 +305,7 @@ Fonts
 .modifyCancelBtn:active{
   box-shadow: 0 0px 0px 0 rgba(0,0,0,0.24)
 }
+
 .modifyPostuploadbox{
   display: flex;
   width: 540px;
