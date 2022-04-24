@@ -3,12 +3,13 @@ import TextButton from '../component/TextButton';
 import PostFrame from "./PostFrame";
 import MemberFrame from "./MemberFrame";
 import SettingFrame from "./SettingFrame";
+import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
+import MemberInfoPopup from "../popup/MemberInfoPopup";
 import '../scss/page.scss';
-
 
 //DB 연결전 사진파일 임시방편
 import Sky_ from '../image/Sky.png';
@@ -19,16 +20,64 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
+      profileInfo:{
+        name:"퉤스트",
+        image:"",
+        email:"test@test.te.st",
+        birthday:"19000101"
+      },
+      memberInfo:{
+        name:"nameInfo",
+        image:"imageInfo",
+        email:"emailInfo",
+        birthday:"birthdayInfo"
+      },
       selectTab:'post',
       alertContent:'Err!'
     } 
+  }
+
+  componentDidMount() {
+    // 쿠키에서 데이터를 받아올 API가 필요함
+    this.setState({
+      profileInfo:{
+        name:"정의창",
+        image:"",
+        email:"zvzvz@zvzv.zv",
+        birthday:"19961213"
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    // 로그아웃 시 프로필 정보 초기화
+    this.setState({
+      profileInfo:{
+        name:"",
+        image:"",
+        email:"",
+        birthday:""
+      }
+    });
   }
 
   render() {
     return (
       <div>
         <div id="pageHeader">
-          {/* 프로필 및 설정 있는 부분 */}
+          <div id="pageTopMenu">
+            <div id="postSearch">
+              {/*할까?*/}
+            </div>
+            <Profile
+              name={this.state.profileInfo.name}
+              profileImage={this.state.profileInfo.profileImage}
+              email={this.state.profileInfo.email}
+              birthday={this.state.profileInfo.birthday}
+              onClickLogout={this.showConfirmPopup.bind(this)}
+              onClickProfileInfo={this.showUserInfoPopup.bind(this)}
+            />
+          </div>
           <div id="pageTopBar">
             <div id="menuTab" className="mt4">
               <TextButton
@@ -81,6 +130,13 @@ class MainScreen extends Component {
             this.props.onClick("")
           }.bind(this)}
         />
+        
+        <MemberInfoPopup
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birthday={this.state.memberInfo.birthday}
+        />
       </div>
     );
   }
@@ -101,7 +157,10 @@ class MainScreen extends Component {
           />;
         break;
       case 'member':
-        tabPage = <MemberFrame/>;
+        tabPage = 
+          <MemberFrame
+            onClickUserInfo={this.showUserInfoPopup.bind(this)}
+          />;
         break;
       case 'setting':
         tabPage = 
@@ -124,6 +183,20 @@ class MainScreen extends Component {
   showConfirmPopup() {
     const confirmPopup = document.querySelector('#confirmPopup');
     confirmPopup.classList.remove('hide');
+  }
+
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
+    this.setState({
+      memberInfo:{
+        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
+        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
+        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
+        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
+      }
+    });
+
+    const memberInfoPopup = document.querySelector('#memberInfoPopup');
+    memberInfoPopup.classList.remove('hide');
   }
 };
 

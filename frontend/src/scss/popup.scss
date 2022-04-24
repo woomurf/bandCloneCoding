@@ -299,3 +299,95 @@ Fonts
   flex-direction: column;
   justify-content: space-between;
 }
+
+#memberInfoPopup {
+  position: absolute;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#memberInfoPopup.hide {
+  display: none;
+}
+
+#memberInfoPopup .content {
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-1;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+  z-index: 1;
+}
+
+#memberInfoPopup .profileInfo {
+  width: auto;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  @include body-p14;
+}
+
+#memberInfoPopup .text {
+  padding-top: 10px;
+}
+
+#memberInfoPopup .btn {
+  padding-bottom: 50px;
+}
+
+#memberInfoPopup .infoProfileImage {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
+}
+
+.divPoint {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  margin: 10px 0px;
+  background-color: $gray-2;
+  z-index: 1;
+}
+
+#settingPopup {
+  float: right;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#settingPopup .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $gray-white;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px $transparent-black;
+  @include body-p14;
+}
+
+#settingPopup .text {
+  @include body-p14;
+}
