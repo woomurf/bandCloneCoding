@@ -264,23 +264,6 @@ Fonts
   z-index: 2;
 }
 
-#modifyPopup.hide {
-  display: none;
-}
-
-#modifyPopup .content {
-  width: 420px;
-  height: 270px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $primary-1;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px $transparent-black;
-  @include body-p14;
-}
-
 .modifyCancel{
   text-align: right;
   margin-top: 5px;
@@ -297,7 +280,6 @@ Fonts
 
 .modifyCancelBtn:hover {
   background-color: $gray-2;
-  // color: white;
   opacity: 1;
   box-shadow: 0 2px 0px 0 rgba(0,0,0,0.24)
 }

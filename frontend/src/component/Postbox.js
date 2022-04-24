@@ -14,8 +14,21 @@ class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      conditionComment: false
+      conditionComment: false,
+      conditionModifyPopup : false
     };
+  }
+
+  showModifyPopup() {
+    this.setState({
+      conditionModifyPopup:true
+    })
+  }
+
+  closeModifyPopup() {
+    this.setState({
+      conditionModifyPopup:false
+    });
   }
 
   showCommentArea(){
@@ -53,16 +66,22 @@ class PostBox extends Component {
             </div>
           </div>
           <SeeMorePopup
-            showModifyPopup={this.props.showModifyPopup}
+            showModifyPopup={this.showModifyPopup.bind(this)}
             postErrorPopup={this.props.postErrorPopup}
             updatePostList={this.props.updatePostList}
             postId={this.props.postId}
           />
         </div>
-        <ModifyPopup 
-          content={this.props.content}
-          updatePostList={this.props.updatePostList}
-        />
+        
+        {this.state.conditionModifyPopup &&
+          <ModifyPopup 
+            content={this.props.content}
+            postId={this.props.postId}
+            updatePostList={this.props.updatePostList}
+            postErrorPopup={this.props.postErrorPopup}
+            closeModifyPopup={this.closeModifyPopup.bind(this)}
+          />
+         }
 
         <div className="postBody">
           {this.props.content &&(

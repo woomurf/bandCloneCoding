@@ -53,12 +53,6 @@ class PostFrame extends Component {
     }
   }
 
-  showModifyPopup() {
-    const modifyPopup = document.querySelector('#modifyPopup');
-    modifyPopup.classList.remove('hide');
-  }
-
-  
   render() {
     return (
       <div>
@@ -82,7 +76,6 @@ class PostFrame extends Component {
               scheduleDay={post.scheduleDay}
               scheduleDDay={post.scheduleDDay}
               scheduleName={post.scheduleName}
-              showModifyPopup={this.showModifyPopup}
               postErrorPopup={this.props.postErrorPopup}
               updatePostList={this.updatePostList.bind(this)}
             />
