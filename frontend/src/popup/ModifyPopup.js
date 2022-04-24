@@ -12,7 +12,7 @@ class ModifyPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: this.props.content
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,33 +23,6 @@ class ModifyPopup extends Component {
     this.setState({value: e.target.value});
   }
 
-  async handleSubmit(e) {
-    axios.post('/post', {
-      content: this.state.value,
-      title: '없어질거임 타이틀은',
-      groupId: 1,
-    }).then(res => {
-      this.props.updatePostList();
-      this.setState ({
-        value:''
-      })
-      console.log('post', res);
-    }).catch(err => {
-      this.props.postErrorPopup();
-    })
-    e.preventDefault();
-  }
-
-  closeModifyPopup() {
-    const modifyPopup = document.querySelector('#modifyPopup');
-    modifyPopup.classList.add('hide');
-    modifyPopup.classList.remove('idxZ2');
-  }
-
-  onConfirmCallback() {
-    console.log(this);
-  }  
-  
   textRef = React.createRef();
 
   textResize = () =>{
@@ -58,13 +31,24 @@ class ModifyPopup extends Component {
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
 
+  async handleSubmit() {
+    axios.put(`/post/${this.props.postId}`, {
+      content: this.state.value,
+    }).then(res => {
+      this.props.updatePostList(); 
+      this.props.showHideModifyPopup();
+    }).catch(err => {
+      this.props.postErrorPopup();
+    })
+  }
+
   render() {
     return (
-      <div id="modifyPopup" className="hide"> 
+      <div id="modifyPopup"> 
         <div className="modifyPostuploadbox">
           <div className="modifyCancel">
             <button alt="" className="modifyCancelBtn"
-              onClick={this.closeModifyPopup.bind(this)}>
+              onClick={this.props.showHideModifyPopup}>
               수정취소
             </button>
           </div>
@@ -85,8 +69,9 @@ class ModifyPopup extends Component {
               <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
             </div>
             <div>
-              <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton" 
-                onClick={this.handleSubmit}/>
+              <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton"
+                onClick={this.handleSubmit}
+                />
             </div>
           </div>
         </div>

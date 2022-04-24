@@ -138,9 +138,12 @@ Fonts
   outline:none;
   border: $gray-white;
   margin: 6px;
-  width: 510px;
+  margin-top: 15px;
+  margin-left:10px;
+  width: 515px;
   resize: none;
   overflow: hidden;
+  @include body-p14;
 }
 
 #pictureImage{

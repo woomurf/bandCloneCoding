@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import PostBox from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
-import Pic from '../image/Pic.png';
 import '../scss/component.scss';
 import '../scss/page.scss';
 import moment from "moment"
@@ -12,37 +11,7 @@ class PostFrame extends Component {
   constructor(props){
     super(props);
     this.state = {
-      posts :[ {
-        user:{name:"sampleName"},
-        content:"일정입니다",
-        updatedAt:"2022년 02월 22일 10:22",
-        scheduleDate:"22",
-        scheduleDay:"화요일",
-        scheduleDDay:"2022년 04월 22일",
-        scheduleName:"일정이라구요"
-      },{
-        user:{name:"니니니"},
-        profileImage:Pic,
-        updatedAt:"2022년 02월 22일 10:22",
-        content:"일정입니다",
-      },{
-        user:{name:"나나나"},
-        profileImage:Pic,
-        updatedAt:"2022년 02월 22일 10:22",
-        content:"일정입니다",
-        picture:Pic
-      },{
-        user:{name:"노노노"},
-        profileImage:Pic,
-        updatedAt:"2022년 02월 22일 10:22",
-        content:"일정입니다",
-      },{
-        user:{name:"sampleName"},
-        profileImage:Pic,
-        updatedAt:"2022년 02월 22일 10:22",
-        content:"일정입니다",
-      }
-      ]
+      posts :[]
     }
   }
 
@@ -74,18 +43,16 @@ class PostFrame extends Component {
     })
   }
 
-  // async componentDidMount(){
-  //   this.updatePostList();
-  // }
-
-  // 더보기팝업 임시조치
+  async componentDidMount(){
+    this.updatePostList();
+  }
 
   componentDidUpdate(prevprops, prevState) {
     if(prevState.posts !== this.state.posts){
       this.getPostUpdatedAt();
     }
   }
-  
+
   render() {
     return (
       <div>
@@ -101,6 +68,7 @@ class PostFrame extends Component {
             return(
               <PostBox
               key={index}
+              postId={post.id}
               userName={post.user.name}
               updatedAt={post.updatedAt}
               profileImage={post.profileImage}
@@ -110,7 +78,8 @@ class PostFrame extends Component {
               scheduleDay={post.scheduleDay}
               scheduleDDay={post.scheduleDDay}
               scheduleName={post.scheduleName}
-              showModifyPopup={this.props.showModifyPopup}
+              postErrorPopup={this.props.postErrorPopup}
+              updatePostList={this.updatePostList.bind(this)}
             />
             )})}
         </div>

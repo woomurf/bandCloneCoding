@@ -8,25 +8,27 @@ import SeeMorePopup from "../popup/SeeMorePopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
+import ModifyPopup from "../popup/ModifyPopup";
 
 class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      conditionComment: false
+      conditionComment: false,
+      conditionModifyPopup : false
     };
   }
 
-  showCommentArea(){
+  showHideModifyPopup(){
     this.setState({
-      conditionComment:true
-    })  
+      conditionModifyPopup: !this.state.conditionModifyPopup
+    });
   }
 
-  closeCommentArea(){
+  showHideCommentArea(){
     this.setState({
-      conditionComment:false
-    })  
+      conditionComment: !this.state.conditionComment
+    });
   }
 
   render() {
@@ -52,9 +54,22 @@ class PostBox extends Component {
             </div>
           </div>
           <SeeMorePopup
-            showModifyPopup={this.props.showModifyPopup}
+            showModifyPopup={this.showHideModifyPopup.bind(this)}
+            postErrorPopup={this.props.postErrorPopup}
+            updatePostList={this.props.updatePostList}
+            postId={this.props.postId}
           />
         </div>
+        
+        {this.state.conditionModifyPopup &&
+          <ModifyPopup 
+            content={this.props.content}
+            postId={this.props.postId}
+            updatePostList={this.props.updatePostList}
+            postErrorPopup={this.props.postErrorPopup}
+            showHideModifyPopup={this.showHideModifyPopup.bind(this)}
+          />
+         }
 
         <div className="postBody">
           {this.props.content &&(
@@ -86,9 +101,7 @@ class PostBox extends Component {
               className="Comment" 
               src={CommentImage}
               onClick={
-                this.state.conditionComment === false 
-                ? this.showCommentArea.bind(this)
-                : this.closeCommentArea.bind(this)
+                this.showHideCommentArea.bind(this)
               }
             />
           </div>
@@ -96,7 +109,6 @@ class PostBox extends Component {
               <Comment
                 userName={this.props.userName}
                 commnetUpdatedAt={this.props.commnetUpdatedAt}
-                // profileImage={Emogi}
               />
             }
         </div>
