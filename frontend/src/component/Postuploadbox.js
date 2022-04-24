@@ -26,7 +26,6 @@ class Postuploadbox extends Component {
   async handleSubmit(e) {
     axios.post('/post', {
       content: this.state.value,
-      title: '',
       groupId: 1,
     }).then(res => {
       this.props.updatePostList();

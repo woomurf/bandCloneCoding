@@ -19,28 +19,16 @@ class PostBox extends Component {
     };
   }
 
-  showModifyPopup() {
+  showHideModifyPopup(){
     this.setState({
-      conditionModifyPopup:true
-    })
-  }
-
-  closeModifyPopup() {
-    this.setState({
-      conditionModifyPopup:false
+      conditionModifyPopup: !this.state.conditionModifyPopup
     });
   }
 
-  showCommentArea(){
+  showHideCommentArea(){
     this.setState({
-      conditionComment:true
-    })  
-  }
-
-  closeCommentArea(){
-    this.setState({
-      conditionComment:false
-    })  
+      conditionComment: !this.state.conditionComment
+    });
   }
 
   render() {
@@ -66,7 +54,7 @@ class PostBox extends Component {
             </div>
           </div>
           <SeeMorePopup
-            showModifyPopup={this.showModifyPopup.bind(this)}
+            showModifyPopup={this.showHideModifyPopup.bind(this)}
             postErrorPopup={this.props.postErrorPopup}
             updatePostList={this.props.updatePostList}
             postId={this.props.postId}
@@ -79,7 +67,7 @@ class PostBox extends Component {
             postId={this.props.postId}
             updatePostList={this.props.updatePostList}
             postErrorPopup={this.props.postErrorPopup}
-            closeModifyPopup={this.closeModifyPopup.bind(this)}
+            showHideModifyPopup={this.showHideModifyPopup.bind(this)}
           />
          }
 
@@ -113,9 +101,7 @@ class PostBox extends Component {
               className="Comment" 
               src={CommentImage}
               onClick={
-                this.state.conditionComment === false 
-                ? this.showCommentArea.bind(this)
-                : this.closeCommentArea.bind(this)
+                this.showHideCommentArea.bind(this)
               }
             />
           </div>

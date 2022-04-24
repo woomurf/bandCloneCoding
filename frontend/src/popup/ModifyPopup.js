@@ -36,7 +36,7 @@ class ModifyPopup extends Component {
       content: this.state.value,
     }).then(res => {
       this.props.updatePostList(); 
-      this.props.closeModifyPopup();
+      this.props.showHideModifyPopup();
     }).catch(err => {
       this.props.postErrorPopup();
     })
@@ -48,7 +48,7 @@ class ModifyPopup extends Component {
         <div className="modifyPostuploadbox">
           <div className="modifyCancel">
             <button alt="" className="modifyCancelBtn"
-              onClick={this.props.closeModifyPopup}>
+              onClick={this.props.showHideModifyPopup}>
               수정취소
             </button>
           </div>
