@@ -90,7 +90,9 @@ class PostFrame extends Component {
     return (
       <div>
         <div id="centerFrame" className="centerFrame">
-          <SearchBox/>
+          <SearchBox
+            label="글 내용, #태그, @작성자 검색"
+          />
           <Postuploadbox 
             updatePostList={this.updatePostList.bind(this)} 
             postErrorPopup={this.props.postErrorPopup.bind(this)}
