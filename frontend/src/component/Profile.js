@@ -4,12 +4,26 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss';
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import MemberInfoPopup from "../popup/MemberInfoPopup"
 
 class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
       profileSetting: false,
+      profileInfomation: false,
+      memberInfo :{
+        name:"",
+        image:"",
+        email:"",
+        birthday:""
+      },      
+      profileInfo:{
+        name:"퉤스트",
+        image:"",
+        email:"test@test.te.st",
+        birthday:"19000101"
+      },
       menuList:[
         "내 정보", "내가 쓴글", "로그아웃"
       ]
@@ -47,6 +61,14 @@ class Profile extends Component {
             onClickMenu={this.onClickMenu.bind(this)}
           />}
         </div>
+        {this.state.profileInfomation &&
+          <MemberInfoPopup            
+            name={this.state.memberInfo.name}
+            image={this.state.memberInfo.image}
+            email={this.state.memberInfo.email}
+            birthday={this.state.memberInfo.birthday}
+          />
+        }
       </div>
     );
   }
@@ -64,10 +86,24 @@ class Profile extends Component {
     });
   }
 
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
+    this.setState({
+      memberInfo:{
+        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
+        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
+        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
+        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
+      },
+      profileInfomation: !this.state.profileInfomation
+    }
+    );
+  }
+
   onClickMenu(menuName) {
     switch(menuName) {
       case '내 정보':
-        this.props.onClickProfileInfo("profile");
+        this.showUserInfoPopup();
+        this.setState({profileSetting:false})
         break;
       case '내가 쓴글':
         alert(menuName + "은 게시글 검색 API 구현 시 재작업");

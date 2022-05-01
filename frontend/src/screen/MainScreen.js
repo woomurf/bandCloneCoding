@@ -8,7 +8,6 @@ import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
-import MemberInfoPopup from "../popup/MemberInfoPopup";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -37,30 +36,6 @@ class MainScreen extends Component {
     } 
   }
 
-  componentDidMount() {
-    // 쿠키에서 데이터를 받아올 API가 필요함
-    this.setState({
-      profileInfo:{
-        name:"정의창",
-        image:"",
-        email:"zvzvz@zvzv.zv",
-        birthday:"19961213"
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    // 로그아웃 시 프로필 정보 초기화
-    this.setState({
-      profileInfo:{
-        name:"",
-        image:"",
-        email:"",
-        birthday:""
-      }
-    });
-  }
-
   render() {
     return (
       <div>
@@ -75,7 +50,6 @@ class MainScreen extends Component {
               email={this.state.profileInfo.email}
               birthday={this.state.profileInfo.birthday}
               onClickLogout={this.showConfirmPopup.bind(this)}
-              onClickProfileInfo={this.showUserInfoPopup.bind(this)}
             />
           </div>
           <div id="pageTopBar">
@@ -111,7 +85,7 @@ class MainScreen extends Component {
               selectYn={this.state.selectTab === "setting"}
               bandImage={Sky_}
               bandName={"우리의밴드이름은?"}
-              memberCount={"멤버 32"}
+              memberCount={"멤버 3"}
               bandIntroduce={"몰?루"}
             />
             {this.getSelectTab()}
@@ -129,13 +103,6 @@ class MainScreen extends Component {
           onClick={function(e){
             this.props.onClick("")
           }.bind(this)}
-        />
-        
-        <MemberInfoPopup
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birthday={this.state.memberInfo.birthday}
         />
       </div>
     );
@@ -158,9 +125,7 @@ class MainScreen extends Component {
         break;
       case 'member':
         tabPage = 
-          <MemberFrame
-            onClickUserInfo={this.showUserInfoPopup.bind(this)}
-          />;
+          <MemberFrame/>;
         break;
       case 'setting':
         tabPage = 
@@ -183,20 +148,6 @@ class MainScreen extends Component {
   showConfirmPopup() {
     const confirmPopup = document.querySelector('#confirmPopup');
     confirmPopup.classList.remove('hide');
-  }
-
-  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
-    this.setState({
-      memberInfo:{
-        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
-        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
-        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
-      }
-    });
-
-    const memberInfoPopup = document.querySelector('#memberInfoPopup');
-    memberInfoPopup.classList.remove('hide');
   }
 };
 

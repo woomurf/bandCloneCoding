@@ -3,16 +3,24 @@ import SearchBox from "../component/SearchBox";
 import MemberBox from "../component/MemberBox";
 import '../scss/page.scss';
 import axios from "axios";
+import MemberInfoPopup from "../popup/MemberInfoPopup"
 
 class MemberFrame extends Component {
   constructor(props){
     super(props);
     this.state = {
+      conditionMemberInfoPopup : false,
       memberInfo :{
         name:"",
         image:"",
         email:"",
         birthday:""
+      },
+      profileInfo:{
+        name:"퉤스트",
+        image:"",
+        email:"test@test.te.st",
+        birthday:"19000101"
       },
       members :[{
         name:"권영준",
@@ -42,12 +50,45 @@ class MemberFrame extends Component {
     }
   }
 
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
+    this.setState({
+      memberInfo:{
+        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
+        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
+        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
+        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
+      },
+      conditionMemberInfoPopup: !this.state.conditionMemberInfoPopup
+    });
+  }
+
+  componentWillUnmount() {
+    // 로그아웃 시 프로필 정보 초기화
+    this.setState({
+      profileInfo:{
+        name:"",
+        image:"",
+        email:"",
+        birthday:""
+      }
+    });
+  }
+
   async componentDidMount(){
-    await axios.get('/member/list')
+    await axios.get('/user/list')
     .then(function(res){
       console.log(res.data[0]);
       this.setState({member:res.data});
     }.bind(this));
+
+    this.setState({
+      profileInfo:{
+        name:"정의창",
+        image:"",
+        email:"zvzvz@zvzv.zv",
+        birthday:"19961213"
+      }
+    });
   }
 
   render() {
@@ -72,10 +113,18 @@ class MemberFrame extends Component {
                   email={member.email}
                   birthday={member.birthday}
                   lastIndexYn={this.state.members.length === index + 1}
-                  onClickProfileInfo={this.props.onClickUserInfo.bind(this)}
+                  onClickProfileInfo={this.showUserInfoPopup.bind(this)}
                 />
               )
             })}
+            {this.state.conditionMemberInfoPopup &&
+          <MemberInfoPopup
+            name={this.state.memberInfo.name}
+            image={this.state.memberInfo.image}
+            email={this.state.memberInfo.email}
+            birthday={this.state.memberInfo.birthday}
+          />
+            }
           </div>
         </div>
       </div>

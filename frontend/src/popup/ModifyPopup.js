@@ -1,83 +1,89 @@
-import React, {Component} from "react";
+import React ,{useState,useRef}from "react";
+import Modal from "react-modal";
 import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
 import axios from "axios";
-import '../scss/common.scss';
 import '../scss/popup.scss';
-import '../scss/page.scss';
-import '../scss/component.scss';
 
-class ModifyPopup extends Component {
+const ModifyPopup = (props) => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props.content
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  const [modal, setModal] = useState(true); // 모달창
+  const [value,setTextValue] = useState(props.content);
+  const handleChange = (e) => {
+    setTextValue(e.target.value)
   }
 
-  
-  handleChange(e) {
-    this.setState({value: e.target.value});
-  }
+  const modalOff = () => {
+    setModal(false);
+  };  
 
-  textRef = React.createRef();
+  const textRef = useRef("");
 
-  textResize = () =>{
-    const textAreaBox = this.textRef.current;
+  const textResize = () => {
+    const textAreaBox = textRef.current;
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
 
-  async handleSubmit() {
-    axios.put(`/post/${this.props.postId}`, {
-      content: this.state.value,
+  const handleSubmit = () => {
+    axios.put(`/post/${props.postId}`, {
+      content: value,
     }).then(res => {
-      this.props.updatePostList(); 
-      this.props.showHideModifyPopup();
+      props.updatePostList(); 
+      props.showHideModifyPopup();
     }).catch(err => {
-      this.props.postErrorPopup();
+      props.postErrorPopup();
     })
   }
 
-  render() {
-    return (
-      <div id="modifyPopup"> 
-        <div className="modifyPostuploadbox">
-          <div className="modifyCancel">
-            <button alt="" className="modifyCancelBtn"
-              onClick={this.props.showHideModifyPopup}>
-              수정취소
-            </button>
-          </div>
-          <div className="postupload">
-            <textarea 
-              type="text" 
-              className="postupload"
-              ref={this.textRef}
-              onKeyUp={this.textResize}
-              onKeyDown={this.textResize}
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <div className="pictureImage">
-            <div>
-              <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
+  return (
+    <>
+      <Modal className="modal"
+        isOpen={modal}
+        ariaHideApp={false}
+        onRequestClose={modalOff}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(15, 15, 15, 0.79)",
+          },
+        }}
+      >
+        <div id="modifyPopup"> 
+          <div className="modifyPostuploadbox">
+            <div className="modifyCancel">
+              <button alt="" className="modifyCancelBtn"
+                onClick={props.showHideModifyPopup}
+                >
+                수정취소
+              </button>
             </div>
-            <div>
-              <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton"
-                onClick={this.handleSubmit}
-                />
+            <div className="postupload">
+              <textarea 
+                type="text" 
+                className="postupload"
+                ref={textRef}
+                onKeyUp={textResize}
+                onKeyDown={textResize}
+                value={value}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="pictureImage">
+              <div>
+                <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
+              </div>
+              <div>
+                <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton"
+                  onClick={handleSubmit}
+                  />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      </Modal>
+    </>
+  );
 };
 
 export default ModifyPopup;
