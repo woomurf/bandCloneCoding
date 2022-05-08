@@ -49,7 +49,7 @@ const verifyPassword = async (password, salt, hash) => {
 }
 
 router.post('/register', registerValidator, async (req, res) => {
-  const { name, email, password, birth } = req.body;
+  const { name, email, password, birth, profileImageUrl } = req.body;
 
   // TODO(hyeonwoong): check name, email, password rule.
   try {
@@ -60,6 +60,7 @@ router.post('/register', registerValidator, async (req, res) => {
       password: hash,
       salt,
       birth: new Date(birth),
+      profileImageUrl,
     });
 
     return res.json({
