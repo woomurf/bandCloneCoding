@@ -122,4 +122,18 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/logout', async (req, res) => {
+  const accessToken = req.cookies['accessToken'];
+  if (!accessToken) {
+    return res.status(400).json({
+      message: 'User already was logout.'
+    });
+  }
+
+  res.cookie('accessToken', null, { httpOnly: true });
+  return res.status(201).json({
+    message: 'Success logout'
+  });
+});
+
 module.exports = router;
