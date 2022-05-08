@@ -8,6 +8,7 @@ const userRouter = require('./routes/user');
 const groupRouter = require('./routes/group');
 const postRouter = require('./routes/post');
 const authRouter = require('./routes/auth');
+const commentRouter = require('./routes/comment');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -32,6 +33,7 @@ app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/group', groupRouter);
 app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 
 app.get('/health', (req, res) => {
   res.json('HEALTHY');
