@@ -242,7 +242,6 @@ router.post('/:id/unlike', authValidator, async (req, res) => {
 });
 
 router.get('/:id/comments', authValidator, async (req, res) => {
-  console.log('hi');
   const user = res.locals.user;
   const { id } = req.params;
   try {
@@ -265,12 +264,13 @@ router.get('/:id/comments', authValidator, async (req, res) => {
       }
     });
 
-    console.log(commentsWithAuthor);
-
     res.json({ comments: commentsWithAuthor });
     
   } catch (error) {
-    console.error(error);
+    console.error(`Failed to get comments(postId: ${id})`);
+    res.status(500).json({
+      message: `Failed to get comments(postId: ${id})`
+    });
   }
 })
 
