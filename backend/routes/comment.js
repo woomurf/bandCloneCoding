@@ -41,7 +41,9 @@ router.put('/:id', authValidator, async (req, res) => {
       });
     }
 
-    res.json(comments[0]);
+    res.json({
+      message: 'OK'
+    });
   } catch (error) {
     console.error(`[comment] Failed to update comment(post:${postId}) - ${error}`);
     res.status(500).json({
