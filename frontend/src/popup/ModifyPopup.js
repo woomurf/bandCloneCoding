@@ -3,19 +3,13 @@ import Modal from "react-modal";
 import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
 import axios from "axios";
-import '../scss/popup.scss';
 
 const ModifyPopup = (props) => {
 
-  const [modal, setModal] = useState(true); // 모달창
   const [value,setTextValue] = useState(props.content);
   const handleChange = (e) => {
     setTextValue(e.target.value)
   }
-
-  const modalOff = () => {
-    setModal(false);
-  };  
 
   const textRef = useRef("");
 
@@ -30,7 +24,7 @@ const ModifyPopup = (props) => {
       content: value,
     }).then(res => {
       props.updatePostList(); 
-      props.showHideModifyPopup();
+      props.modifyPopupOnOff();
     }).catch(err => {
       props.postErrorPopup();
     })
@@ -39,9 +33,8 @@ const ModifyPopup = (props) => {
   return (
     <>
       <Modal className="modal"
-        isOpen={modal}
+        isOpen={true}
         ariaHideApp={false}
-        onRequestClose={modalOff}
         style={{
           overlay: {
             backgroundColor: "rgba(15, 15, 15, 0.79)",
@@ -52,7 +45,7 @@ const ModifyPopup = (props) => {
           <div className="modifyPostuploadbox">
             <div className="modifyCancel">
               <button alt="" className="modifyCancelBtn"
-                onClick={props.showHideModifyPopup}
+                onClick={props.modifyPopupOnOff}
                 >
                 수정취소
               </button>

@@ -6,8 +6,8 @@ import SettingFrame from "./SettingFrame";
 import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
-import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
+import AlertPopup from "../popup/AlertPopup";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -32,8 +32,18 @@ class MainScreen extends Component {
         birthday:"birthdayInfo"
       },
       selectTab:'post',
-      alertContent:'Err!'
+      alertContent:"Err!",
+      alertPopupcondition:false,
+      confirmPopupcondition:false
     } 
+  }
+  
+  showAlertPopup(){
+    this.setState({alertPopupcondition: !this.state.alertPopupcondition})
+  }
+
+  confirmPopupOnOff(){
+    this.setState({confirmPopupcondition: !this.state.confirmPopupcondition})
   }
 
   render() {
@@ -49,7 +59,7 @@ class MainScreen extends Component {
               profileImage={this.state.profileInfo.profileImage}
               email={this.state.profileInfo.email}
               birthday={this.state.profileInfo.birthday}
-              onClickLogout={this.showConfirmPopup.bind(this)}
+              onClickLogout={this.confirmPopupOnOff.bind(this)}
             />
           </div>
           <div id="pageTopBar">
@@ -95,15 +105,20 @@ class MainScreen extends Component {
             />
           </div>
         </div>
-        <AlertPopup
-          content={this.state.alertContent} // 에러의 값을 담아줘야해! 아마도
-        />
-        <ConfirmPopup
-          content="로그아웃 하시겠습니까?"
-          onClick={function(e){
-            this.props.onClick("")
-          }.bind(this)}
-        />
+        {this.state.alertPopupcondition &&
+          <AlertPopup
+            content={this.state.alertContent} 
+          />
+        }
+        {this.state.confirmPopupcondition &&
+          <ConfirmPopup
+            content="로그아웃 하시겠습니까?"
+            confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
+            onClick={function(e){
+              this.props.onClick("")
+            }.bind(this)}
+          />
+        }
       </div>
     );
   }
@@ -130,7 +145,7 @@ class MainScreen extends Component {
       case 'setting':
         tabPage = 
           <SettingFrame
-            onClick={this.showConfirmPopup.bind(this)}
+            onClick={this.confirmPopupOnOff.bind(this)}
           />;
         break;
       default:
@@ -138,16 +153,6 @@ class MainScreen extends Component {
         break;
     }
     return tabPage;
-  }
-
-  showAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.remove('hide');
-  }
-
-  showConfirmPopup() {
-    const confirmPopup = document.querySelector('#confirmPopup');
-    confirmPopup.classList.remove('hide');
   }
 };
 

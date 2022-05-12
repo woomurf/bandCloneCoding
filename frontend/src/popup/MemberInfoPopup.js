@@ -46,7 +46,7 @@ const MemberInfoPopup = (props) => {
               <Button 
                 label="Close" 
                 className="subButton smallButton mt8"
-                onClick={MemberInfoPopupOff}
+                onClick={props.showUserInfoPopup}
               />
             </div>
           </div>

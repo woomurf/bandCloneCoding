@@ -1,46 +1,55 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import Button from '../component/Button';
+import Modal from 'react-modal'
 import '../scss/common.scss';
 import '../scss/popup.scss';
 
-class ConfirmPopup extends Component {
-  closeConfirmPopup() {
-    const confirmPopup = document.querySelector('#confirmPopup');
-    confirmPopup.classList.add('hide');
-  }
+const ConfirmPopup = (props) => {
 
-  onConfirmCallback() {
-    console.log(this);
-  }
+  const [modal, setModal] = useState(true); // 모달창
 
-  render() {
-    return (
-      <div id="confirmPopup" className="hide"> 
+  const confirmPopupOff = () => {
+    setModal(false);
+  }; 
+
+  return (
+    <>
+    <Modal className="modal"
+      isOpen={modal}
+      ariaHideApp={false}
+      onRequestClose={confirmPopupOff}
+      style={{
+        overlay: {
+          backgroundColor: "rgba(15, 15, 15, 0.79)",
+        },
+      }}
+    >
+      <div id="confirmPopup"> 
         <div className="content">
           <div className="text">
-            {this.props.content}
+            {props.content}
           </div>
           <div className="btn">
             <div className="flexWrapperTwo">
               <Button 
                 label="Close" 
                 className="subButton smallButton mr8"
-                onClick={this.closeConfirmPopup.bind(this)}
+                onClick={props.confirmPopupOnOff}
               />
               <Button 
                 label="Confirm" 
                 className="mainButton smallButton"
                 onClick={function(e){
-                  this.closeConfirmPopup();
-                  this.props.onClick();
-                }.bind(this)}
+                  props.onClick();
+                }}
               />
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-};
+    </Modal>
+    </>
+  );
+}
 
 export default ConfirmPopup;

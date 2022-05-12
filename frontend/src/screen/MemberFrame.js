@@ -118,12 +118,13 @@ class MemberFrame extends Component {
               )
             })}
             {this.state.conditionMemberInfoPopup &&
-          <MemberInfoPopup
-            name={this.state.memberInfo.name}
-            image={this.state.memberInfo.image}
-            email={this.state.memberInfo.email}
-            birthday={this.state.memberInfo.birthday}
-          />
+              <MemberInfoPopup
+                name={this.state.memberInfo.name}
+                image={this.state.memberInfo.image}
+                email={this.state.memberInfo.email}
+                birthday={this.state.memberInfo.birthday}
+                showUserInfoPopup={this.showUserInfoPopup.bind(this)}
+              />
             }
           </div>
         </div>
