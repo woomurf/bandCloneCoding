@@ -12,7 +12,8 @@ const SeeMorePopup = (props) => {
   const wrapperRef = useRef();
 
   const onClickOutside = e => {
-    if(conditionSeemore && (!wrapperRef || !wrapperRef.current.contains(e.target)))setConditionSeemore(false)
+    if(conditionSeemore && (!wrapperRef || !wrapperRef.current.contains(e.target))) 
+      setConditionSeemore(false)
   }
 
   useEffect(() => {

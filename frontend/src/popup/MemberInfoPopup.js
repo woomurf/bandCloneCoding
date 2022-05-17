@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React from "react";
 import Button from '../component/Button';
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
 import Modal from "react-modal";
@@ -8,12 +8,6 @@ import '../scss/popup.scss';
 
 const MemberInfoPopup = (props) => {
 
-  const [modal, setModal] = useState(true); // 모달창
-
-  const MemberInfoPopupOff = () => {
-    setModal(false);
-  };  
-
   const setBirthdayFormet = (birthday) => {
     return birthday.substring(0,4) + "년 " 
     + birthday.substring(4,6) + "월 " 
@@ -21,11 +15,10 @@ const MemberInfoPopup = (props) => {
   }
 
     return (
-      <>
       <Modal className="modal"
-        isOpen={modal}
+        isOpen={props.memberInfoPopupCondition}
         ariaHideApp={false}
-        onRequestClose={MemberInfoPopupOff}
+        onRequestClose={props.memberInfoPopupOnOff}
         style={{
           overlay: {
             backgroundColor: "rgba(15, 15, 15, 0.79)",
@@ -46,13 +39,12 @@ const MemberInfoPopup = (props) => {
               <Button 
                 label="Close" 
                 className="subButton smallButton mt8"
-                onClick={props.showUserInfoPopup}
+                onClick={props.memberInfoPopupOnOff}
               />
             </div>
           </div>
         </div>
       </Modal>
-    </>
     );
   }
 

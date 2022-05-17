@@ -9,7 +9,7 @@ class MemberFrame extends Component {
   constructor(props){
     super(props);
     this.state = {
-      conditionMemberInfoPopup : false,
+      memberInfoPopupCondition : false,
       memberInfo :{
         name:"",
         image:"",
@@ -58,7 +58,7 @@ class MemberFrame extends Component {
         email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
         birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
       },
-      conditionMemberInfoPopup: !this.state.conditionMemberInfoPopup
+      memberInfoPopupCondition: !this.state.memberInfoPopupCondition
     });
   }
 
@@ -117,15 +117,14 @@ class MemberFrame extends Component {
                 />
               )
             })}
-            {this.state.conditionMemberInfoPopup &&
               <MemberInfoPopup
                 name={this.state.memberInfo.name}
                 image={this.state.memberInfo.image}
                 email={this.state.memberInfo.email}
                 birthday={this.state.memberInfo.birthday}
-                showUserInfoPopup={this.showUserInfoPopup.bind(this)}
+                memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+                memberInfoPopupCondition={this.state.memberInfoPopupCondition}
               />
-            }
           </div>
         </div>
       </div>

@@ -1,8 +1,6 @@
-import React, {Component} from "react";
 import TextButton from '../component/TextButton';
-import '../scss/popup.scss';
 
-const SettingPopup =(props) => {
+const SettingPopup = (props) => {
   return (
     <div id="settingPopup"> 
       <div className="content">

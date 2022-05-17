@@ -19,9 +19,18 @@ class LoginScreen extends Component {
       alertPurpose:'',
       alertContent:'',
       conditionAlert:false,
-      conditionRegister:false
+      alertPopupCondition:false,
+      registerPoupCondition:false
     }
   } 
+
+  registerPopupModalonoff = () => {
+    this.setState({ registerPoupCondition:!this.state.registerPoupCondition })
+  }
+
+  alertPopupOnoff(){
+    this.setState({alertPopupCondition: !this.state.alertPopupCondition})
+  }
 
   render() {
     return (
@@ -66,7 +75,7 @@ class LoginScreen extends Component {
               label="Register" 
               className="subButton largeButton mr8"
               onClick={function(e){
-                this.RegisterPopupCondition();
+                this.registerPopupModalonoff();
               }.bind(this)}
             />
             <Button 
@@ -75,8 +84,10 @@ class LoginScreen extends Component {
               onClick={this.loginCheck.bind(this, this.state.inputId, this.state.inputPw)}
             /> 
           </div>
-          {this.state.conditionRegister &&
+
             <RegisterPopup
+              registerPoupCondition={this.state.registerPoupCondition}
+              registerPopupModalonoff={this.registerPopupModalonoff}
               onClick={function(result, content) {
                 if (result === 'success') {
                   this.setState({
@@ -89,21 +100,20 @@ class LoginScreen extends Component {
                     alertContent:content,
                   }); 
                 } 
-                this.showAlertPopup();
+                this.alertPopupOnoff();
               }.bind(this)}
             />
-          }
-          {this.state.conditionAlert &&
             <AlertPopup
               content={this.state.alertContent} 
+              alertPopupCondition={this.state.alertPopupCondition}
+              alertPopupOnoff={this.alertPopupOnoff.bind(this)}
               purpose={this.state.alertPurpose}
               onClick={function(e) { 
                 if (this.state.alertPurpose === "REG_COMPLETE") {  
-                  this.RegisterPopupCondition();
+                  this.registerPopupModalonoff();
                 }
               }.bind(this)}
             />
-          }
         </div>
       </div>
     );
@@ -132,15 +142,7 @@ class LoginScreen extends Component {
       alertPurpose:"",
       alertContent: failContent
     }); 
-    this.showAlertPopup();
-  }
-
-  showAlertPopup(){
-    this.setState({conditionAlert: !this.state.conditionAlert})
-  }
-
-  RegisterPopupCondition() {
-    this.setState({conditionRegister: !this.state.conditionRegister})
+    this.alertPopupOnoff();
   }
 };
 

@@ -15,13 +15,13 @@ class PostBox extends Component {
     super(props);
     this.state = {
       conditionComment: false,
-      conditionModifyPopup : false
+      modifyPopupCondition : false
     };
   }
 
   modifyPopupOnOff(){
     this.setState({
-      conditionModifyPopup: !this.state.conditionModifyPopup
+      modifyPopupCondition: !this.state.modifyPopupCondition
     });
   }
 
@@ -61,15 +61,14 @@ class PostBox extends Component {
           />
         </div>
         
-        {this.state.conditionModifyPopup &&
           <ModifyPopup 
             content={this.props.content}
             postId={this.props.postId}
+            modifyPopupCondition={this.state.modifyPopupCondition}
             updatePostList={this.props.updatePostList}
             postErrorPopup={this.props.postErrorPopup}
             modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
           />
-         }
 
         <div className="postBody">
           {this.props.content &&(

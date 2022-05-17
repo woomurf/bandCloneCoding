@@ -10,7 +10,7 @@ import '../scss/popup.scss';
 
 const RegisterPopup = (props) => {
 
-  const [modal, setModal] = useState(true); // 모달창
+  const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
 
   const [regId, setId] = useState("");
   const [regPw, setPw] = useState("");
@@ -18,12 +18,17 @@ const RegisterPopup = (props) => {
   const [regBd, setBd] = useState("");
 
   const infoReset = () => {
-    setId("")
+    setId("");
+    setPw("");
+    setNm("");
+    setBd("");
   }
 
-  const RegisterPopupOff = () => {
-    setModal(false);
-  };
+  const confirmPopupOnOff = () => {
+    confirmPopupCondition(
+      !conditionConfirmPopup
+    )
+  }
 
   const addMember  = async (regId, regPw, regNm, regBd) => {
     var checkResult;
@@ -51,11 +56,10 @@ const RegisterPopup = (props) => {
   }
 
   return (
-  <>
     <Modal className="modal"
-    isOpen={modal}
+    isOpen={props.registerPoupCondition}
     ariaHideApp={false}
-    onRequestClose={RegisterPopupOff}
+    onRequestClose={props.registerPopupModalonoff}
     style={{
       overlay: {
         backgroundColor: "rgba(15, 15, 15, 0.79)",
@@ -101,7 +105,7 @@ const RegisterPopup = (props) => {
               <Button 
                 label="Close" 
                 className="subButton largeButton mr8"
-                onClick={showConfirmPopup}
+                onClick={confirmPopupOnOff}
               />
               <Button 
                 label="Confirm" 
@@ -123,24 +127,20 @@ const RegisterPopup = (props) => {
             </div>
           </div>
         </div>
-        <ConfirmPopup 
-          content="회원가입을 취소하겠습니까?" 
-          onClick={function(){
-            RegisterPopupOff();
-            infoReset();
-          }}
-        />
+          <ConfirmPopup
+            content="회원가입을 취소하겠습니까?" 
+            confirmPopupOnOff={confirmPopupOnOff}
+            confirmPopupCondition={conditionConfirmPopup}
+            onClick={function(){
+              props.registerPopupModalonoff();
+              confirmPopupOnOff();
+              infoReset();
+            }}
+          />
       </div>
     </Modal>
-  </>
   );
 }
-
-  const showConfirmPopup = () => {
-    const confirmPopup = document.querySelector('#confirmPopup');
-    confirmPopup.classList.remove('hide');
-    confirmPopup.classList.add('idxZ2');
-  }
 
 function join_vali(regId, regPw, regNm) {
 	var RegExp = /^[a-zA-Z0-9]{4,15}$/;

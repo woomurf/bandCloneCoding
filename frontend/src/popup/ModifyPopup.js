@@ -31,9 +31,8 @@ const ModifyPopup = (props) => {
   }
 
   return (
-    <>
       <Modal className="modal"
-        isOpen={true}
+        isOpen={props.modifyPopupCondition}
         ariaHideApp={false}
         style={{
           overlay: {
@@ -75,7 +74,6 @@ const ModifyPopup = (props) => {
           </div>
         </div>
       </Modal>
-    </>
   );
 };
 

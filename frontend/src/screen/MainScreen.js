@@ -33,17 +33,17 @@ class MainScreen extends Component {
       },
       selectTab:'post',
       alertContent:"Err!",
-      alertPopupcondition:false,
-      confirmPopupcondition:false
+      alertPopupCondition:false,
+      confirmPopupCondition:false
     } 
   }
   
-  showAlertPopup(){
-    this.setState({alertPopupcondition: !this.state.alertPopupcondition})
+  alertPopupOnoff(){
+    this.setState({alertPopupCondition: !this.state.alertPopupCondition})
   }
 
   confirmPopupOnOff(){
-    this.setState({confirmPopupcondition: !this.state.confirmPopupcondition})
+    this.setState({confirmPopupCondition: !this.state.confirmPopupCondition})
   }
 
   render() {
@@ -105,20 +105,19 @@ class MainScreen extends Component {
             />
           </div>
         </div>
-        {this.state.alertPopupcondition &&
           <AlertPopup
             content={this.state.alertContent} 
+            alertPopupCondition={this.state.alertPopupCondition}
+            alertPopupOnoff={this.alertPopupOnoff.bind(this)}
           />
-        }
-        {this.state.confirmPopupcondition &&
           <ConfirmPopup
             content="로그아웃 하시겠습니까?"
             confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
+            confirmPopupCondition={this.state.confirmPopupCondition}
             onClick={function(e){
               this.props.onClick("")
             }.bind(this)}
           />
-        }
       </div>
     );
   }
@@ -135,7 +134,7 @@ class MainScreen extends Component {
       case 'post':
         tabPage = 
           <PostFrame 
-            postErrorPopup={this.showAlertPopup.bind(this)}
+            postErrorPopup={this.alertPopupOnoff.bind(this)}
           />;
         break;
       case 'member':

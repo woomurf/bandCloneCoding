@@ -1,21 +1,14 @@
-import React,{useState} from "react";
+import React from "react";
 import Button from '../component/Button';
 import Modal from 'react-modal'
 
 const AlertPopup = (props) => {
-
-  const [modal, setModal] = useState(true); // 모달창
-
-  const alertPopupOff = () => {
-    setModal(false);
-  };  
-
+ 
   return (
-    <>
     <Modal className="modal"
-      isOpen={modal}
+      isOpen={props.alertPopupCondition}
       ariaHideApp={false}
-      onRequestClose={alertPopupOff}
+      onRequestClose={props.alertPopupOnoff}
       style={{
         overlay: {
           backgroundColor: "rgba(15, 15, 15, 0.79)",
@@ -31,13 +24,12 @@ const AlertPopup = (props) => {
             <Button 
               label="Close" 
               className="subButton smallButton mt8"
-              onClick={alertPopupOff}
+              onClick={props.alertPopupOnoff}
             />
           </div>
         </div>
       </div>
     </Modal>
-    </>
   );
 }
 

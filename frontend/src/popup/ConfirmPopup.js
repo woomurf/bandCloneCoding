@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Button from '../component/Button';
 import Modal from 'react-modal'
 import '../scss/common.scss';
@@ -6,18 +6,11 @@ import '../scss/popup.scss';
 
 const ConfirmPopup = (props) => {
 
-  const [modal, setModal] = useState(true); // 모달창
-
-  const confirmPopupOff = () => {
-    setModal(false);
-  }; 
-
   return (
-    <>
     <Modal className="modal"
-      isOpen={modal}
+      isOpen={props.confirmPopupCondition}
       ariaHideApp={false}
-      onRequestClose={confirmPopupOff}
+      onRequestClose={props.confirmPopupOnOff}
       style={{
         overlay: {
           backgroundColor: "rgba(15, 15, 15, 0.79)",
@@ -39,8 +32,9 @@ const ConfirmPopup = (props) => {
               <Button 
                 label="Confirm" 
                 className="mainButton smallButton"
-                onClick={function(e){
+                onClick={function(){
                   props.onClick();
+                  props.confirmPopupOnOff();
                 }}
               />
             </div>
@@ -48,7 +42,6 @@ const ConfirmPopup = (props) => {
         </div>
       </div>
     </Modal>
-    </>
   );
 }
 

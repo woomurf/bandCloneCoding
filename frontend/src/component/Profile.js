@@ -11,7 +11,7 @@ class Profile extends Component {
     super(props);
     this.state = {
       profileSetting: false,
-      profileInfomation: false,
+      memberInfoPopupCondition: false,
       memberInfo :{
         name:"",
         image:"",
@@ -44,7 +44,7 @@ class Profile extends Component {
         email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
         birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
       },
-      profileInfomation: !this.state.profileInfomation
+      memberInfoPopupCondition: !this.state.memberInfoPopupCondition
     }
     );
   }
@@ -105,15 +105,14 @@ class Profile extends Component {
             onClickMenu={this.onClickMenu.bind(this)}
           />}
         </div>
-        {this.state.profileInfomation &&
           <MemberInfoPopup            
             name={this.state.memberInfo.name}
             image={this.state.memberInfo.image}
             email={this.state.memberInfo.email}
             birthday={this.state.memberInfo.birthday}
-            showUserInfoPopup={this.showUserInfoPopup.bind(this)}
+            memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+            memberInfoPopupCondition={this.state.memberInfoPopupCondition}
           />
-        }
       </div>
     );
   }
