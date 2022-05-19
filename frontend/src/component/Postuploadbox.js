@@ -40,7 +40,7 @@ class Postuploadbox extends Component {
 
   textRef = React.createRef();
 
-  textResize = () =>{
+  textResize = () => {
     const textAreaBox = this.textRef.current;
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
