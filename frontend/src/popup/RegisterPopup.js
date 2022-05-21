@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import axios from 'axios';
+import { RegisterResultCode } from '../constants';
 import Button from '../component/Button';
 import TextBox from '../component/TextBox';
 import ConfirmPopup from '../popup/ConfirmPopup';
@@ -65,7 +67,12 @@ class RegisterPopup extends Component {
                   if(regCheck === ""){
                     regCheck = Birth_vali(this.state.regBd);
                     if(regCheck === ""){
-                      this.addMember(this.state.regId,this.state.regPw,this.state.regNm,this.state.regBd); // DB 반영
+                      this.addMember(
+                        this.state.regNm,
+                        this.state.regId,
+                        this.state.regPw,
+                        this.state.regBd
+                      ); // DB 반영
                     }
                   }
 
@@ -119,32 +126,30 @@ class RegisterPopup extends Component {
     }
   }
   
-  async addMember(regId, regPw, regNm, regBd) {
-    var axios = require('axios');
+  async addMember(name, email, password, birth) {
     var checkResult;
     var alertContent = 'fail';
-    var data = JSON.stringify({
-      "name": regNm,
-      "email": regId,
-      "password": regPw
-    });
-
-    var config = {
+    const year = Number(birth.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    const month = Number(birth.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+    const day = Number(birth.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+    const res = await axios({
       method: 'post',
-      url: 'https://9b7e-183-98-213-104.ngrok.io/auth/register',
+      url: '/auth/register',
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : data
-    };
-
-    await axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      data: JSON.stringify({
+        name,
+        email,
+        password,
+        birth: year + "-" + month + "-" + day
+      })
+    }).then(function (res) {
+      console.log(JSON.stringify(res.data));
       checkResult = 'success';
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function (err) {
+      console.log(err);
       checkResult = 'error';
     });
 

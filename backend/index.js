@@ -9,7 +9,7 @@ const groupRouter = require('./routes/group');
 const postRouter = require('./routes/post');
 const authRouter = require('./routes/auth');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 // DB initialize

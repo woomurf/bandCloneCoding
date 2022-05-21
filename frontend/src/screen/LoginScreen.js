@@ -75,7 +75,7 @@ class LoginScreen extends Component {
           </div>
           <RegisterPopup
             onClick={function(result, content) {
-              if (result === 'success') {
+              if (result === 0) {
                 this.setState({
                   alertPurpose:"REG_COMPLETE",
                   alertContent:content,
