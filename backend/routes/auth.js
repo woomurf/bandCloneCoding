@@ -49,7 +49,7 @@ const verifyPassword = async (password, salt, hash) => {
 }
 
 router.post('/register', registerValidator, async (req, res) => {
-  const { name, email, password, birth } = req.body;
+  const { name, email, password, birth, profileImageUrl } = req.body;
 
   // TODO(hyeonwoong): check name, email, password rule.
   try {
@@ -60,6 +60,7 @@ router.post('/register', registerValidator, async (req, res) => {
       password: hash,
       salt,
       birth: new Date(birth),
+      profileImageUrl,
     });
 
     return res.json({
@@ -121,5 +122,19 @@ router.post('/login', async (req, res) => {
     });
   }
 })
+
+router.post('/logout', async (req, res) => {
+  const accessToken = req.cookies['accessToken'];
+  if (!accessToken) {
+    return res.status(400).json({
+      message: 'User already was logout.'
+    });
+  }
+
+  res.cookie('accessToken', null, { httpOnly: true });
+  return res.status(201).json({
+    message: 'Success logout'
+  });
+});
 
 module.exports = router;

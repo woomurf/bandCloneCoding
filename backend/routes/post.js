@@ -1,10 +1,11 @@
 const express = require('express');
 const auth = require('../middleware/auth');
 const { authValidator } = require('../middleware/auth');
-const { POST, POST_LIKE, USER } = require('../models');
+const { POST, POST_LIKE, USER, COMMENT } = require('../models');
 const router = express.Router();
 
-router.get('/list', async (req, res) => {
+router.get('/list', authValidator, async (req, res) => {
+  const user = res.locals.user;
   try {
     const posts = await POST.findAll({
       include: {
@@ -14,7 +15,15 @@ router.get('/list', async (req, res) => {
       },
       order: [['createdAt', 'DESC']]
     });
-    res.json(posts);
+
+    const postsWithAuthor = posts.map((post) => {
+      const postJson = post.toJSON();
+      return {
+        ...postJson,
+        isAuthor: post.user.id === user.id
+      }
+    });
+    res.json(postsWithAuthor);
   } catch (error) {
     console.error(`[POST list] ${error}`);
     res.status(500).json({
@@ -59,6 +68,12 @@ router.post('/', authValidator, async (req, res) => {
   const user = res.locals.user;
   const { groupId, content, files } = req.body;
   // TODO(hyeonwoong): How to save files?
+  if (!content) {
+    res.status(400).json({
+      message: 'Required content'
+    });
+    return;
+  }
   try {
     const post = await POST.create({
       content,
@@ -226,6 +241,38 @@ router.post('/:id/unlike', authValidator, async (req, res) => {
   }
 });
 
+router.get('/:id/comments', authValidator, async (req, res) => {
+  const user = res.locals.user;
+  const { id } = req.params;
+  try {
+    const comments = await COMMENT.findAll({
+      where: {
+        postId: id,
+      },
+      include: {
+        model: USER,
+        as: 'user',
+        attributes: ['id', 'name']
+      }
+    });
+
+    const commentsWithAuthor = comments.map((comment) => {
+      const commentJson = comment.toJSON();
+      return {
+        ...commentJson,
+        isAuthor: comment.user.id === user.id
+      }
+    });
+
+    res.json({ comments: commentsWithAuthor });
+    
+  } catch (error) {
+    console.error(`Failed to get comments(postId: ${id})`);
+    res.status(500).json({
+      message: `Failed to get comments(postId: ${id})`
+    });
+  }
+})
 
 
 module.exports = router;
