@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import { RegisterResultCode } from '../constants';
 import Button from '../component/Button';
 import TextBox from '../component/TextBox';
 import ConfirmPopup from '../popup/ConfirmPopup';
