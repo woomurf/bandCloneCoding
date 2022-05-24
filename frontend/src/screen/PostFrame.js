@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import PostBox from "../component/Postbox";
 import SearchBox from '../component/SearchBox';
 import Postuploadbox from '../component/Postuploadbox';
-import '../scss/component.scss';
-import '../scss/page.scss';
 import moment from "moment"
 import axios from "axios";
+import '../scss/component.scss';
+import '../scss/page.scss';
 
 class PostFrame extends Component {
   constructor(props){

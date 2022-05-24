@@ -108,7 +108,6 @@ class PostBox extends Component {
               <Comment
                 userName={this.props.userName}
                 postId={this.props.postId}
-                updatePostList={this.props.updatePostList}
                 postErrorPopup={this.props.postErrorPopup}
               />
             }
