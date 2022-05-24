@@ -1,45 +1,51 @@
-import React, {Component} from "react";
+import React from "react";
 import Button from '../component/Button';
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import Modal from "react-modal";
 import '../scss/page.scss';
 import '../scss/common.scss';
 import '../scss/popup.scss';
 
-class MemberInfoPopup extends Component {
-  render() {
-    return (
-      <div id="memberInfoPopup" className="hide"> 
-        <div className="content">
-          <div className="profileInfo">
-            <img alt="" src={this.props.profileImage||DefaultProfileImage} className="infoProfileImage"/>  
-            <div className="text taCenter">
-              {this.props.name} <br/>
-              {this.props.email} <br/>
-              {this.setBirthdayFormet(this.props.birthday)}
-            </div>
-          </div>
-          <div className="btn">
-            <Button 
-              label="Close" 
-              className="subButton smallButton mt8"
-              onClick={this.closeMemberInfoPopup.bind(this)}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+const MemberInfoPopup = (props) => {
 
-  setBirthdayFormet(birthday) {
+  const setBirthdayFormet = (birthday) => {
     return birthday.substring(0,4) + "년 " 
     + birthday.substring(4,6) + "월 " 
     + birthday.substring(6,8) + "일생";
   }
 
-  closeMemberInfoPopup() {
-    const memberInfoPopup = document.querySelector('#memberInfoPopup');
-    memberInfoPopup.classList.add('hide');
+    return (
+      <Modal className="modal"
+        isOpen={props.memberInfoPopupCondition}
+        ariaHideApp={false}
+        onRequestClose={props.memberInfoPopupOnOff}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(15, 15, 15, 0.79)",
+          },
+        }}
+      >
+        <div id="memberInfoPopup"> 
+          <div className="content">
+            <div className="profileInfo">
+              <img alt="" src={props.profileImage || DefaultProfileImage} className="infoProfileImage"/>  
+              <div className="text taCenter">
+                {props.name} <br/>
+                {props.email} <br/>
+                {setBirthdayFormet(props.birthday)}
+              </div>
+            </div>
+            <div className="btn">
+              <Button 
+                label="Close" 
+                className="subButton smallButton mt8"
+                onClick={props.memberInfoPopupOnOff}
+              />
+            </div>
+          </div>
+        </div>
+      </Modal>
+    );
   }
-};
 
 export default MemberInfoPopup;

@@ -91,11 +91,6 @@ Fonts
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  z-index: 3;
-}
-  
-#alertPopup.hide {
-  display: none;
 }
   
 #alertPopup .content {
@@ -133,10 +128,6 @@ Fonts
   -webkit-backdrop-filter: blur(1px);
 }
 
-#confirmPopup.hide {
-  display: none;
-}
-
 #confirmPopup .content {
   width: 420px;
   height: 270px;
@@ -148,7 +139,6 @@ Fonts
   border-radius: 3px;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
-  z-index: 1;
 }
 
 #confirmPopup .text {
@@ -159,35 +149,15 @@ Fonts
   padding-bottom: 50px;
 }
 
-.idxZ1 {
-  z-index: 1;
-}
-
-.idxZ2 {
-  z-index: 2;
-}
-
-.idxZ3 {
-  z-index: 3;
-}
-
 #registerPopup {
   position: absolute;
   display: flex; 
   justify-content: center;
   align-items: center;
-  top: 0px;
-  left: 0px;
   width: 100%;
   height: 100%;
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
-}
-
-#registerPopup.hide {
-  display: none;
 }
 
 #registerPopup .content {
@@ -223,7 +193,6 @@ Fonts
   background-color: $gray-white;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
-  z-index: 1;
   margin-left: 30px;
 }
 
@@ -254,14 +223,9 @@ Fonts
   display: flex; 
   justify-content: center;
   align-items: center;
-  top: 0px;
-  left: 0px;
   width: 100%;
   height: 100%;
   background-color: $transparent-black;
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  z-index: 2;
 }
 
 .modifyCancel{
@@ -312,11 +276,6 @@ Fonts
   background-color: $transparent-black;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  z-index: 1;
-}
-
-#memberInfoPopup.hide {
-  display: none;
 }
 
 #memberInfoPopup .content {
@@ -330,7 +289,6 @@ Fonts
   border-radius: 3px;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
-  z-index: 1;
 }
 
 #memberInfoPopup .profileInfo {
@@ -365,7 +323,6 @@ Fonts
   height: 1px;
   margin: 10px 0px;
   background-color: $gray-2;
-  z-index: 1;
 }
 
 #settingPopup {
@@ -373,7 +330,6 @@ Fonts
   display: flex; 
   justify-content: center;
   align-items: center;
-  z-index: 1;
 }
 
 #settingPopup .content {

@@ -1,34 +1,36 @@
-import React, {Component} from "react";
+import React from "react";
 import Button from '../component/Button';
-import '../scss/common.scss';
-import '../scss/popup.scss';
+import Modal from 'react-modal'
 
-class AlertPopup extends Component {
-  render() {
-    return (
-      <div id="alertPopup" className="hide"> 
+const AlertPopup = (props) => {
+ 
+  return (
+    <Modal className="modal"
+      isOpen={props.alertPopupCondition}
+      ariaHideApp={false}
+      onRequestClose={props.alertPopupOnoff}
+      style={{
+        overlay: {
+          backgroundColor: "rgba(15, 15, 15, 0.79)",
+        },
+      }}
+    >
+      <div id="alertPopup"> 
         <div className="content">
           <div className="text">
-            {this.props.content}
+            {props.content}
           </div>
           <div className="btn">
             <Button 
               label="Close" 
               className="subButton smallButton mt8"
-              onClick={function(e){ 
-                this.closeAlertPopup();
-              }.bind(this)}
+              onClick={props.alertPopupOnoff}
             />
           </div>
         </div>
       </div>
-    );
-  }
-
-  closeAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.add('hide');
-  }
-};
+    </Modal>
+  );
+}
 
 export default AlertPopup;

@@ -1,184 +1,146 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import Button from '../component/Button';
 import TextBox from '../component/TextBox';
-import ConfirmPopup from '../popup/ConfirmPopup';
+import ConfirmPopup from './ConfirmPopup';
+import axios from "axios";
+import Modal from "react-modal";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/popup.scss';
 
-class RegisterPopup extends Component {
-  state = {
-    regId:'',
-    regPw:'',
-    regNm:'',
-    regBd:''
+const RegisterPopup = (props) => {
+
+  const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
+
+  const [regId, setId] = useState("");
+  const [regPw, setPw] = useState("");
+  const [regNm, setNm] = useState("");
+  const [regBd, setBd] = useState("");
+
+  const infoReset = () => {
+    setId("");
+    setPw("");
+    setNm("");
+    setBd("");
   }
 
-  render() {
-    return (
+  const confirmPopupOnOff = () => {
+    confirmPopupCondition(
+      !conditionConfirmPopup
+    )
+  }
+
+  const addMember  = async (regId, regPw, regNm, regBd) => {
+    var checkResult;
+    var alertContent = 'fail';
+
+    await axios.post("/auth/register", {
+      name : regNm,
+      email : regId,
+      password : regPw,
+      birth : regBd
+    }
+      ).then(res => {
+        console.log(res)
+        checkResult = 'success';
+        alertContent = "회원가입이 완료되었습니다."
+        this.infoReset("");
+        props.onClick(checkResult,alertContent);
+      }
+      ).catch(function(err){
+        console.log(err)
+        checkResult = "err"
+        alertContent = "회원가입이 실패했습니다."
+        props.onClick(checkResult,alertContent);
+      })
+  }
+
+  return (
+    <Modal className="modal"
+    isOpen={props.registerPoupCondition}
+    ariaHideApp={false}
+    onRequestClose={props.registerPopupModalonoff}
+    style={{
+      overlay: {
+        backgroundColor: "rgba(15, 15, 15, 0.79)",
+      },
+    }}
+    >
       <div>
-        <div id="registerPopup" className="hide"> 
+        <div id="registerPopup"> 
           <div className="content">
             <TextBox 
               className="regTextBox" 
               id="regId"
               type="text"
-              value={this.state.regId}
+              value={regId}
               placeholder="이메일" 
-              onChange={this.handelChange.bind(this)}
+              onChange={({ target: { value } }) => setId(value)}
             />
             <TextBox 
               className="regTextBox" 
               id="regPw"
               type="password"
-              value={this.state.regPw}
+              value={regPw}
               placeholder="비밀번호" 
-              onChange={this.handelChange.bind(this)}
+              onChange={({ target: { value } }) => setPw(value)}
             />
             <TextBox 
               className="regTextBox" 
               id="regNm"
               type="text"
-              value={this.state.regNm}
+              value={regNm}
               placeholder="이름" 
-              onChange={this.handelChange.bind(this)}
+              onChange={({ target: { value } }) => setNm(value)}
             />
             <TextBox 
               className="regTextBox" 
               id="regBd"
               type="text"
-              value={this.state.regBd}
+              value={regBd}
               placeholder="생년월일" 
-              onChange={this.handelChange.bind(this)}
+              onChange={({ target: { value } }) => setBd(value)}
             />
             <div className="flexWrapperTwo">
               <Button 
                 label="Close" 
                 className="subButton largeButton mr8"
-                onClick={this.showConfirmPopup.bind(this)}
+                onClick={confirmPopupOnOff}
               />
               <Button 
                 label="Confirm" 
                 className="mainButton largeButton"
                 onClick={function(){
-                  var regCheck = join_vali(this.state.regId,this.state.regPw,this.state.regNm);
+                var regCheck = join_vali(regId,regPw,regNm);
                   if(regCheck === ""){
-                    regCheck = Birth_vali(this.state.regBd);
-                    if(regCheck === ""){
-                      this.addMember(this.state.regId,this.state.regPw,this.state.regNm,this.state.regBd); // DB 반영
+                    regCheck = Birth_vali(regBd);
+                  if(regCheck === ""){
+                      addMember(regId,regPw,regNm,regBd); // DB 반영
                     }
                   }
 
                   if(regCheck !== ""){
-                    this.props.onClick('fail', regCheck);
+                    props.onClick('fail', regCheck);
                   }
-                }.bind(this)}
+                }}
               />
             </div>
           </div>
         </div>
-        <ConfirmPopup content="회원가입을 취소하겠습니까?" 
-          onClick={function(){
-            this.closeRegisterPopup();
-            this.setState({
-              regId:'',
-              regPw:'',
-              regNm:'',
-              regBd:''
-            })
-          }.bind(this)}
-        />
+          <ConfirmPopup
+            content="회원가입을 취소하겠습니까?" 
+            confirmPopupOnOff={confirmPopupOnOff}
+            confirmPopupCondition={conditionConfirmPopup}
+            onClick={function(){
+              props.registerPopupModalonoff();
+              confirmPopupOnOff();
+              infoReset();
+            }}
+          />
       </div>
-    );
-  }
-
-  handelChange(e) {
-    switch (e.target.id) {
-      case "regId":
-        this.setState({
-          regId : e.target.value
-        });
-        break;
-      case "regPw":
-        this.setState({
-          regPw : e.target.value
-        });
-        break;
-      case "regNm":
-        this.setState({
-          regNm : e.target.value
-        });
-        break;
-      case "regBd":
-        this.setState({
-          regBd : e.target.value
-        });
-        break;
-      default:
-        console.log("[input error]" + e.target.id);
-    }
-  }
-  
-  async addMember(regId, regPw, regNm, regBd) {
-    var axios = require('axios');
-    var checkResult;
-    var alertContent = 'fail';
-    var data = JSON.stringify({
-      "name": regNm,
-      "email": regId,
-      "password": regPw
-    });
-
-    var config = {
-      method: 'post',
-      url: 'https://9b7e-183-98-213-104.ngrok.io/auth/register',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      data : data
-    };
-
-    await axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      checkResult = 'success';
-    })
-    .catch(function (error) {
-      console.log(error);
-      checkResult = 'error';
-    });
-
-    switch(checkResult) {
-      case 'success':
-        alertContent = "회원가입이 완료되었습니다."
-        this.setState({
-          regId:'',
-          regPw:'',
-          regNm:'',
-          regBd:''
-        });
-        break;
-      case 'error':
-        alertContent = "회원가입에 실패했습니다."
-        break;
-      default:
-        alertContent = "시스템의 문제가 발생했습니다."
-        break;
-    }
-    this.props.onClick(checkResult, alertContent);
-  }
-
-  showConfirmPopup() {
-    const confirmPopup = document.querySelector('#confirmPopup');
-    confirmPopup.classList.remove('hide');
-    confirmPopup.classList.add('idxZ2');
-  }
-
-  closeRegisterPopup() {
-    const registerPopup = document.querySelector('#registerPopup');
-    registerPopup.classList.add('hide');
-  }
-};
+    </Modal>
+  );
+}
 
 function join_vali(regId, regPw, regNm) {
 	var RegExp = /^[a-zA-Z0-9]{4,15}$/;
@@ -209,8 +171,8 @@ function join_vali(regId, regPw, regNm) {
 function Birth_vali(_inputBd) {
   var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
   var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-  var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-  var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+  var month = Number(_inputBd.substr(5,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+  var day = Number(_inputBd.substr(8,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
   var today = new Date();
   var yearNow = today.getFullYear();
   
@@ -218,7 +180,7 @@ function Birth_vali(_inputBd) {
     return "생년월일을 입력해주세요";
   }
   
-  if (_inputBd.length !== 8 || !Bd_exp.test(_inputBd)) {
+  if (_inputBd.length !== 10 || !Bd_exp.test(_inputBd)) {
     return "년도 4자리를 포함한 8자리숫자로 적어주세요";
   } else if (1900 > year || year > yearNow) {
     return "1900년~"+yearNow+"년 사이를 입력해주세요";
