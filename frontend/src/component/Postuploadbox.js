@@ -4,7 +4,10 @@ import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
 import '../scss/common.scss';
 import '../scss/component.scss';
-import '../scss/page.scss'
+import '../scss/page.scss';
+import { initializeGoogleAPI } from '../utils/googleDrive';
+
+let drive;
 
 
 class Postuploadbox extends Component {
@@ -16,6 +19,13 @@ class Postuploadbox extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (!drive) {
+      drive = initializeGoogleAPI();
+      console.debug('Drive connected!');
+    }
   }
 
   
@@ -57,7 +67,7 @@ class Postuploadbox extends Component {
             className="postupload"
             maxLength={3000}
             ref={this.textRef}
-            onKeyUp={this.textResize}
+            onKeyUp={this.textResize} 
             onKeyDown={this.textResize}
             value={this.state.value}
             onChange={this.handleChange}
@@ -66,7 +76,10 @@ class Postuploadbox extends Component {
 
         <div className="pictureImage">
           <div>
-            <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
+            <label>
+              <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
+              <input type="file" style={{ display: 'none' }}/>
+            </label>
           </div>
           <div>
             <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton" 
