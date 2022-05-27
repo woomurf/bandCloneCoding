@@ -12,41 +12,18 @@ class MemberFrame extends Component {
         name:"",
         image:"",
         email:"",
-        birthday:""
+        birth:""
       },
       members :[{
-        name:"권영준",
-        email:"dudwns@gjrn.gjtkd",
-        birthday:"19960900"
-      }, {
-        name:"우현웅",
-        email:"gusdnd@gjrn.gjtkd",
-        birthday:"19961100"
-      }, {
-        name:"정의창",
-        email:"dmlckd@gjrn.gjtkd",
-        birthday:"19961200"
-      }, {
-        name:"가상인물",
-        email:"rktkd@gjrn.gjtkd",
-        birthday:"19480202"
-      }, {
-        name:"가장인물",
-        email:"rkwkd@gjrn.gjtkd",
-        birthday:"19430204"
-      }, {
-        name:"가정인물",
-        email:"rkwjd@gjrn.gjtkd",
-        birthday:"19520207"
       }]
     }
   }
 
   async componentDidMount(){
-    await axios.get('/member/list')
+    await axios.get('/user/list')
     .then(function(res){
       console.log(res.data[0]);
-      this.setState({member:res.data});
+      this.setState({members:res.data});
     }.bind(this));
   }
 
@@ -70,7 +47,7 @@ class MemberFrame extends Component {
                   name={member.name}
                   profileImage={member.profileImage}
                   email={member.email}
-                  birthday={member.birthday}
+                  birth={member.birth}
                   lastIndexYn={this.state.members.length === index + 1}
                   onClickProfileInfo={this.props.onClickUserInfo.bind(this)}
                 />

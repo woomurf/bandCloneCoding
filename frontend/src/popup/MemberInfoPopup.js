@@ -15,7 +15,7 @@ class MemberInfoPopup extends Component {
             <div className="text taCenter">
               {this.props.name} <br/>
               {this.props.email} <br/>
-              {this.setBirthdayFormet(this.props.birthday)}
+              {this.setBirthdayFormet(this.props.birth)}
             </div>
           </div>
           <div className="btn">
@@ -30,10 +30,11 @@ class MemberInfoPopup extends Component {
     );
   }
 
-  setBirthdayFormet(birthday) {
-    return birthday.substring(0,4) + "년 " 
-    + birthday.substring(4,6) + "월 " 
-    + birthday.substring(6,8) + "일생";
+  setBirthdayFormet(birth) {
+    console.log(birth);
+    return birth.substring(0,4) + "년 " 
+    + birth.substring(5,7) + "월 " 
+    + birth.substring(8,10) + "일생";
   }
 
   closeMemberInfoPopup() {

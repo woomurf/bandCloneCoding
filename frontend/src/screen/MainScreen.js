@@ -24,13 +24,13 @@ class MainScreen extends Component {
         name:"퉤스트",
         image:"",
         email:"test@test.te.st",
-        birthday:"19000101"
+        birth:"19000101"
       },
       memberInfo:{
         name:"nameInfo",
         image:"imageInfo",
         email:"emailInfo",
-        birthday:"birthdayInfo"
+        birth:"birthInfo"
       },
       selectTab:'post',
       alertContent:'Err!'
@@ -44,7 +44,7 @@ class MainScreen extends Component {
         name:"정의창",
         image:"",
         email:"zvzvz@zvzv.zv",
-        birthday:"19961213"
+        birth:"19961213"
       }
     });
   }
@@ -56,7 +56,7 @@ class MainScreen extends Component {
         name:"",
         image:"",
         email:"",
-        birthday:""
+        birth:""
       }
     });
   }
@@ -73,7 +73,7 @@ class MainScreen extends Component {
               name={this.state.profileInfo.name}
               profileImage={this.state.profileInfo.profileImage}
               email={this.state.profileInfo.email}
-              birthday={this.state.profileInfo.birthday}
+              birth={this.state.profileInfo.birth}
               onClickLogout={this.showConfirmPopup.bind(this)}
               onClickProfileInfo={this.showUserInfoPopup.bind(this)}
             />
@@ -135,7 +135,7 @@ class MainScreen extends Component {
           name={this.state.memberInfo.name}
           image={this.state.memberInfo.image}
           email={this.state.memberInfo.email}
-          birthday={this.state.memberInfo.birthday}
+          birth={this.state.memberInfo.birth}
         />
       </div>
     );
@@ -185,13 +185,13 @@ class MainScreen extends Component {
     confirmPopup.classList.remove('hide');
   }
 
-  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
     this.setState({
       memberInfo:{
         name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
         image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
         email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
+        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
       }
     });
 
