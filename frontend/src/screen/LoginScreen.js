@@ -5,8 +5,8 @@ import Banner from '../image/LoginBanner.png';
 import Title from '../image/Title.svg';
 import TextBox from '../component/TextBox';
 import Button from '../component/Button';
-import AlertPopup from '../popup/AlertPopup';
 import RegisterPopup from '../popup/RegisterPopup';
+import AlertPopup from "../popup/AlertPopup";
 import '../scss/common.scss';
 import '../scss/page.scss';
 
@@ -14,12 +14,27 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      inputId:'',
-      inputPw:'',
-      alertPurpose:'',
-      alertContent:'',
+      inputId : '',
+      inputPw : '',
+      alertPurpose : '',
+      alertContent : '',
+      conditionAlert : false,
+      alertPopupCondition : false,
+      registerPoupCondition : false
     }
   } 
+
+  registerPopupModalonoff = () => {
+    this.setState({ 
+      registerPoupCondition : !this.state.registerPoupCondition 
+    })
+  }
+
+  alertPopupOnoff () {
+    this.setState({
+      alertPopupCondition : !this.state.alertPopupCondition
+    })
+  }
 
   render() {
     return (
@@ -64,7 +79,7 @@ class LoginScreen extends Component {
               label="Register" 
               className="subButton largeButton mr8"
               onClick={function(e){
-                this.showRegisterPopup();
+                this.registerPopupModalonoff();
               }.bind(this)}
             />
             <Button 
@@ -74,27 +89,31 @@ class LoginScreen extends Component {
             /> 
           </div>
           <RegisterPopup
+            registerPoupCondition={this.state.registerPoupCondition}
+            registerPopupModalonoff={this.registerPopupModalonoff}
             onClick={function(result, content) {
-              if (result === 0) {
+              if (result === 'success') {
                 this.setState({
-                  alertPurpose:"REG_COMPLETE",
-                  alertContent:content,
+                  alertPurpose : "REG_COMPLETE",
+                  alertContent : content,
                 }); 
               } else {
                 this.setState({
-                  alertPurpose:"REG",
-                  alertContent:content,
+                  alertPurpose : "REG",
+                  alertContent : content,
                 }); 
               } 
-              this.showAlertPopup();
+              this.alertPopupOnoff();
             }.bind(this)}
           />
-          <AlertPopup 
+          <AlertPopup
             content={this.state.alertContent} 
+            alertPopupCondition={this.state.alertPopupCondition}
+            alertPopupOnoff={this.alertPopupOnoff.bind(this)}
             purpose={this.state.alertPurpose}
             onClick={function(e) { 
               if (this.state.alertPurpose === "REG_COMPLETE") {  
-                this.closeRegisterPopup();
+                this.registerPopupModalonoff();
               }
             }.bind(this)}
           />
@@ -105,10 +124,10 @@ class LoginScreen extends Component {
 
   async loginCheck(email, password) {
     const res = await axios({
-      method: 'post',
-      url: '/auth/login',
-      headers: { 
-        'Content-Type': 'application/json'
+      method : 'post',
+      url : '/auth/login',
+      headers : { 
+        'Content-Type' : 'application/json'
       },
       data: JSON.stringify({
         email,
@@ -123,25 +142,10 @@ class LoginScreen extends Component {
 
     const failContent = res.message;
     this.setState({
-      alertPurpose:"",
-      alertContent: failContent
+      alertPurpose : "",
+      alertContent : failContent
     }); 
-    this.showAlertPopup();
-  }
-
-  showAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.remove('hide');
-  }
-
-  showRegisterPopup() {
-    const registerPopup = document.querySelector('#registerPopup');
-    registerPopup.classList.remove('hide');
-  }
-    
-  closeRegisterPopup() {
-    const registerPopup = document.querySelector('#registerPopup');
-    registerPopup.classList.add('hide');
+    this.alertPopupOnoff();
   }
 };
 

@@ -8,19 +8,19 @@ import '../scss/page.scss'
 
 
 class Postuploadbox extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value : '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   
   handleChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({
+      value : e.target.value
+    });
   }
 
   async handleSubmit(e) {
@@ -40,7 +40,7 @@ class Postuploadbox extends Component {
 
   textRef = React.createRef();
 
-  textResize = () =>{
+  textResize = () => {
     const textAreaBox = this.textRef.current;
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
@@ -63,20 +63,28 @@ class Postuploadbox extends Component {
             onChange={this.handleChange}
           />
         </div>
-
         <div className="pictureImage">
           <div>
-            <img alt="" className="pictureImage" src ={Picture} id="pictureImage"/>
+            <img 
+              alt="" 
+              className="pictureImage" 
+              src={Picture} 
+              id="pictureImage"
+            />
           </div>
           <div>
-            <img alt="" className="uploadButton" src ={Upload_Button} id="uploadButton" 
-              onClick={this.handleSubmit}/>
+            <img 
+              alt="" 
+              className="uploadButton" 
+              src={Upload_Button} 
+              id="uploadButton" 
+              onClick={this.handleSubmit}
+            />
           </div>
         </div>
       </div>
     );
   }
 };
-
 
 export default Postuploadbox;

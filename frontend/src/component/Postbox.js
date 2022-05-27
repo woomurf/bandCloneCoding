@@ -14,27 +14,26 @@ class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      conditionComment: false,
-      conditionModifyPopup : false
+      conditionComment : false,
+      modifyPopupCondition : false
     };
   }
 
-  showHideModifyPopup(){
+  modifyPopupOnOff() {
     this.setState({
-      conditionModifyPopup: !this.state.conditionModifyPopup
+      modifyPopupCondition : !this.state.modifyPopupCondition
     });
   }
 
-  showHideCommentArea(){
+  commentAreaOnOff() {
     this.setState({
-      conditionComment: !this.state.conditionComment
+      conditionComment : !this.state.conditionComment
     });
   }
 
   render() {
     return (
       <div className="postBox">
-
         <div className="postHeader">
           <div className="profile">
             <div className="profileImage">
@@ -54,45 +53,40 @@ class PostBox extends Component {
             </div>
           </div>
           <SeeMorePopup
-            showModifyPopup={this.showHideModifyPopup.bind(this)}
+            modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
             postErrorPopup={this.props.postErrorPopup}
             updatePostList={this.props.updatePostList}
             postId={this.props.postId}
           />
         </div>
-        
-        {this.state.conditionModifyPopup &&
-          <ModifyPopup 
-            content={this.props.content}
-            postId={this.props.postId}
-            updatePostList={this.props.updatePostList}
-            postErrorPopup={this.props.postErrorPopup}
-            showHideModifyPopup={this.showHideModifyPopup.bind(this)}
-          />
-         }
-
+        <ModifyPopup 
+          content={this.props.content}
+          postId={this.props.postId}
+          modifyPopupCondition={this.state.modifyPopupCondition}
+          updatePostList={this.props.updatePostList}
+          postErrorPopup={this.props.postErrorPopup}
+          modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
+        />
         <div className="postBody">
-          {this.props.content &&(
+          {this.props.content && (
             <div className="postLabel">
               {this.props.content}
-            </div>)
-          }
-          {this.props.scheduleDay &&(
+            </div>
+          )}
+          {this.props.scheduleDay && (
             <Schedule 
               scheduleDate={this.props.scheduleDate}
               scheduleDay={this.props.scheduleDay}
               scheduleName={this.props.scheduleName}
               scheduleDDay={this.props.scheduleDDay}
             />
-            )
-          }
-          {this.props.picture &&  (
+          )}
+          {this.props.picture && (
             <div className="postPicture">
               <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>)
-          }
+            </div>
+          )}
         </div>
-        
         <div className="postFooter">
           <div className="addOn">
             <img alt="" className="Emogi" src={Emogi}/>
@@ -101,7 +95,7 @@ class PostBox extends Component {
               className="Comment" 
               src={CommentImage}
               onClick={
-                this.showHideCommentArea.bind(this)
+                this.commentAreaOnOff.bind(this)
               }
             />
           </div>

@@ -8,7 +8,6 @@ class Schedule extends Component{
     return(
       <div className="postSchedule">
         <div className="scheduleBox">
-
           <div className="scheduleHead">
             <div className="scheduleDate">
               {this.props.scheduleDate}
@@ -17,7 +16,6 @@ class Schedule extends Component{
               {this.props.scheduleDay}
             </div>
           </div>
-
           <div className="scheduleBody">
             <div className="scheduleName">
               {this.props.scheduleName}
@@ -26,7 +24,6 @@ class Schedule extends Component{
               {this.props.scheduleDDay}
             </div>
           </div>
-
         </div>
       </div>
     );

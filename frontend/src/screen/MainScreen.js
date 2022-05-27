@@ -6,9 +6,8 @@ import SettingFrame from "./SettingFrame";
 import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
-import AlertPopup from '../popup/AlertPopup';
 import ConfirmPopup from '../popup/ConfirmPopup';
-import MemberInfoPopup from "../popup/MemberInfoPopup";
+import AlertPopup from "../popup/AlertPopup";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -20,48 +19,38 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      profileInfo:{
-        name:"퉤스트",
-        image:"",
-        email:"test@test.te.st",
-        birth:"19000101"
+      profileInfo : {
+        name : "퉤스트",
+        image : "",
+        email : "test@test.te.st",
+        birth : "1900-01-01"
       },
-      memberInfo:{
-        name:"nameInfo",
-        image:"imageInfo",
-        email:"emailInfo",
-        birth:"birthInfo"
+      memberInfo : {
+        name : "nameInfo",
+        image : "imageInfo",
+        email : "emailInfo",
+        birth : "birthInfo"
       },
-      selectTab:'post',
-      alertContent:'Err!'
+      selectTab : 'post',
+      alertContent : "Err!",
+      alertPopupCondition : false,
+      confirmPopupCondition : false
     } 
   }
-
-  componentDidMount() {
-    // 쿠키에서 데이터를 받아올 API가 필요함
-    this.setState({
-      profileInfo:{
-        name:"정의창",
-        image:"",
-        email:"zvzvz@zvzv.zv",
-        birth:"19961213"
-      }
-    });
+  
+  alertPopupOnoff() {
+    this.setState({ 
+      alertPopupCondition : !this.state.alertPopupCondition 
+    })
   }
 
-  componentWillUnmount() {
-    // 로그아웃 시 프로필 정보 초기화
-    this.setState({
-      profileInfo:{
-        name:"",
-        image:"",
-        email:"",
-        birth:""
-      }
-    });
+  confirmPopupOnOff() {
+    this.setState({ 
+      confirmPopupCondition : !this.state.confirmPopupCondition 
+    })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div id="pageHeader">
@@ -74,8 +63,7 @@ class MainScreen extends Component {
               profileImage={this.state.profileInfo.profileImage}
               email={this.state.profileInfo.email}
               birth={this.state.profileInfo.birth}
-              onClickLogout={this.showConfirmPopup.bind(this)}
-              onClickProfileInfo={this.showUserInfoPopup.bind(this)}
+              onClickLogout={this.confirmPopupOnOff.bind(this)}
             />
           </div>
           <div id="pageTopBar">
@@ -111,7 +99,7 @@ class MainScreen extends Component {
               selectYn={this.state.selectTab === "setting"}
               bandImage={Sky_}
               bandName={"우리의밴드이름은?"}
-              memberCount={"멤버 32"}
+              memberCount={"멤버 3"}
               bandIntroduce={"몰?루"}
             />
             {this.getSelectTab()}
@@ -122,20 +110,17 @@ class MainScreen extends Component {
           </div>
         </div>
         <AlertPopup
-          content={this.state.alertContent} // 에러의 값을 담아줘야해! 아마도
+          content={this.state.alertContent} 
+          alertPopupCondition={this.state.alertPopupCondition}
+          alertPopupOnoff={this.alertPopupOnoff.bind(this)}
         />
         <ConfirmPopup
           content="로그아웃 하시겠습니까?"
+          confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
+          confirmPopupCondition={this.state.confirmPopupCondition}
           onClick={function(e){
             this.props.onClick("")
           }.bind(this)}
-        />
-        
-        <MemberInfoPopup
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birth={this.state.memberInfo.birth}
         />
       </div>
     );
@@ -153,19 +138,17 @@ class MainScreen extends Component {
       case 'post':
         tabPage = 
           <PostFrame 
-            postErrorPopup={this.showAlertPopup.bind(this)}
+            postErrorPopup={this.alertPopupOnoff.bind(this)}
           />;
         break;
       case 'member':
         tabPage = 
-          <MemberFrame
-            onClickUserInfo={this.showUserInfoPopup.bind(this)}
-          />;
+          <MemberFrame/>;
         break;
       case 'setting':
         tabPage = 
           <SettingFrame
-            onClick={this.showConfirmPopup.bind(this)}
+            onClick={this.confirmPopupOnOff.bind(this)}
           />;
         break;
       default:
@@ -173,30 +156,6 @@ class MainScreen extends Component {
         break;
     }
     return tabPage;
-  }
-
-  showAlertPopup() {
-    const alertPopup = document.querySelector('#alertPopup');
-    alertPopup.classList.remove('hide');
-  }
-
-  showConfirmPopup() {
-    const confirmPopup = document.querySelector('#confirmPopup');
-    confirmPopup.classList.remove('hide');
-  }
-
-  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
-    this.setState({
-      memberInfo:{
-        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
-        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
-        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
-      }
-    });
-
-    const memberInfoPopup = document.querySelector('#memberInfoPopup');
-    memberInfoPopup.classList.remove('hide');
   }
 };
 

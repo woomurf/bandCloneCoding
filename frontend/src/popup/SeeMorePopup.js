@@ -1,99 +1,78 @@
-import React, {Component} from "react";
+import React, {useState,useRef,useEffect} from "react";
 import axios from "axios";
 import SeeMore from '../image/See_More.png';
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
 
-class SeeMorePopup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      conditionSeemore: false,
+const SeeMorePopup = (props) => {
+
+  const [conditionSeemore, setConditionSeemore] = useState(false);
+
+  const wrapperRef = useRef();
+
+  const onClickOutside = e => {
+    if(conditionSeemore && (!wrapperRef || !wrapperRef.current.contains(e.target))) 
+      setConditionSeemore(false)
+  }
+
+  useEffect(() => {
+    window.addEventListener('mousedown', onClickOutside);
+
+    return () => {
+      window.removeEventListener('mousedown', onClickOutside);
     };
-  }
-  componentDidMount() {
-    document.addEventListener('mousedown', this.onClickOutside.bind(this));
+  });
+
+  const seeMorePopupOnOff = () => {
+    setConditionSeemore(
+      !conditionSeemore
+    )
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.onClickOutside.bind(this));
-  }
-  
-  setWrapperRef_1(node) {
-    this.wrapperRef_1=node;
-  }
-
-  setWrapperRef_2(node) {
-    this.wrapperRef_2=node;
-  }
-
-  onClickOutside(e) {
-    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
-      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
-      this.closeSeeMorePopup();
-    }
-  }
-
-  closeSeeMorePopup() {
-    this.setState({
-      conditionSeemore:false
-    });
-  }
-  
-  showSeeMorePopup() {
-    this.setState({
-      conditionSeemore:true
-    })
-  }
-
-  async deletePost() {
-    axios.delete(`/post/${this.props.postId}`) 
-
+  const deletePost = () => {
+    axios.delete(`/post/${props.postId}`)
     .then(res => {
       // do you want delete? => *TODO* confirmPopup create
-      this.props.updatePostList();
-      this.closeSeeMorePopup();
+      props.updatePostList();
+      seeMorePopupOnOff();
     })
     .catch(err => {
-      this.props.postErrorPopup();
+      props.postErrorPopup();
     })
   }
-
-  render() {
-    return (
-      <div className="moreIcon">
-        <button className="postMoreMenuBtn">
-          <img 
-            alt="" 
-            src={SeeMore} 
-            ref={this.setWrapperRef_1.bind(this)}
-            onClick={this.showSeeMorePopup.bind(this)}
-          />
-        </button>
-        {this.state.conditionSeemore && 
-          <div 
-            id="seeMorePopup" 
-            ref={this.setWrapperRef_2.bind(this)}
-          > 
-            <div className="content">
-              <li 
-                className="moreContent"
-                onClick={this.props.showModifyPopup}
-              >
-                수정
-              </li>
-              <li className="moreContent"
-                onClick={this.deletePost.bind(this)}
-              >
-                삭제
-              </li>
-            </div>
+  
+  return (
+    <div className="moreIcon">
+      <button className="postMoreMenuBtn">
+        <img 
+          alt="" 
+          src={SeeMore} 
+          onClick={seeMorePopupOnOff}
+        />
+      </button>
+      {conditionSeemore && 
+        <div 
+          id="seeMorePopup" 
+          ref={wrapperRef}
+        > 
+          <div className="content">
+            <li 
+              className="moreContent"
+              onClick={props.modifyPopupOnOff}
+            >
+              수정
+            </li>
+            <li className="moreContent"
+              onClick={deletePost}
+            >
+              삭제
+            </li>
           </div>
-        }
+        </div>
+      }
     </div>
-    );
-  }
-};
+  );
+}
 
 export default SeeMorePopup;

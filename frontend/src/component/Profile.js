@@ -1,19 +1,76 @@
 import React, {Component} from "react";
 import SettingPopup from "../popup/SettingPopup";
+import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import MemberInfoPopup from "../popup/MemberInfoPopup"
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss';
-import DefaultProfileImage from "../image/DefaultProfileImage.png";
 
 class Profile extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      profileSetting: false,
-      menuList:[
+      profileSetting : false,
+      memberInfoPopupCondition : false,
+      memberInfo : {
+        name : "",
+        image : "",
+        email : "",
+        birth : ""
+      },      
+      profileInfo : {
+        name : "퉤스트",
+        image : "",
+        email : "test@test.te.st",
+        birth : "19000101"
+      },
+      menuList : [
         "내 정보", "내가 쓴글", "로그아웃"
       ]
     } 
+  }
+
+  profileSettingEvent(focusCursor) {
+    this.setState({
+      profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
+    });
+  }
+
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
+    this.setState({
+      memberInfo:{
+        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
+        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
+        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
+        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
+      },
+      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+    });
+  }
+
+  onClickMenu(menuName) {
+    switch(menuName) {
+      case '내 정보':
+        this.showUserInfoPopup();
+        this.setState({profileSetting:false})
+        break;
+      case '내가 쓴글':
+        alert(menuName + "은 게시글 검색 API 구현 시 재작업");
+        break;
+      case '로그아웃':
+        this.props.onClickLogout();
+        break;
+      default:
+        console.log('menu select error');
+        break;
+    }
+  }
+
+  onClickOutside(e) {
+    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
+      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
+      this.profileSettingEvent("outside");
+    }
   }
 
   componentDidMount() {
@@ -42,43 +99,22 @@ class Profile extends Component {
           className="zidx1"
         >
           {this.state.profileSetting && 
-          <SettingPopup
-            menuList={this.state.menuList}
-            onClickMenu={this.onClickMenu.bind(this)}
-          />}
+            <SettingPopup
+              menuList={this.state.menuList}
+              onClickMenu={this.onClickMenu.bind(this)}
+            />
+          }
         </div>
+        <MemberInfoPopup            
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birth={this.state.memberInfo.birth}
+          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+        />
       </div>
     );
-  }
-
-  onClickOutside(e) {
-    if ((this.wrapperRef_1 && !this.wrapperRef_1.contains(e.target))
-      && (this.wrapperRef_2 && !this.wrapperRef_2.contains(e.target))) {
-      this.profileSettingEvent("outside");
-    }
-  }
-
-  profileSettingEvent(focusCursor) {
-    this.setState({
-      profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
-    });
-  }
-
-  onClickMenu(menuName) {
-    switch(menuName) {
-      case '내 정보':
-        this.props.onClickProfileInfo("profile");
-        break;
-      case '내가 쓴글':
-        alert(menuName + "은 게시글 검색 API 구현 시 재작업");
-        break;
-      case '로그아웃':
-        this.props.onClickLogout();
-        break;
-      default:
-        console.log('menu select error');
-        break;
-    }
   }
 };
 

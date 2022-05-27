@@ -6,23 +6,22 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 class Comment extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      comments :[ {
-        commnetUpdatedAt: "2022년 02월 22일 10:22",
-        comment:"히히몰루"
+      comments : [{
+        commnetUpdatedAt : "2022년 02월 22일 10:22",
+        comment : "히히몰루"
       }, {
-        commnetUpdatedAt: "2022년 02월 22일 10:22",
-        comment:"히히히히 몰루우짤몰루"
-      } ]
+        commnetUpdatedAt : "2022년 02월 22일 10:22",
+        comment : "히히히히 몰루우짤몰루"
+      }]
     }
   }
 
-
   textRef = React.createRef();
 
-  textResize = () =>{
+  textResize = () => {
     const textAreaBox = this.textRef.current;
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
@@ -31,8 +30,8 @@ class Comment extends Component {
   render() {
     return (
       <div className="comment">
-        {this.state.comments.map((commentContent,i)=>
-          <div className="commentProfileDiv"key={i}>
+        {this.state.comments.map((commentContent, i) =>
+          <div className="commentProfileDiv" key={i}>
             <div className="commentProfile">
               <div className="commentProfileImage">
                 <img 
