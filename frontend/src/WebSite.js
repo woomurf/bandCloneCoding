@@ -11,18 +11,9 @@ import MainScreen from "./screen/MainScreen";
 class WebSite extends Component {
   async onChangePage(pagePath) {
     if (pagePath === "") {
-      const res = await axios({
+      await axios({
         method: 'post',
         url: '/auth/logout',
-        // headers: { 
-        //   'Content-Type': 'application/json'
-        // },
-        // data: JSON.stringify({
-        //   name,
-        //   email,
-        //   password,
-        //   birth: year + "-" + month + "-" + day
-        // })
       }).then(function (res) {
         console.log(JSON.stringify(res.message));
       })
