@@ -9,9 +9,7 @@ import '../scss/component.scss';
 import '../scss/popup.scss';
 
 const RegisterPopup = (props) => {
-
   const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
-
   const [regId, setId] = useState("");
   const [regPw, setPw] = useState("");
   const [regNm, setNm] = useState("");
@@ -30,41 +28,43 @@ const RegisterPopup = (props) => {
     )
   }
 
-  const addMember  = async (regId, regPw, regNm, regBd) => {
+  const addMember = async (regId, regPw, regNm, regBd) => {
     var checkResult;
     var alertContent = 'fail';
-
+    const year = Number(regBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    const month = Number(regBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+    const day = Number(regBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+    
     await axios.post("/auth/register", {
       name : regNm,
       email : regId,
       password : regPw,
-      birth : regBd
-    }
-      ).then(res => {
-        console.log(res)
-        checkResult = 'success';
-        alertContent = "회원가입이 완료되었습니다."
-        this.infoReset("");
-        props.onClick(checkResult,alertContent);
-      }
-      ).catch(function(err){
-        console.log(err)
-        checkResult = "err"
-        alertContent = "회원가입이 실패했습니다."
-        props.onClick(checkResult,alertContent);
-      })
+      birth: year + "-" + month + "-" + day
+    }).then(res => {
+      console.log(res)
+      checkResult = 'success';
+      alertContent = "회원가입이 완료되었습니다."
+      infoReset();
+      props.onClick(checkResult,alertContent);
+    }).catch(function(err){
+      console.log(err)
+      checkResult = "err"
+      alertContent = "회원가입이 실패했습니다."
+      props.onClick(checkResult,alertContent);
+    })
   }
-
+  
   return (
-    <Modal className="modal"
-    isOpen={props.registerPoupCondition}
-    ariaHideApp={false}
-    onRequestClose={props.registerPopupModalonoff}
-    style={{
-      overlay: {
-        backgroundColor: "rgba(15, 15, 15, 0.79)",
-      },
-    }}
+    <Modal 
+      className="modal"
+      isOpen={props.registerPoupCondition}
+      ariaHideApp={false}
+      onRequestClose={props.registerPopupModalonoff}
+      style={{
+        overlay : {
+          backgroundColor : "rgba(15, 15, 15, 0.79)",
+        },
+      }}
     >
       <div>
         <div id="registerPopup"> 
@@ -110,12 +110,13 @@ const RegisterPopup = (props) => {
               <Button 
                 label="Confirm" 
                 className="mainButton largeButton"
-                onClick={function(){
-                var regCheck = join_vali(regId,regPw,regNm);
-                  if(regCheck === ""){
+                onClick={function() {
+                  var regCheck = join_vali(regId, regPw, regNm);
+
+                  if(regCheck === "") {
                     regCheck = Birth_vali(regBd);
-                  if(regCheck === ""){
-                      addMember(regId,regPw,regNm,regBd); // DB 반영
+                    if(regCheck === ""){
+                      addMember(regId, regPw, regNm, regBd); // DB 반영
                     }
                   }
 
@@ -127,20 +128,20 @@ const RegisterPopup = (props) => {
             </div>
           </div>
         </div>
-          <ConfirmPopup
-            content="회원가입을 취소하겠습니까?" 
-            confirmPopupOnOff={confirmPopupOnOff}
-            confirmPopupCondition={conditionConfirmPopup}
-            onClick={function(){
-              props.registerPopupModalonoff();
-              confirmPopupOnOff();
-              infoReset();
-            }}
-          />
+        <ConfirmPopup
+          content="회원가입을 취소하겠습니까?" 
+          confirmPopupOnOff={confirmPopupOnOff}
+          confirmPopupCondition={conditionConfirmPopup}
+          onClick={function() {
+            props.registerPopupModalonoff();
+            confirmPopupOnOff();
+            infoReset();
+          }}
+        />
       </div>
     </Modal>
   );
-}
+};
 
 function join_vali(regId, regPw, regNm) {
 	var RegExp = /^[a-zA-Z0-9]{4,15}$/;
@@ -171,8 +172,8 @@ function join_vali(regId, regPw, regNm) {
 function Birth_vali(_inputBd) {
   var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
   var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-  var month = Number(_inputBd.substr(5,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-  var day = Number(_inputBd.substr(8,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+  var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+  var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
   var today = new Date();
   var yearNow = today.getFullYear();
   
@@ -180,7 +181,7 @@ function Birth_vali(_inputBd) {
     return "생년월일을 입력해주세요";
   }
   
-  if (_inputBd.length !== 10 || !Bd_exp.test(_inputBd)) {
+  if (_inputBd.length !== 8 || !Bd_exp.test(_inputBd)) {
     return "년도 4자리를 포함한 8자리숫자로 적어주세요";
   } else if (1900 > year || year > yearNow) {
     return "1900년~"+yearNow+"년 사이를 입력해주세요";

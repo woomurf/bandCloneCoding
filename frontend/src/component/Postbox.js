@@ -14,27 +14,26 @@ class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      conditionComment: false,
+      conditionComment : false,
       modifyPopupCondition : false
     };
   }
 
-  modifyPopupOnOff(){
+  modifyPopupOnOff() {
     this.setState({
-      modifyPopupCondition: !this.state.modifyPopupCondition
+      modifyPopupCondition : !this.state.modifyPopupCondition
     });
   }
 
-  commentAreaOnOff(){
+  commentAreaOnOff() {
     this.setState({
-      conditionComment: !this.state.conditionComment
+      conditionComment : !this.state.conditionComment
     });
   }
 
   render() {
     return (
       <div className="postBox">
-
         <div className="postHeader">
           <div className="profile">
             <div className="profileImage">
@@ -60,38 +59,34 @@ class PostBox extends Component {
             postId={this.props.postId}
           />
         </div>
-        
-          <ModifyPopup 
-            content={this.props.content}
-            postId={this.props.postId}
-            modifyPopupCondition={this.state.modifyPopupCondition}
-            updatePostList={this.props.updatePostList}
-            postErrorPopup={this.props.postErrorPopup}
-            modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
-          />
-
+        <ModifyPopup 
+          content={this.props.content}
+          postId={this.props.postId}
+          modifyPopupCondition={this.state.modifyPopupCondition}
+          updatePostList={this.props.updatePostList}
+          postErrorPopup={this.props.postErrorPopup}
+          modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
+        />
         <div className="postBody">
-          {this.props.content &&(
+          {this.props.content && (
             <div className="postLabel">
               {this.props.content}
-            </div>)
-          }
-          {this.props.scheduleDay &&(
+            </div>
+          )}
+          {this.props.scheduleDay && (
             <Schedule 
               scheduleDate={this.props.scheduleDate}
               scheduleDay={this.props.scheduleDay}
               scheduleName={this.props.scheduleName}
               scheduleDDay={this.props.scheduleDDay}
             />
-            )
-          }
-          {this.props.picture &&  (
+          )}
+          {this.props.picture && (
             <div className="postPicture">
               <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>)
-          }
+            </div>
+          )}
         </div>
-        
         <div className="postFooter">
           <div className="addOn">
             <img alt="" className="Emogi" src={Emogi}/>

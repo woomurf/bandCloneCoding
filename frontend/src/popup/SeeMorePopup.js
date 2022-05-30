@@ -42,37 +42,37 @@ const SeeMorePopup = (props) => {
     })
   }
   
-    return (
-      <div className="moreIcon">
-        <button className="postMoreMenuBtn">
-          <img 
-            alt="" 
-            src={SeeMore} 
-            onClick={seeMorePopupOnOff}
-          />
-        </button>
-        {conditionSeemore && 
-          <div 
-            id="seeMorePopup" 
-            ref={wrapperRef}
-          > 
-            <div className="content">
-              <li 
-                className="moreContent"
-                onClick={props.modifyPopupOnOff}
-              >
-                수정
-              </li>
-              <li className="moreContent"
-                onClick={deletePost}
-              >
-                삭제
-              </li>
-            </div>
+  return (
+    <div className="moreIcon">
+      <button className="postMoreMenuBtn">
+        <img 
+          alt="" 
+          src={SeeMore} 
+          onClick={seeMorePopupOnOff}
+        />
+      </button>
+      {conditionSeemore && 
+        <div 
+          id="seeMorePopup" 
+          ref={wrapperRef}
+        > 
+          <div className="content">
+            <li 
+              className="moreContent"
+              onClick={props.modifyPopupOnOff}
+            >
+              수정
+            </li>
+            <li className="moreContent"
+              onClick={deletePost}
+            >
+              삭제
+            </li>
           </div>
-        }
+        </div>
+      }
     </div>
-    );
-  }
+  );
+}
 
 export default SeeMorePopup;

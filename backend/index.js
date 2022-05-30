@@ -10,7 +10,7 @@ const postRouter = require('./routes/post');
 const authRouter = require('./routes/auth');
 const commentRouter = require('./routes/comment');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 // DB initialize

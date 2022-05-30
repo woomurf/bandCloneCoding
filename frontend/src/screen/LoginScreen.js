@@ -14,22 +14,26 @@ class LoginScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      inputId:'',
-      inputPw:'',
-      alertPurpose:'',
-      alertContent:'',
-      conditionAlert:false,
-      alertPopupCondition:false,
-      registerPoupCondition:false
+      inputId : '',
+      inputPw : '',
+      alertPurpose : '',
+      alertContent : '',
+      conditionAlert : false,
+      alertPopupCondition : false,
+      registerPoupCondition : false
     }
   } 
 
   registerPopupModalonoff = () => {
-    this.setState({ registerPoupCondition:!this.state.registerPoupCondition })
+    this.setState({ 
+      registerPoupCondition : !this.state.registerPoupCondition 
+    })
   }
 
-  alertPopupOnoff(){
-    this.setState({alertPopupCondition: !this.state.alertPopupCondition})
+  alertPopupOnoff () {
+    this.setState({
+      alertPopupCondition : !this.state.alertPopupCondition
+    })
   }
 
   render() {
@@ -84,36 +88,35 @@ class LoginScreen extends Component {
               onClick={this.loginCheck.bind(this, this.state.inputId, this.state.inputPw)}
             /> 
           </div>
-
-            <RegisterPopup
-              registerPoupCondition={this.state.registerPoupCondition}
-              registerPopupModalonoff={this.registerPopupModalonoff}
-              onClick={function(result, content) {
-                if (result === 'success') {
-                  this.setState({
-                    alertPurpose:"REG_COMPLETE",
-                    alertContent:content,
-                  }); 
-                } else {
-                  this.setState({
-                    alertPurpose:"REG",
-                    alertContent:content,
-                  }); 
-                } 
-                this.alertPopupOnoff();
-              }.bind(this)}
-            />
-            <AlertPopup
-              content={this.state.alertContent} 
-              alertPopupCondition={this.state.alertPopupCondition}
-              alertPopupOnoff={this.alertPopupOnoff.bind(this)}
-              purpose={this.state.alertPurpose}
-              onClick={function(e) { 
-                if (this.state.alertPurpose === "REG_COMPLETE") {  
-                  this.registerPopupModalonoff();
-                }
-              }.bind(this)}
-            />
+          <RegisterPopup
+            registerPoupCondition={this.state.registerPoupCondition}
+            registerPopupModalonoff={this.registerPopupModalonoff}
+            onClick={function(result, content) {
+              if (result === 'success') {
+                this.setState({
+                  alertPurpose : "REG_COMPLETE",
+                  alertContent : content,
+                }); 
+              } else {
+                this.setState({
+                  alertPurpose : "REG",
+                  alertContent : content,
+                }); 
+              } 
+              this.alertPopupOnoff();
+            }.bind(this)}
+          />
+          <AlertPopup
+            content={this.state.alertContent} 
+            alertPopupCondition={this.state.alertPopupCondition}
+            alertPopupOnoff={this.alertPopupOnoff.bind(this)}
+            purpose={this.state.alertPurpose}
+            onClick={function(e) { 
+              if (this.state.alertPurpose === "REG_COMPLETE") {  
+                this.registerPopupModalonoff();
+              }
+            }.bind(this)}
+          />
         </div>
       </div>
     );
@@ -121,10 +124,10 @@ class LoginScreen extends Component {
 
   async loginCheck(email, password) {
     const res = await axios({
-      method: 'post',
-      url: '/auth/login',
-      headers: { 
-        'Content-Type': 'application/json'
+      method : 'post',
+      url : '/auth/login',
+      headers : { 
+        'Content-Type' : 'application/json'
       },
       data: JSON.stringify({
         email,
@@ -139,8 +142,8 @@ class LoginScreen extends Component {
 
     const failContent = res.message;
     this.setState({
-      alertPurpose:"",
-      alertContent: failContent
+      alertPurpose : "",
+      alertContent : failContent
     }); 
     this.alertPopupOnoff();
   }

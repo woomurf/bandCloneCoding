@@ -9,6 +9,11 @@ const LoginResultCode = {
     INCORRECT_PASSWORD: 2,
 }
 
+const RegisterResultCode = {
+    SUCCESS: 0,
+    ID_IN_USE: 1
+}
+
 const UnexpectedErrorCode = 999;
 
 module.exports = {
@@ -17,5 +22,6 @@ module.exports = {
     ITERATION,
     ISS,
     LoginResultCode,
+    RegisterResultCode,
     UnexpectedErrorCode,
 }

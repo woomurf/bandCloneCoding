@@ -5,7 +5,7 @@ const SettingPopup = (props) => {
     <div id="settingPopup"> 
       <div className="content">
         {props.menuList.map((menu,index) => {
-          return(
+          return (
             <div key={index}>
               <TextButton
                 label={menu}
