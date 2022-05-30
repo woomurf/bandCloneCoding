@@ -22,8 +22,7 @@ class MemberFrame extends Component {
         email : "test@test.te.st",
         birth : "19000101"
       },
-      members :[{
-      }]
+      members :[]
     }
   }
 
@@ -56,15 +55,6 @@ class MemberFrame extends Component {
     .then(function(res){
       this.setState({members:res.data});
     }.bind(this));
-
-    this.setState({
-      profileInfo : {
-        name : "정의창",
-        image : "",
-        email : "zvzvz@zvzv.zv",
-        birth : "19961213"
-      }
-    });
   }
 
   render() {
