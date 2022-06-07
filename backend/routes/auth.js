@@ -4,7 +4,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { USER } = require('../models');
-const { registerValidator } = require('../middleware/auth');
+const { registerValidator, authValidator } = require('../middleware/auth');
 const router = express.Router();
 const {
   ACCESS_TOKEN_SECRET,
@@ -111,6 +111,10 @@ router.post('/login', async (req, res) => {
       message: 'Success',
       data: {
         id: _user.id,
+        name: _user.name,
+        email: _user.email,
+        profileImageUrl: _user.profileImageUrl,
+        birth: _user.birth,
         accessToken,
         refreshToken,
       }
@@ -134,6 +138,17 @@ router.post('/logout', async (req, res) => {
   res.cookie('accessToken', null, { httpOnly: true });
   return res.status(201).json({
     message: 'Success logout'
+  });
+});
+
+router.get('/me', authValidator, async (req, res) => {
+  const user = res.locals.user;
+  res.json({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    profileImageUrl: user.profileImageUrl,
+    birth: user.birth,
   });
 });
 

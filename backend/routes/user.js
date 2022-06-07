@@ -25,7 +25,7 @@ router.get('/:id', authValidator, async (req, res) => {
       where: {
         id,
       },
-      attributes: ['name', 'email'],
+      attributes: ['name', 'email', 'birth', 'profileImageUrl'],
     })
     res.json({ user });
   } catch (err) {
