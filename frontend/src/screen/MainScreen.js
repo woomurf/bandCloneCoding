@@ -8,6 +8,7 @@ import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import ConfirmPopup from '../popup/ConfirmPopup';
 import AlertPopup from "../popup/AlertPopup";
+import axios from "axios";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -37,7 +38,15 @@ class MainScreen extends Component {
       confirmPopupCondition : false
     } 
   }
-  
+
+  async componentDidMount(){
+    await axios.get('/auth/me')
+    .then(function(res){
+      this.setState({profileInfo:res.data});
+      console.log(this.state.profileInfo);
+    }.bind(this));
+  }
+
   alertPopupOnoff() {
     this.setState({ 
       alertPopupCondition : !this.state.alertPopupCondition 
@@ -148,6 +157,8 @@ class MainScreen extends Component {
       case 'setting':
         tabPage = 
           <SettingFrame
+            name={this.state.profileInfo.name}
+            profileImage={this.state.profileInfo.profileImage}
             onClick={this.confirmPopupOnOff.bind(this)}
           />;
         break;

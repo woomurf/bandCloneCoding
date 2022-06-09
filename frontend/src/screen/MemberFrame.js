@@ -57,12 +57,45 @@ class MemberFrame extends Component {
     }.bind(this));
   }
 
+  
+  async memberSearchEvent(searchParam){
+    if (searchParam !== '') {
+      await axios.get('/user/' + searchParam)
+      .then(function(res){
+        const rtnUser = res.data.user;
+        if (rtnUser !== null) {
+          this.setState({
+            members:[{
+              name:rtnUser.name,
+              email:rtnUser.email,
+              birth:rtnUser.birth,
+              profileImage:rtnUser.profileImage
+            }]
+          });
+        } else {
+          this.setState({
+            members:[]
+          });
+        }
+      }.bind(this));
+    } else {
+      await axios.get('/user/list')
+      .then(function(res){
+        this.setState({members:res.data});
+      }.bind(this));
+    }
+  }
+
+
   render() {
     return (
       <div>
         <div id="centerFrame">
           <SearchBox
             label="멤버 검색"
+            onClick={function(searchParam) {
+              this.memberSearchEvent(searchParam);
+            }.bind(this)}
           />
           {/* SearchBox로 멤버 검색 기능 구현 */}
           <div className="memberFrameBody">

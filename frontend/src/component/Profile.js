@@ -39,10 +39,10 @@ class Profile extends Component {
   showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
     this.setState({
       memberInfo:{
-        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
-        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
-        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
+        name:(infoSource === "member" ? nameInfo : this.props.name),
+        image:(infoSource === "member" ? imageInfo : this.props.profileImage),
+        email:(infoSource === "member" ? emailInfo : this.props.email),
+        birth:(infoSource === "member" ? birthInfo : this.props.birth),
       },
       memberInfoPopupCondition : !this.state.memberInfoPopupCondition
     });
