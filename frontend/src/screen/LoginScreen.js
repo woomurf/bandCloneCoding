@@ -62,6 +62,7 @@ class LoginScreen extends Component {
                 inputId:e.target.value
               });
             }.bind(this)}
+            onKeyUp={this.loginCheck.bind(this, this.state.inputId, this.state.inputPw)}
           />
           <TextBox 
             id="inputPw"
@@ -73,6 +74,7 @@ class LoginScreen extends Component {
                 inputPw:e.target.value
               });
             }.bind(this)}
+            onKeyUp={this.loginCheck.bind(this, this.state.inputId, this.state.inputPw)}
           />
           <div className="flexWrapperTwo">
             <Button 

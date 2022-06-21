@@ -3,6 +3,11 @@ import Button from '../component/Button';
 import Modal from 'react-modal'
 
 const AlertPopup = (props) => {
+  onkeyup = () => {
+    if (props.alertPopupCondition && window.event.keyCode === 13) {
+      props.alertPopupOnoff();
+    }
+  }
   return (
     <Modal 
       className="modal"
