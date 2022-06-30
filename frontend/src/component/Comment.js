@@ -12,54 +12,72 @@ class Comment extends Component {
     super(props);
     this.state = {
       value:'',
-      commentContents : [],
-      commentContent:[{
-        content:"asd",
-        createdAt:"asd"
-      }]
+      modifyCommentValue:'',
+      commentsData:[],
+      seeMorePopupCondition: true ,
+      modifyCommentId: null
     }
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange_2 = this.handleChange_2.bind(this);
   }
 
-  // async getCommentList(){
-  //   return axios.get(`post/${this.props.postId}/comments`)
-  //     .then(function (res) {
-  //       return res.data;
-  //     })
-  //     .catch(function (error) {
-  //       console.error(`${error.name}: ${error.message}`);
-  //       return [];
-  //     });
-  // }
+  async getCommentList(){
+    return axios.get(`post/${this.props.postId}/comments`)
+      .then(function (res) {
+        return res.data;
+      })
+      .catch(function (error) {
+        console.error(`${error.name}: ${error.message}`);
+        return [];
+      });
+  }
 
-  // async updateCommentList() {
-  //   const commentContents = await this.getCommentList();
-  //   this.setState({ ...this.state,commentContents });
-  //   console.log(this.state.commentContents)
-  // }
+  updateCommentList = async() => {
+    const commentsData = await this.getCommentList();
+    this.setState({ ...this.state, commentsData:commentsData.comments });
+  }
 
-  // async handleSubmit(e) {
-  //   axios.post('/comment', {
-  //     content: this.state.value,
-  //     postId:this.props.postId,
-  //     userId:1
-  //   }).then(res => {
-  //     this.updateCommentList();
-  //     this.setState ({
-  //       value:''
-  //     })
-  //   }).catch(err => {
-  //     this.props.postErrorPopup();
-  //   })
-  //   e.preventDefault();
-  // }
+  async getCommentcreatedAt(){
+    const newComment = this.state.commentsData.map(comment => {
+      const createdAt = comment.createdAt;
+      const time = moment(createdAt).format("YYYY년 MM월 DD일 hh:mm");
+      comment.createdAt = time;
+      return comment
+    })
+    this.setState({
+      comment : newComment
+    })
+  }
 
-  // componentDidMount = async() => {
-  //   this.updateCommentList();
-  // }
+  async handleSubmit(e) {
+    axios.post('/comment', {
+      content: this.state.value,
+      postId:this.props.postId,
+      userId:1
+    }).then(res => {
+      this.updateCommentList();
+      this.setState ({
+        value:''
+      })
+    }).catch(err => {
+      this.props.postErrorPopup();
+    })
+    e.preventDefault();
+  }
+
+  componentDidUpdate(prevprops, prevState) {
+    if(prevState.commentsData !== this.state.commentsData){
+      this.getCommentcreatedAt();
+    }
+  }
+
+  componentDidMount = async() => {
+    this.updateCommentList();
+  }
 
   textRef = React.createRef();
+  textRef_2 = React.createRef();
 
   textResize = () => {
     const textAreaBox = this.textRef.current;
@@ -70,12 +88,54 @@ class Comment extends Component {
   handleChange(e) {
     this.setState({value: e.target.value});
   }
+
+  handleChange_2(e) {
+    this.setState({modifyCommentValue: e.target.value});
+  }
+  
+  deleteComment = async(commentId) => {
+    axios.delete(`/comment/${commentId}`)
+    .then(res => {
+      this.updateCommentList();
+    })
+    .catch(err => {
+      this.props.postErrorPopup();
+    })
+  }
+
+  modifyComment = async(commentid) =>{
+    axios.put(`/comment/${commentid}`,{
+      content: this.state.modifyCommentValue
+    })
+    .then(res =>{
+      this.updateCommentList();
+      this.modifyCommentId();
+    })
+    .catch(err =>{
+      this.props.postErrorPopup();
+    })
+  }
+
+  modifyCommentId = (modifyCommentId) =>{
+    this.setState({
+      modifyCommentId : modifyCommentId
+    })
+  }
+
+  seeMorePopupShowHide = () =>{
+    this.setState({
+      seeMorePopupCondition : !this.state.seeMorePopupCondition
+    })
+  }
+
+  //Todo modiftyComment create
   
   render() {
     return (
       <div className="comment">
-        {/* {this.state.commentContent.map((commentContents,index) => { */}
-            <div className="commentProfileDiv">
+        {this.state.commentsData.map((comment,index) => {
+          return(
+            <div className="commentProfileDiv" key={index}>
               <div className="commentProfile">
                 <div className="commentProfileImage">
                   <img 
@@ -85,25 +145,53 @@ class Comment extends Component {
                   />
                 </div>
                 <div className="commentProfileMeta">
-                  <div className="CommentUserName">
-                    {this.props.userName}
-                  </div>
-                  <div className="commentContent">
-                    {this.state.commentContent.content}
-                  </div>
-                  <div className="CommentDay">
-                    {this.state.commentContent.createdAt}
-                  </div>
+                  {this.state.modifyCommentId === comment.id ? 
+                    <div className="commentContent">
+                      <div className="commentAreaOutLine_2">
+                        <textarea 
+                          type="text"
+                          className="postComment_2"
+                          ref={this.textRef}
+                          // onKeyUp={this.textResize}
+                          // onKeyDown={this.textResize}
+                          value={this.state.modifyCommentValue}
+                          onChange={this.handleChange_2}
+                          maxLength={3000}
+                        />            
+                        <button className="modifyCommentUploadBtn"
+                          onClick={this.modifyComment.bind(this,comment.id)}
+                        >
+                          게시
+                        </button>
+                      </div>
+                    </div>
+                    : 
+                    <div>
+                    <div className="CommentUserName">
+                      {this.props.userName}
+                    </div>
+                    <div className="commentContent">
+                      {comment.content}
+                    </div>
+                    <div className="CommentDay">
+                      {comment.createdAt}
+                    </div>
+                    </div>
+                  }
                 </div>
               </div>
-              <SeeMorePopup
-              //TODO => comment modify popup add
-                postErrorPopup={this.props.postErrorPopup}
-                updatePostList={this.props.updatePostList}
-                postId={this.props.postId}
-              />
+              {this.state.seeMorePopupCondition &&
+                <SeeMorePopup
+                  modifyCommand={this.modifyCommentId.bind(this)}
+                  deleteCommand={this.deleteComment.bind(this)}
+                  contentId={comment.id}
+                  seeMorePopupShowHide = {this.seeMorePopupShowHide}
+                  postErrorPopup={this.props.postErrorPopup}
+                  updateCommentList={this.updateCommentList}
+                />
+              }
             </div>
-        {/* })} */}
+        )})}
         <div className="commentAreaOutLine">
           <textarea 
             type="text"

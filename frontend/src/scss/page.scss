@@ -365,6 +365,18 @@ PostScreen CSS
   overflow: hidden;
 }
 
+.postComment_2{
+  outline: none;
+  resize: none;
+  width: 375px;
+  align-items: center;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 5px;
+  border: #000000;
+  overflow: hidden;
+}
+
 .commentAreaOutLine{
   color: $gray-4;
   border-radius: 20px;
@@ -374,7 +386,28 @@ PostScreen CSS
   justify-content: space-between;
 }
 
+.commentAreaOutLine_2{
+  vertical-align:middle;
+  color: $gray-4;
+  border-radius: 20px;
+  border:1px solid #dedede;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
 .commentUploadBtn{
+  margin-right: 10px;
+  border-radius: 20px;
+  border: $gray-2;
+  background-color: $gray-2;
+  color: blue;
+  cursor: pointer;
+  @include body-p12;
+}
+
+.modifyCommentUploadBtn{
   margin-right: 10px;
   border-radius: 20px;
   border: $gray-2;

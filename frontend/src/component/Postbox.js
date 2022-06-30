@@ -2,20 +2,22 @@ import React, {Component} from "react";
 import Emogi from '../image/Emogi.png';
 import CommentImage from '../image/Comment.png';
 import Schedule from "../component/Schedule";
+import axios from "axios";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
 import Comment from "./Comment";
 import SeeMorePopup from "../popup/SeeMorePopup";
+import ModifyPopup from "../popup/ModifyPopup";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
-import ModifyPopup from "../popup/ModifyPopup";
 
 class PostBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
       conditionComment: false,
-      modifyPopupCondition : false
+      modifyPopupCondition : false,
+      commentModifyPopupCondition : false
     };
   }
 
@@ -25,10 +27,27 @@ class PostBox extends Component {
     });
   }
 
+  commentModifyPopupOnOff(){
+    this.setState({
+      commentModifyPopupCondition: !this.state.commentModifyPopupCondition
+    });
+  }
+
   commentAreaOnOff(){
     this.setState({
       conditionComment: !this.state.conditionComment
     });
+  }
+
+  deletePost = (postId) => {
+    axios.delete(`/post/${postId}`)
+    .then(res => {
+      // do you want delete? => *TODO* confirmPopup create
+      this.props.updatePostList();
+    })
+    .catch(err => {
+      this.props.postErrorPopup();
+    })
   }
 
   render() {
@@ -55,9 +74,9 @@ class PostBox extends Component {
           </div>
           <SeeMorePopup
             modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
+            deleteCommand={this.deletePost.bind(this)}
             postErrorPopup={this.props.postErrorPopup}
-            updatePostList={this.props.updatePostList}
-            postId={this.props.postId}
+            contentId={this.props.postId}
           />
         </div>
         

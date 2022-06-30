@@ -18,7 +18,7 @@ const {
 // access token을 secret key 기반으로 생성
 const generateAccessToken = (email) => {
   return jwt.sign({ iss: ISS, email }, ACCESS_TOKEN_SECRET, {
-      expiresIn: "15m",
+      expiresIn: "120m",
   });
 };
 

@@ -44,7 +44,8 @@ const RegisterPopup = (props) => {
         console.log(res)
         checkResult = 'success';
         alertContent = "회원가입이 완료되었습니다."
-        this.infoReset("");
+        infoReset("");
+        props.registerPopupModalonoff();
         props.onClick(checkResult,alertContent);
       }
       ).catch(function(err){
