@@ -44,7 +44,6 @@ class MemberFrame extends Component {
     }
   }
 
-
   render() {
     return (
       <div>
