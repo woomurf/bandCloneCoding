@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import '../scss/page.scss';
-import Sky from '../image/Sky.png';
+import DefaultProfileImage from "../image/DefaultProfileImage.png";
 import SettingBody from "../component/SettingBody";
 
 
@@ -35,10 +35,10 @@ class SettingFrame extends Component {
             <div className="settingProfileDiv">
               <div className="settingProfile">
                 <div className="settingPageProfileImage">
-                  <img alt="" src={Sky} className="settingPageProfileImage"/>
+                  <img alt="" src={this.props.profileImage || DefaultProfileImage} className="settingPageProfileImage"/>
                 </div>
                 <div className="settingPageUserName">
-                  권영준
+                  {this.props.name}
                 </div>
               </div>
               <div className="settingChangeButton">

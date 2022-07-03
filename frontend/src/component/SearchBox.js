@@ -5,6 +5,13 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 class SearchBox extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      searchContant : ''
+    }
+  } 
+
   render() {
     return (
       <div className="searchBox">
@@ -13,6 +20,17 @@ class SearchBox extends Component {
             type="text" 
             placeholder={this.props.label} 
             id="searchText"
+            value={this.state.searchContant}
+            onChange={function(e){
+              this.setState({
+                searchContant:e.target.value
+              });
+            }.bind(this)}
+            onKeyUp={function() {
+              if (window.event.keyCode === 13) {
+                this.props.onClick(this.state.searchContant);
+              }
+            }.bind(this)}
           />
         </div>
         <div className="searchImage">
@@ -21,6 +39,9 @@ class SearchBox extends Component {
             className="searchImage" 
             src={Search} 
             id="searchImage"
+            onClick={function() {
+              this.props.onClick(this.state.searchContant);
+            }.bind(this)}
           />
         </div>
       </div>

@@ -6,8 +6,10 @@ import SettingFrame from "./SettingFrame";
 import Profile from '../component/Profile';
 import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
-import ConfirmPopup from '../popup/ConfirmPopup';
 import AlertPopup from "../popup/AlertPopup";
+import ConfirmPopup from '../popup/ConfirmPopup';
+import MemberInfoPopup from "../popup/MemberInfoPopup"
+import axios from "axios";
 import '../scss/page.scss';
 
 //DB 연결전 사진파일 임시방편
@@ -19,6 +21,7 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
+      myInfo : false,
       profileInfo : {
         name : "퉤스트",
         image : "",
@@ -32,12 +35,37 @@ class MainScreen extends Component {
         birth : "birthInfo"
       },
       selectTab : 'post',
+      memberCount : 0,
       alertContent : "Err!",
       alertPopupCondition : false,
-      confirmPopupCondition : false
+      confirmPopupCondition : false,
+      memberInfoPopupCondition : false
     } 
   }
-  
+
+  async componentDidMount(){
+    await axios.get('/auth/me')
+    .then(function(res){
+      this.setState({profileInfo:res.data});
+    }.bind(this));
+    await axios.get('/user/list')
+    .then(function(res){
+      this.setState({memberCount:res.data.length});
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    // 로그아웃 시 프로필 정보 초기화
+    this.setState({
+      profileInfo:{
+        name : "",
+        image : "",
+        email : "",
+        birth : ""
+      }
+    });
+  }
+
   alertPopupOnoff() {
     this.setState({ 
       alertPopupCondition : !this.state.alertPopupCondition 
@@ -50,6 +78,20 @@ class MainScreen extends Component {
     })
   }
 
+  showUserInfoPopup(myInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
+    let myProfileYn = myInfo || (nameInfo === this.state.profileInfo.name);
+    this.setState({
+      myInfo : myProfileYn,
+      memberInfo:{
+        name:(myProfileYn ? this.state.profileInfo.name : nameInfo),
+        image:(myProfileYn ? this.state.profileInfo.profileImage : imageInfo),
+        email:(myProfileYn ? this.state.profileInfo.email : emailInfo),
+        birth:(myProfileYn ? this.state.profileInfo.birth : birthInfo),
+      },
+      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+    });
+  }
+
   render () {
     return (
       <div>
@@ -59,10 +101,7 @@ class MainScreen extends Component {
               {/*할까?*/}
             </div>
             <Profile
-              name={this.state.profileInfo.name}
-              profileImage={this.state.profileInfo.profileImage}
-              email={this.state.profileInfo.email}
-              birth={this.state.profileInfo.birth}
+              onClickMyInfo={this.showUserInfoPopup.bind(this)}
               onClickLogout={this.confirmPopupOnOff.bind(this)}
             />
           </div>
@@ -99,7 +138,7 @@ class MainScreen extends Component {
               selectYn={this.state.selectTab === "setting"}
               bandImage={Sky_}
               bandName={"우리의밴드이름은?"}
-              memberCount={"멤버 3"}
+              memberCount={"멤버 " + this.state.memberCount}
               bandIntroduce={"몰?루"}
             />
             {this.getSelectTab()}
@@ -122,6 +161,15 @@ class MainScreen extends Component {
             this.props.onClick("")
           }.bind(this)}
         />
+        <MemberInfoPopup
+          myInfoYn={this.state.myInfo}
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birth={this.state.memberInfo.birth}
+          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+        />
       </div>
     );
   }
@@ -143,11 +191,15 @@ class MainScreen extends Component {
         break;
       case 'member':
         tabPage = 
-          <MemberFrame/>;
+          <MemberFrame
+            memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          />;
         break;
       case 'setting':
         tabPage = 
           <SettingFrame
+            name={this.state.profileInfo.name}
+            profileImage={this.state.profileInfo.profileImage}
             onClick={this.confirmPopupOnOff.bind(this)}
           />;
         break;

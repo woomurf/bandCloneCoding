@@ -39,12 +39,21 @@ const MemberInfoPopup = (props) => {
               {setBirthdayFormet(props.birth)}
             </div>
           </div>
-          <div className="btn">
+          <div className={"btn mt8" + (props.myInfoYn? " flexWrapperTwo" : "")}>
             <Button 
               label="Close" 
-              className="subButton smallButton mt8"
+              className={"subButton smallButton" + (props.myInfoYn? " mr8" : "")}
               onClick={props.memberInfoPopupOnOff}
-            />
+            /> 
+            {props.myInfoYn && 
+              <Button 
+                label="Modify" 
+                className="mainButton smallButton"
+                onClick={function(){
+                  alert("수정 비스무리한걸 해야합니다..");
+                }}
+              />
+            }
           </div>
         </div>
       </div>

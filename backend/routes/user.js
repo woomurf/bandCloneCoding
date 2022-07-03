@@ -18,6 +18,28 @@ router.get('/list', authValidator, async (req, res) => {
   };
 });
 
+router.get('/search/:name', authValidator, async (req, res) => {
+  const { name } = req.params;
+  try {
+    const Sequelize = require('sequelize');
+    const Op = Sequelize.Op;
+    const user = await USER.findAll({
+      where: {
+        name : {
+          [Op.like] : `%${name}%` 
+        },
+      },
+      attributes: ['name', 'email', 'birth', 'profileImageUrl'],
+    })
+    res.json(user);
+  } catch (err) {
+    console.error(`Failed to get user ${name} - ${err}`);
+    res.status(500).json({
+      message: 'Internal server error',
+    });
+  };
+});
+
 router.get('/:id', authValidator, async (req, res) => {
   const { id } = req.params;
   try {
@@ -35,6 +57,8 @@ router.get('/:id', authValidator, async (req, res) => {
     });
   };
 });
+
+
 
 router.put('/:id', authValidator, async (req, res) => {
   const { id } = req.params;

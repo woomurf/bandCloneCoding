@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import SettingPopup from "../popup/SettingPopup";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
-import MemberInfoPopup from "../popup/MemberInfoPopup"
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss';
@@ -11,19 +10,6 @@ class Profile extends Component {
     super(props);
     this.state = {
       profileSetting : false,
-      memberInfoPopupCondition : false,
-      memberInfo : {
-        name : "",
-        image : "",
-        email : "",
-        birth : ""
-      },      
-      profileInfo : {
-        name : "퉤스트",
-        image : "",
-        email : "test@test.te.st",
-        birth : "19000101"
-      },
       menuList : [
         "내 정보", "내가 쓴글", "로그아웃"
       ]
@@ -35,22 +21,11 @@ class Profile extends Component {
       profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
     });
   }
-  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
-    this.setState({
-      memberInfo:{
-        name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
-        image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
-        email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
-      },
-      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
-    });
-  }
 
   onClickMenu(menuName) {
     switch(menuName) {
       case '내 정보':
-        this.showUserInfoPopup();
+        this.props.onClickMyInfo(true, "", "", "", "");
         this.setState({profileSetting:false})
         break;
       case '내가 쓴글':
@@ -104,14 +79,6 @@ class Profile extends Component {
             />
           }
         </div>
-        <MemberInfoPopup            
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birth={this.state.memberInfo.birth}
-          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
-        />
       </div>
     );
   }
