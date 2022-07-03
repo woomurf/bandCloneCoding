@@ -52,4 +52,33 @@ router.put('/:id', authValidator, async (req, res) => {
   }
 });
 
+router.delete('/:id', authValidator, async (req, res) => {
+  const user = res.locals.user;
+  const { id } = req.params;
+  try {
+    const count = await COMMENT.destroy({
+      where: {
+        id,
+        userId: user.id
+      }
+    });
+
+    if (count !== 1) {
+      res.status(404).json({
+        message: `Not found post(${id}).`,
+      });
+      return;
+    }
+
+    res.json({
+      message: 'OK'
+    });
+  } catch (err) {
+    console.error(`[COMMENT][DELETE] ${err}`);
+    res.status(500).json({
+      message: 'Failed to delete comment.',
+    });
+  }
+});
+
 module.exports = router;

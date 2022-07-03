@@ -55,6 +55,15 @@ class MemberFrame extends Component {
     .then(function(res){
       this.setState({members:res.data});
     }.bind(this));
+
+    this.setState({
+      profileInfo:{
+        name:"정의창",
+        image:"",
+        email:"zvzvz@zvzv.zv",
+        birthday:"19961213"
+      }
+    });
   }
 
   render() {

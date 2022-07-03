@@ -35,7 +35,6 @@ class Profile extends Component {
       profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
     });
   }
-
   showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
     this.setState({
       memberInfo:{
