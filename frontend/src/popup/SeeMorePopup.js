@@ -30,40 +30,39 @@ const SeeMorePopup = (props) => {
     )
   }
 
-    return (
-      <div className="moreIcon">
-        <button className="postMoreMenuBtn">
-          <img 
-            alt="" 
-            src={SeeMore} 
-            onClick={seeMorePopupOnOff}
-            ref={wrapperRef_1}
-          />
-        </button>
-        {conditionSeemore && 
-          <div 
-            id="seeMorePopup" 
-            ref={wrapperRef_2}
-          > 
-            <div className="content">
-              <li 
-                className="moreContent"
-                onClick={function(e){
-                  props.modifyCommand(props.contentId);
-                  seeMorePopupOnOff();
-                }}
-              >
-                수정
-              </li>
-              <li className="moreContent"
-                onClick={function(){
-                  props.deleteCommand(props.contentId);
-                  seeMorePopupOnOff();
-                }}
-              >
-                삭제
-              </li>
-            </div>
+  return (
+    <div className="moreIcon">
+      <button className="postMoreMenuBtn">
+        <img 
+          alt="" 
+          src={SeeMore} 
+          onClick={seeMorePopupOnOff}
+          ref={wrapperRef_1}
+        />
+      </button>
+      {conditionSeemore && 
+        <div 
+          id="seeMorePopup" 
+          ref={wrapperRef_2}
+        > 
+          <div className="content">
+            <li 
+              className="moreContent"
+              onClick={function(e){
+                props.modifyCommand(props.contentId);
+                seeMorePopupOnOff();
+              }}
+            >
+              수정
+            </li>
+            <li className="moreContent"
+              onClick={function(){
+                props.deleteCommand(props.contentId);
+                seeMorePopupOnOff();
+              }}
+            >
+              삭제
+            </li>
           </div>
         </div>
       }
