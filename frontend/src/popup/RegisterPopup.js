@@ -172,8 +172,8 @@ function join_vali(regId, regPw, regNm) {
 function Birth_vali(_inputBd) {
   var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
   var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-  var month = Number(_inputBd.substr(5,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-  var day = Number(_inputBd.substr(8,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+  var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+  var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
   var today = new Date();
   var yearNow = today.getFullYear();
   
@@ -181,7 +181,7 @@ function Birth_vali(_inputBd) {
     return "생년월일을 입력해주세요";
   }
   
-  if (_inputBd.length !== 10 || !Bd_exp.test(_inputBd)) {
+  if (_inputBd.length !== 8 || !Bd_exp.test(_inputBd)) {
     return "년도 4자리를 포함한 8자리숫자로 적어주세요";
   } else if (1900 > year || year > yearNow) {
     return "1900년~"+yearNow+"년 사이를 입력해주세요";
