@@ -7,7 +7,6 @@ import '../scss/page.scss'
 const SeeMorePopup = (props) => {
 
   const [conditionSeemore, setConditionSeemore] = useState(false);
-
   const wrapperRef_1 = useRef();
   const wrapperRef_2 = useRef();
 
@@ -20,7 +19,6 @@ const SeeMorePopup = (props) => {
 
   useEffect(() => {
     window.addEventListener('mousedown', onClickOutside);
-
     return () => {
       window.removeEventListener('mousedown', onClickOutside);
     };
@@ -67,9 +65,10 @@ const SeeMorePopup = (props) => {
               </li>
             </div>
           </div>
-        }
+        </div>
+      }
     </div>
-    );
-  }
+  );
+}
 
 export default SeeMorePopup;

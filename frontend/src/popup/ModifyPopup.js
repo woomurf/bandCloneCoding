@@ -5,7 +5,6 @@ import Upload_Button from '../image/Upload_Button.png'
 import axios from "axios";
 
 const ModifyPopup = (props) => {
-
   const [value,setTextValue] = useState(props.content);
   const handleChange = (e) => {
     setTextValue(e.target.value)

@@ -11,7 +11,7 @@ class PostFrame extends Component {
   constructor(props){
     super(props);
     this.state = {
-      posts :[]
+      posts : []
     }
   }
 
@@ -81,12 +81,11 @@ class PostFrame extends Component {
               postErrorPopup={this.props.postErrorPopup}
               updatePostList={this.updatePostList.bind(this)}
             />
-            )})}
+          )})}
         </div>
       </div>
     );
   }
 };    
-
 
 export default PostFrame;

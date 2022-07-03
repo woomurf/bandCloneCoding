@@ -9,10 +9,19 @@ class SearchBox extends Component {
     return (
       <div className="searchBox">
         <div className="searchText">
-          <input type="text" placeholder={this.props.label} id="searchText"/>
+          <input 
+            type="text" 
+            placeholder={this.props.label} 
+            id="searchText"
+          />
         </div>
         <div className="searchImage">
-          <img alt="" className="searchImage" src={Search} id="searchImage"/>
+          <img 
+            alt="" 
+            className="searchImage" 
+            src={Search} 
+            id="searchImage"
+          />
         </div>
       </div>
     );

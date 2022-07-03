@@ -30,7 +30,9 @@ class SettingBody extends Component {
                   )}
                 </div>
                 <div className="settingChangeButton">
-                  <button className="settingButton"> 변경 </button>
+                  <button className="settingButton"> 
+                    변경 
+                  </button>
                 </div>
               </div>
             </div>

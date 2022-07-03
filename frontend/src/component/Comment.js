@@ -8,7 +8,7 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 class Comment extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       value:'',

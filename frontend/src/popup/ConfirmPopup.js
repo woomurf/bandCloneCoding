@@ -5,9 +5,9 @@ import '../scss/common.scss';
 import '../scss/popup.scss';
 
 const ConfirmPopup = (props) => {
-
   return (
-    <Modal className="modal"
+    <Modal 
+      className="modal"
       isOpen={props.confirmPopupCondition}
       ariaHideApp={false}
       onRequestClose={props.confirmPopupOnOff}

@@ -7,24 +7,24 @@ import '../scss/component.scss';
 import '../scss/page.scss';
 
 class Profile extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      profileSetting: false,
-      memberInfoPopupCondition: false,
-      memberInfo :{
-        name:"",
-        image:"",
-        email:"",
-        birthday:""
+      profileSetting : false,
+      memberInfoPopupCondition : false,
+      memberInfo : {
+        name : "",
+        image : "",
+        email : "",
+        birth : ""
       },      
-      profileInfo:{
-        name:"퉤스트",
-        image:"",
-        email:"test@test.te.st",
-        birthday:"19000101"
+      profileInfo : {
+        name : "퉤스트",
+        image : "",
+        email : "test@test.te.st",
+        birth : "19000101"
       },
-      menuList:[
+      menuList : [
         "내 정보", "내가 쓴글", "로그아웃"
       ]
     } 
@@ -35,18 +35,16 @@ class Profile extends Component {
       profileSetting:(focusCursor === "profile" ? !this.state.profileSetting : false)
     });
   }
-
-  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthdayInfo) {
+  showUserInfoPopup(infoSource, nameInfo, imageInfo, emailInfo, birthInfo) {
     this.setState({
       memberInfo:{
         name:(infoSource === "member" ? nameInfo : this.state.profileInfo.name),
         image:(infoSource === "member" ? imageInfo : this.state.profileInfo.image),
         email:(infoSource === "member" ? emailInfo : this.state.profileInfo.email),
-        birthday:(infoSource === "member" ? birthdayInfo : this.state.profileInfo.birthday),
+        birth:(infoSource === "member" ? birthInfo : this.state.profileInfo.birth),
       },
-      memberInfoPopupCondition: !this.state.memberInfoPopupCondition
-    }
-    );
+      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+    });
   }
 
   onClickMenu(menuName) {
@@ -100,19 +98,20 @@ class Profile extends Component {
           className="zidx1"
         >
           {this.state.profileSetting && 
-          <SettingPopup
-            menuList={this.state.menuList}
-            onClickMenu={this.onClickMenu.bind(this)}
-          />}
+            <SettingPopup
+              menuList={this.state.menuList}
+              onClickMenu={this.onClickMenu.bind(this)}
+            />
+          }
         </div>
-          <MemberInfoPopup            
-            name={this.state.memberInfo.name}
-            image={this.state.memberInfo.image}
-            email={this.state.memberInfo.email}
-            birthday={this.state.memberInfo.birthday}
-            memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-            memberInfoPopupCondition={this.state.memberInfoPopupCondition}
-          />
+        <MemberInfoPopup            
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birth={this.state.memberInfo.birth}
+          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+        />
       </div>
     );
   }

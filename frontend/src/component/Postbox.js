@@ -35,7 +35,7 @@ class PostBox extends Component {
 
   commentAreaOnOff(){
     this.setState({
-      conditionComment: !this.state.conditionComment
+      conditionComment : !this.state.conditionComment
     });
   }
 
@@ -53,7 +53,6 @@ class PostBox extends Component {
   render() {
     return (
       <div className="postBox">
-
         <div className="postHeader">
           <div className="profile">
             <div className="profileImage">
@@ -79,7 +78,6 @@ class PostBox extends Component {
             contentId={this.props.postId}
           />
         </div>
-        
           <ModifyPopup 
             content={this.props.content}
             postId={this.props.postId}
@@ -88,29 +86,26 @@ class PostBox extends Component {
             postErrorPopup={this.props.postErrorPopup}
             modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
           />
-
         <div className="postBody">
-          {this.props.content &&(
+          {this.props.content && (
             <div className="postLabel">
               {this.props.content}
-            </div>)
-          }
-          {this.props.scheduleDay &&(
+            </div>
+          )}
+          {this.props.scheduleDay && (
             <Schedule 
               scheduleDate={this.props.scheduleDate}
               scheduleDay={this.props.scheduleDay}
               scheduleName={this.props.scheduleName}
               scheduleDDay={this.props.scheduleDDay}
             />
-            )
-          }
-          {this.props.picture &&  (
+          )}
+          {this.props.picture && (
             <div className="postPicture">
               <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>)
-          }
+            </div>
+          )}
         </div>
-        
         <div className="postFooter">
           <div className="addOn">
             <img alt="" className="Emogi" src={Emogi}/>

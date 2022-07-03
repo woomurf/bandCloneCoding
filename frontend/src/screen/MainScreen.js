@@ -19,34 +19,38 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      profileInfo:{
-        name:"퉤스트",
-        image:"",
-        email:"test@test.te.st",
-        birthday:"19000101"
+      profileInfo : {
+        name : "퉤스트",
+        image : "",
+        email : "test@test.te.st",
+        birth : "1900-01-01"
       },
-      memberInfo:{
-        name:"nameInfo",
-        image:"imageInfo",
-        email:"emailInfo",
-        birthday:"birthdayInfo"
+      memberInfo : {
+        name : "nameInfo",
+        image : "imageInfo",
+        email : "emailInfo",
+        birth : "birthInfo"
       },
-      selectTab:'post',
-      alertContent:"Err!",
-      alertPopupCondition:false,
-      confirmPopupCondition:false
+      selectTab : 'post',
+      alertContent : "Err!",
+      alertPopupCondition : false,
+      confirmPopupCondition : false
     } 
   }
   
-  alertPopupOnoff(){
-    this.setState({alertPopupCondition: !this.state.alertPopupCondition})
+  alertPopupOnoff() {
+    this.setState({ 
+      alertPopupCondition : !this.state.alertPopupCondition 
+    })
   }
 
-  confirmPopupOnOff(){
-    this.setState({confirmPopupCondition: !this.state.confirmPopupCondition})
+  confirmPopupOnOff() {
+    this.setState({ 
+      confirmPopupCondition : !this.state.confirmPopupCondition 
+    })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div id="pageHeader">
@@ -58,7 +62,7 @@ class MainScreen extends Component {
               name={this.state.profileInfo.name}
               profileImage={this.state.profileInfo.profileImage}
               email={this.state.profileInfo.email}
-              birthday={this.state.profileInfo.birthday}
+              birth={this.state.profileInfo.birth}
               onClickLogout={this.confirmPopupOnOff.bind(this)}
             />
           </div>
@@ -105,19 +109,19 @@ class MainScreen extends Component {
             />
           </div>
         </div>
-          <AlertPopup
-            content={this.state.alertContent} 
-            alertPopupCondition={this.state.alertPopupCondition}
-            alertPopupOnoff={this.alertPopupOnoff.bind(this)}
-          />
-          <ConfirmPopup
-            content="로그아웃 하시겠습니까?"
-            confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
-            confirmPopupCondition={this.state.confirmPopupCondition}
-            onClick={function(e){
-              this.props.onClick("")
-            }.bind(this)}
-          />
+        <AlertPopup
+          content={this.state.alertContent} 
+          alertPopupCondition={this.state.alertPopupCondition}
+          alertPopupOnoff={this.alertPopupOnoff.bind(this)}
+        />
+        <ConfirmPopup
+          content="로그아웃 하시겠습니까?"
+          confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
+          confirmPopupCondition={this.state.confirmPopupCondition}
+          onClick={function(e){
+            this.props.onClick("")
+          }.bind(this)}
+        />
       </div>
     );
   }

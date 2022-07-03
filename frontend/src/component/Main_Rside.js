@@ -9,10 +9,10 @@ class MainRside extends Component {
       return (
         <div id="rightFrame">
           <div className="pictureCollect">
-            {images.map((image, index)=> {
+            {images.map((image, index) => {
               return(
                 <div key={index} className="pictureSort">
-                  <img alt="" className="pictureSort" src ={image}/>
+                  <img alt="" className="pictureSort" src={image}/>
                 </div>
               );
             })}

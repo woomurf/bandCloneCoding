@@ -3,15 +3,15 @@ import Button from '../component/Button';
 import Modal from 'react-modal'
 
 const AlertPopup = (props) => {
- 
   return (
-    <Modal className="modal"
+    <Modal 
+      className="modal"
       isOpen={props.alertPopupCondition}
       ariaHideApp={false}
       onRequestClose={props.alertPopupOnoff}
       style={{
-        overlay: {
-          backgroundColor: "rgba(15, 15, 15, 0.79)",
+        overlay : {
+          backgroundColor : "rgba(15, 15, 15, 0.79)",
         },
       }}
     >
