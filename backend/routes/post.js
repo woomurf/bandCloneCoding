@@ -1,7 +1,6 @@
 const express = require('express');
-const auth = require('../middleware/auth');
 const { authValidator } = require('../middleware/auth');
-const { POST, POST_LIKE, USER, COMMENT } = require('../models');
+const { POST, POST_LIKE, USER, COMMENT, FILE } = require('../models');
 const router = express.Router();
 
 router.get('/list', authValidator, async (req, res) => {
@@ -39,11 +38,14 @@ router.get('/:id', async (req, res) => {
       where: {
         id,
       },
-      include: {
+      include: [{
         model: USER,
         as: 'user',
         attributes: ['id', 'name']
-      }
+      }, {
+        model: FILE,
+        as: 'files',
+      }]
     });
 
     if (!post) {
@@ -67,7 +69,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', authValidator, async (req, res) => {
   const user = res.locals.user;
   const { groupId, content, files } = req.body;
-  // TODO(hyeonwoong): How to save files?
   if (!content) {
     res.status(400).json({
       message: 'Required content'
@@ -81,6 +82,12 @@ router.post('/', authValidator, async (req, res) => {
       public: true,
       isPinned: false,
       userId: user.id,
+      files,
+    }, {
+      include: [{
+        model: FILE,
+        as: 'files'
+      }]
     });
 
     res.json(post);

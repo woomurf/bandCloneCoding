@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true,
     },
-    fileUrl: {
+    url: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    fileType: {
+    type: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -25,13 +25,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: DataTypes.NOW,
     },
   })
-
-  file.associate = function(models) {
-    file.belongsTo(models.POST, {
-      as: "post",
-      onDelete: "CASCADE",
-    });
-  }
 
   return file;
 }

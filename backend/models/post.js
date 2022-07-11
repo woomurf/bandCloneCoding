@@ -52,6 +52,11 @@ module.exports = function(sequelize, DataTypes) {
       as: 'group',
       onDelete: 'RESTRICT'
     });
+
+    post.hasMany(models.FILE, {
+      as: 'files',
+      onDelete: 'RESTRICT'
+    });
   }
 
   return post;
