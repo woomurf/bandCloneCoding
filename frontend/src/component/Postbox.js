@@ -72,7 +72,7 @@ class PostBox extends Component {
             </div>
           </div>
           <SeeMorePopup
-            modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
+            modifyCommand={this.modifyPopupOnOff.bind(this)}
             deleteCommand={this.deletePost.bind(this)}
             postErrorPopup={this.props.postErrorPopup}
             contentId={this.props.postId}

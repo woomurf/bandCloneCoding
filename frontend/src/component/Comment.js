@@ -12,7 +12,7 @@ class Comment extends Component {
     super(props);
     this.state = {
       value:'',
-      modifyCommentValue:'',
+      modifyCommentValue:"",
       commentsData:[],
       seeMorePopupCondition: true ,
       modifyCommentId: null
@@ -128,8 +128,6 @@ class Comment extends Component {
     })
   }
 
-  //Todo modiftyComment create
-  
   render() {
     return (
       <div className="comment">
@@ -152,8 +150,8 @@ class Comment extends Component {
                           type="text"
                           className="postComment_2"
                           ref={this.textRef}
-                          // onKeyUp={this.textResize}
-                          // onKeyDown={this.textResize}
+                          onKeyUp={this.textResize}
+                          onKeyDown={this.textResize}
                           value={this.state.modifyCommentValue}
                           onChange={this.handleChange_2}
                           maxLength={3000}
@@ -162,6 +160,11 @@ class Comment extends Component {
                           onClick={this.modifyComment.bind(this,comment.id)}
                         >
                           게시
+                        </button>
+                        <button className="modifyCommentUploadBtn"
+                          onClick={this.modifyCommentId.bind(this)}
+                        >
+                          취소
                         </button>
                       </div>
                     </div>
