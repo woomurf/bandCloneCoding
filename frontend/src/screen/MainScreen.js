@@ -35,7 +35,9 @@ class MainScreen extends Component {
         birth : "birthInfo"
       },
       selectTab : 'post',
+      members : [],
       memberCount : 0,
+      memberFrameComment : null,
       alertContent : "Err!",
       alertPopupCondition : false,
       confirmPopupCondition : false,
@@ -43,22 +45,48 @@ class MainScreen extends Component {
     } 
   }
 
+  async componentDidMount(){
+    await this.loadProfileInfo();
+    await this.memberSelectEvent('');
+  } 
+
   async loadProfileInfo() {
     await axios.get('/auth/me')
     .then(function(res){
-      this.setState({profileInfo:res.data});
-    }.bind(this));
-    await axios.get('/user/list')
-    .then(function(res){
-      this.setState({memberCount:res.data.length});
+      this.setState({
+        profileInfo:res.data,
+        memberInfo:res.data
+      });
     }.bind(this));
   }
 
-  async componentDidMount(){
-    await this.loadProfileInfo();
-    console.log(this.state.profileInfo);
-    console.log(this.state.memberInfo);
-  } 
+  async memberSelectEvent(searchParam){
+    if (searchParam !== '') {
+      await axios.get('/user/search/' + searchParam)
+      .then(function(res){
+        if (res.data.length > 0) {
+          this.setState({
+            members:res.data,
+            memberFrameComment:"'" + searchParam + "' (으)로 검색한 결과"
+          });
+        } else {
+          this.setState({
+            members:[],
+            memberFrameComment:"조회된 데이터가 없습니다."
+          });
+        }
+      }.bind(this));
+    } else {
+      await axios.get('/user/list')
+      .then(function(res){
+        this.setState({
+          members:res.data,
+          memberCount:res.data.length,
+          memberFrameComment:"멤버 " + res.data.length
+        });
+      }.bind(this));
+    }
+  }
 
   componentWillUnmount() {
     // 로그아웃 시 프로필 정보 초기화
@@ -180,10 +208,7 @@ class MainScreen extends Component {
             } 
             this.alertPopupOnoff();
             this.loadProfileInfo();
-            console.log(this.state.selectTab);
-            if (this.state.selectTab === 'member') {
-              this.forceUpdate();
-            }
+            this.memberSelectEvent('');
           }.bind(this)}
         />
         <AlertPopup
@@ -221,7 +246,12 @@ class MainScreen extends Component {
       case 'member':
         tabPage = 
           <MemberFrame
+            members={this.state.members}
+            memberFrameComment={this.state.memberFrameComment}
             memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+            memberSearchEvent={function(searchParam) {
+              this.memberSearchEvent(searchParam);
+            }.bind(this)}
           />;
         break;
       case 'setting':
