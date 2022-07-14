@@ -43,7 +43,7 @@ class MainScreen extends Component {
     } 
   }
 
-  async componentDidMount(){
+  async loadProfileInfo() {
     await axios.get('/auth/me')
     .then(function(res){
       this.setState({profileInfo:res.data});
@@ -53,6 +53,12 @@ class MainScreen extends Component {
       this.setState({memberCount:res.data.length});
     }.bind(this));
   }
+
+  async componentDidMount(){
+    await this.loadProfileInfo();
+    console.log(this.state.profileInfo);
+    console.log(this.state.memberInfo);
+  } 
 
   componentWillUnmount() {
     // 로그아웃 시 프로필 정보 초기화
@@ -79,17 +85,23 @@ class MainScreen extends Component {
   }
 
   showUserInfoPopup(myInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
-    let myProfileYn = myInfo || (nameInfo === this.state.profileInfo.name);
-    this.setState({
-      myInfo : myProfileYn,
-      memberInfo:{
-        name:(myProfileYn ? this.state.profileInfo.name : nameInfo),
-        image:(myProfileYn ? this.state.profileInfo.profileImage : imageInfo),
-        email:(myProfileYn ? this.state.profileInfo.email : emailInfo),
-        birth:(myProfileYn ? this.state.profileInfo.birth : birthInfo),
-      },
-      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
-    });
+    if (!this.state.memberInfoPopupCondition) {
+      let myProfileYn = myInfo || (nameInfo === this.state.profileInfo.name);
+      this.setState({
+        myInfo : myProfileYn,
+        memberInfo:{
+          name:(myProfileYn ? this.state.profileInfo.name : nameInfo),
+          image:(myProfileYn ? this.state.profileInfo.profileImage : imageInfo),
+          email:(myProfileYn ? this.state.profileInfo.email : emailInfo),
+          birth:(myProfileYn ? this.state.profileInfo.birth : birthInfo),
+        },
+        memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+      });
+    } else {
+      this.setState({
+        memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+      });
+    }
   }
 
   render () {
@@ -148,6 +160,32 @@ class MainScreen extends Component {
             />
           </div>
         </div>
+        <MemberInfoPopup
+          myInfoYn={this.state.myInfo}
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birth={this.state.memberInfo.birth}
+          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+          onClick={function(result, content) {
+            if (result === 'success') {
+              this.setState({
+                alertContent : content,
+              }); 
+            } else {
+              this.setState({
+                alertContent : content,
+              }); 
+            } 
+            this.alertPopupOnoff();
+            this.loadProfileInfo();
+            console.log(this.state.selectTab);
+            if (this.state.selectTab === 'member') {
+              this.forceUpdate();
+            }
+          }.bind(this)}
+        />
         <AlertPopup
           content={this.state.alertContent} 
           alertPopupCondition={this.state.alertPopupCondition}
@@ -160,15 +198,6 @@ class MainScreen extends Component {
           onClick={function(e){
             this.props.onClick("")
           }.bind(this)}
-        />
-        <MemberInfoPopup
-          myInfoYn={this.state.myInfo}
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birth={this.state.memberInfo.birth}
-          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
         />
       </div>
     );

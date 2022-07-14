@@ -60,17 +60,17 @@ router.get('/:id', authValidator, async (req, res) => {
 
 
 
-router.put('/:id', authValidator, async (req, res) => {
-  const { id } = req.params;
+router.put('/:email', authValidator, async (req, res) => {
+  const { email } = req.params;
   const { name, birth, profileImageUrl } = req.body;
   try {
     const users = await USER.update({
       name,
-      birth,
+      birth: new Date(birth),
       profileImageUrl,
     }, {
       where: {
-        id,
+        email,
       }
     });
     if (users.length !== 1) {
