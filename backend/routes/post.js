@@ -76,14 +76,17 @@ router.post('/', authValidator, async (req, res) => {
     return;
   }
   try {
-    const post = await POST.create({
+    const createBody = {
       content,
       groupId,
       public: true,
       isPinned: false,
-      userId: user.id,
-      files,
-    }, {
+      userId: user.id
+    }
+    if (files && files.length > 0) {
+      createBody.files = files;
+    }
+    const post = await POST.create(createBody, {
       include: [{
         model: FILE,
         as: 'files'
