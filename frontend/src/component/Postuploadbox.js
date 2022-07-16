@@ -1,4 +1,6 @@
-import React, {Component} from "react";
+import React, {useRef, useState} from "react";
+import { updateImage } from '../util';
+import Modal from "react-modal";
 import axios from "axios";
 import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
@@ -7,70 +9,116 @@ import '../scss/component.scss';
 import '../scss/page.scss'
 
 
-class Postuploadbox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value : '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const Postuploadbox = (props) => {
+  const [value, contentValue] = useState("")
+  const [fileImage, setFileImage] = useState("");
+  const [modal, setModal] = useState(false);
+
+  const setModalon = () =>{
+    setModal(true)
+  }
+
+  const setModaloff = () =>{
+    setModal(false)
+  }
+
+  const saveFileImage = (e) => {
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const imageUpload = () => {
+    // e.preventDefault();
+    const file = document.getElementById("imageFile").files[0];
+    updateImage(file, '/user/1');
   }
   
-  handleChange(e) {
-    this.setState({
-      value : e.target.value
-    });
+  const handleChange = (e) => {
+      contentValue(e.target.value)
   }
 
-  async handleSubmit(e) {
+  const handleSubmit = async() => {
     axios.post('/post', {
-      content: this.state.value,
+      content: value,
       groupId: 1,
     }).then(res => {
-      this.props.updatePostList();
-      this.setState ({
-        value:''
-      })
+      props.updatePostList();
+      contentValue("")
     }).catch(err => {
-      this.props.postErrorPopup();
+      props.postErrorPopup();
     })
-    e.preventDefault();
   }
 
-  textRef = React.createRef();
+  const textRef = useRef("");
 
-  textResize = () => {
-    const textAreaBox = this.textRef.current;
+  const textResize = () => {
+    const textAreaBox = textRef.current;
     textAreaBox.style.height = 'auto';
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
 
-  render() {
     return (
       <div className="postuploadbox">
         <div className="postuploadDiv">
+          <Modal className="modal"
+          isOpen={modal}
+          ariaHideApp={false}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(15, 15, 15, 0.79)",
+            },
+          }}
+        >
+          <div id="fileImageMore">
+            <img
+              alt=""
+              src={fileImage}
+              onClick={setModaloff}
+            />
+          </div>
+        </Modal>
           <textarea 
             type="text" 
             rows="4" 
             placeholder="새로운 소식을 남겨보세요." 
             className="postupload"
             maxLength={3000}
-            ref={this.textRef}
-            onKeyUp={this.textResize}
-            onKeyDown={this.textResize}
-            value={this.state.value}
-            onChange={this.handleChange}
+            ref={textRef}
+            onKeyUp={textResize}
+            onKeyDown={textResize}
+            value={value}
+            onChange={handleChange}
+            src={fileImage}
           />
+          {fileImage &&
+          <div id="imagePreview">
+            <div> 이미지 미리보기 </div>
+            <img
+              alt=""
+              id="fileImage"
+              src={fileImage}
+              onClick={setModalon}
+            />
+          </div>
+          }
         </div>
         <div className="pictureImage">
           <div>
-            <img 
-              alt="" 
-              className="pictureImage" 
-              src={Picture} 
-              id="pictureImage"
-            />
+            <label>
+              <div className="imageFile">
+                <input 
+                  id="imageFile"
+                  type="file" 
+                  accept="image/*"
+                  onChange={saveFileImage}
+                />
+              </div>
+              <img
+                alt=""
+                src={Picture}
+                className="pictureImage" 
+                id="pictureImage"
+              />
+            </label>
           </div>
           <div>
             <img 
@@ -78,13 +126,15 @@ class Postuploadbox extends Component {
               className="uploadButton" 
               src={Upload_Button} 
               id="uploadButton" 
-              onClick={this.handleSubmit}
+              onClick={function(){
+                handleSubmit();
+                imageUpload();
+              }}
             />
           </div>
         </div>
       </div>
     );
   }
-};
 
 export default Postuploadbox;

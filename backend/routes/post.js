@@ -83,11 +83,6 @@ router.post('/', authValidator, async (req, res) => {
       isPinned: false,
       userId: user.id,
       files,
-    }, {
-      include: [{
-        model: FILE,
-        as: 'files'
-      }]
     });
 
     res.json(post);
