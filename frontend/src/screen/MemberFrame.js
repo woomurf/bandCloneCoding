@@ -17,7 +17,7 @@ class MemberFrame extends Component {
           <SearchBox
             label="멤버 검색"
             onClick={function(searchParam) {
-              this.props.memberSelectEvent(searchParam);
+              this.props.memberSearchEvent(searchParam);
             }.bind(this)}
           />
           <div className="memberFrameBody">
@@ -28,7 +28,7 @@ class MemberFrame extends Component {
             {this.props.members.map((member,index) => {
               return (
                 <MemberBox
-                  key={index}
+                  id={member.id}
                   name={member.name}
                   profileImage={member.profileImage}
                   email={member.email}

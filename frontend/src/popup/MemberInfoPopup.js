@@ -10,42 +10,29 @@ import '../scss/popup.scss';
 
 const MemberInfoPopup = (props) => {
 
-  const [modifyInfo, setModifyInfo] = useState(false);
-  const [modifyNm, setNm] = useState("");
-  const [modifyBd, setBd] = useState("");
+  const [isModify, setIsModify] = useState(false);
+  const [modifyName, setName] = useState("");
+  const [modifyBirth, setBirth] = useState("");
 
-  const modifyInfoOnOff = () => {
-    setModifyInfo(
-      !modifyInfo
-    )
-  }
-  const setBirthdayFormet = (birth) => {
-    return birth.substr(0,4) + "년 " 
-    + birth.substr(5,2) + "월 " 
-    + birth.substr(8,2) + "일생";
-  }
-
-  const modifyMember = async (email, modNm, modBd) => {
+  const modifyMember = async (id, modName, modBirth) => {
     var checkResult;
     var alertContent = 'fail';
-    const year = Number(modBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-    const month = Number(modBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-    const day = Number(modBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+    const year = Number(modBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    const month = Number(modBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+    const day = Number(modBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
     const birth = year + "-" + month + "-" + day;
-    await axios.put('/user/' + email, {
-      name : modNm,
+    await axios.put('/user/' + id, {
+      name : modName,
       birth : birth,
       profileImageUrl : ""
-    }).then(res => {
-      console.log(res);
-      checkResult = 'success';
+    }).then(function() {
+      checkResult = 'success'; //TODO checkResult enum 으로 변경
       alertContent = "수정이 완료되었습니다."
       props.onClick(checkResult,alertContent);
-      setNm(modNm);
-      setBd(modBd);
-      modifyInfoOnOff();
-    }).catch(function(err){
-      console.log(err);
+      setName(modName);
+      setBirth(modBirth);
+      setIsModify(!isModify);
+    }).catch(function() {
       checkResult = "err"
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
       props.onClick(checkResult,alertContent);
@@ -72,68 +59,73 @@ const MemberInfoPopup = (props) => {
               src={props.profileImage || DefaultProfileImage} 
               className="infoProfileImage"
             /> 
-            {!modifyInfo &&
+            {!isModify &&
               <div className="text taCenter">
                 {props.name} <br/>
                 {props.email} <br/>
-                {setBirthdayFormet(props.birth)}
+                {props.birth.substring(0,4) + "년 " 
+                + props.birth.substring(5,7) + "월 " 
+                + props.birth.substring(8,10) + "일생"}
               </div>
-            } {modifyInfo &&
+            } {isModify &&
               <div className="pt10">
                 <TextBox 
                   className="modifyTextBox" 
-                  id="modifyNm"
+                  id="modifyName"
                   type="text"
-                  value={modifyNm}
+                  value={modifyName}
                   placeholder="이름" 
-                  onChange={({ target: { value } }) => setNm(value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <TextBox 
                   className="modifyTextBox" 
-                  id="modifyBd"
+                  id="modifyBirth"
                   type="text"
-                  value={modifyBd}
+                  value={modifyBirth}
                   placeholder="생년월일" 
-                  onChange={({ target: { value } }) => setBd(value)}
+                  onChange={(e) => setBirth(e.target.value)}
                 />
               </div>
             }
           </div>
-          <div className={"btn mt8" + (props.myInfoYn? " flexWrapperTwo" : "")}>
+          <div className={"btn mt8" + (props.isMyInfo ? " flexWrapperTwo" : "")}>
             <Button 
-              label={modifyInfo? "Cancel" : "Close"} 
-              className={"subButton smallButton" + (props.myInfoYn? " mr8" : "")}
+              label={isModify ? "Cancel" : "Close"} 
+              className={"subButton smallButton" + (props.isMyInfo ? " mr8" : "")}
               onClick={function(){
-                if (modifyInfo) {
-                  modifyInfoOnOff();
+                if (isModify) {
+                  setIsModify(!isModify);
                 } else {
                   props.memberInfoPopupOnOff();
                 }
               }}
             /> 
-            {props.myInfoYn && 
+            {props.isMyInfo && 
               <Button 
-                label={modifyInfo? "Confirm" : "Modify"} 
+                label={isModify ? "Confirm" : "Modify"} 
                 className="mainButton smallButton"
                 onClick={function(){
-                  if (modifyInfo) {
-                    let modifyCheck = join_vali(modifyNm);
+                  if (isModify) {
+                    let modifyCheck = joinValidation(modifyName);
   
-                    if(modifyCheck === "") {
-                      modifyCheck = Birth_vali(modifyBd);
-                      if(modifyCheck === ""){
-                        modifyMember(props.email, modifyNm, modifyBd); // DB 반영
+                    if(modifyCheck.valid) {
+                      modifyCheck = birthValidation(modifyBirth);
+                      if(modifyCheck.valid){
+                        modifyMember(props.id, modifyName, modifyBirth); // DB 반영
                       }
                     }
   
-                    if(modifyCheck !== ""){
-                      props.onClick('fail', modifyCheck);
+                    if(!modifyCheck.valid){
+                      props.onClick('fail', modifyCheck.message);
                     }
                   } else {
-                    setNm(props.name);
-                    const birthNum = props.birth.substr(0, 4) + props.birth.substr(5, 2) + props.birth.substr(8, 2);
-                    setBd(birthNum);
-                    modifyInfoOnOff();
+                    setName(props.name);
+                    setBirth(
+                      props.birth.substring(0, 4)
+                      + props.birth.substring(5, 7)
+                      + props.birth.substring(8, 10)
+                    );
+                    setIsModify(!isModify);
                   }
                 }}
               />
@@ -145,48 +137,47 @@ const MemberInfoPopup = (props) => {
   );
 }
 
-function join_vali(modNm) {
-  var n_ModExp = /^[가-힣]{2,15}$/;
+function joinValidation(modName) {
+  const nameRegex = /^[가-힣]{2,15}$/;
+  let retString = "";
 
-	if (!modNm) {
-    return "성함을 입력해 주세요";
-  }
-	if (!n_ModExp.test(modNm)) {
-    return "이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.";
+	if (!modName) {
+    retString = "성함을 입력해 주세요";
+  } else if (!nameRegex.test(modName)) {
+    retString = "이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.";
   }
 
-  return "";
+  return { valid: retString === "" ? true : false, message: retString };
 };
 
-function Birth_vali(modBd) {
-  var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
-  var year = Number(modBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-  var month = Number(modBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-  var day = Number(modBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+function birthValidation(modBirth) {
+  var Birth_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
+  var year = Number(modBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+  var month = Number(modBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+  var day = Number(modBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
   var today = new Date();
   var yearNow = today.getFullYear();
+  let retString = "";
   
-  if (modBd === undefined) {
-    return "생년월일을 입력해주세요";
-  }
-  
-  if (modBd.length !== 8 || !Bd_exp.test(modBd)) {
-    return "년도 4자리를 포함한 8자리숫자로 적어주세요";
+  if (modBirth === undefined) {
+    retString = "생년월일을 입력해주세요";
+  } else if (modBirth.length !== 8 || !Birth_exp.test(modBirth)) {
+    retString = "년도 4자리를 포함한 8자리숫자로 적어주세요";
   } else if (1900 > year || year > yearNow) {
-    return "1900년~"+yearNow+"년 사이를 입력해주세요";
+    retString = "1900년~"+yearNow+"년 사이를 입력해주세요";
   } else if (month < 1 || month > 12) {
-    return "정확한 달(월)을 입력해주세요"; 
+    retString = "정확한 달(월)을 입력해주세요"; 
   } else if (day < 1 || day > 31) {
-    return "정확한 날(일) 을 입력해주세요"; 
+    retString = "정확한 날(일) 을 입력해주세요"; 
   } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === 31) {
-    return "정확한 날(일) 을 입력해주세요"; 
+    retString = "정확한 날(일) 을 입력해주세요"; 
   } else if (month === 2) { 
     var leapYear = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)); 
     if (day>29 || (day === 29 && !leapYear)) {
-      return "정확한 날(일) 을 입력해주세요"; 
+      retString = "정확한 날(일) 을 입력해주세요"; 
     }
   }
-  return "";
+  return { valid: retString === "" ? true : false, message: retString };
 }
 
 export default MemberInfoPopup;

@@ -21,14 +21,16 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      myInfo : false,
+      isMyInfo : false,
       profileInfo : {
+        id : "",
         name : "퉤스트",
         image : "",
         email : "test@test.te.st",
         birth : "1900-01-01"
       },
       memberInfo : {
+        id : "",
         name : "nameInfo",
         image : "imageInfo",
         email : "emailInfo",
@@ -67,7 +69,7 @@ class MainScreen extends Component {
         if (res.data.length > 0) {
           this.setState({
             members:res.data,
-            memberFrameComment:"'" + searchParam + "' (으)로 검색한 결과"
+            memberFrameComment:`'${searchParam}' (으)로 검색한 결과`
           });
         } else {
           this.setState({
@@ -92,6 +94,7 @@ class MainScreen extends Component {
     // 로그아웃 시 프로필 정보 초기화
     this.setState({
       profileInfo:{
+        id : "",
         name : "",
         image : "",
         email : "",
@@ -112,16 +115,17 @@ class MainScreen extends Component {
     })
   }
 
-  showUserInfoPopup(myInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
+  showUserInfoPopup(isMyInfo, idInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
     if (!this.state.memberInfoPopupCondition) {
-      let myProfileYn = myInfo || (nameInfo === this.state.profileInfo.name);
+      let isMyProfile = isMyInfo || (nameInfo === this.state.profileInfo.name);
       this.setState({
-        myInfo : myProfileYn,
+        isMyInfo : isMyProfile,
         memberInfo:{
-          name:(myProfileYn ? this.state.profileInfo.name : nameInfo),
-          image:(myProfileYn ? this.state.profileInfo.profileImage : imageInfo),
-          email:(myProfileYn ? this.state.profileInfo.email : emailInfo),
-          birth:(myProfileYn ? this.state.profileInfo.birth : birthInfo),
+          id:(isMyProfile ? this.state.profileInfo.id : idInfo),
+          name:(isMyProfile ? this.state.profileInfo.name : nameInfo),
+          image:(isMyProfile ? this.state.profileInfo.profileImage : imageInfo),
+          email:(isMyProfile ? this.state.profileInfo.email : emailInfo),
+          birth:(isMyProfile ? this.state.profileInfo.birth : birthInfo),
         },
         memberInfoPopupCondition : !this.state.memberInfoPopupCondition
       });
@@ -189,7 +193,8 @@ class MainScreen extends Component {
           </div>
         </div>
         <MemberInfoPopup
-          myInfoYn={this.state.myInfo}
+          isMyInfo={this.state.isMyInfo}
+          id={this.state.memberInfo.id}
           name={this.state.memberInfo.name}
           image={this.state.memberInfo.image}
           email={this.state.memberInfo.email}
@@ -250,7 +255,7 @@ class MainScreen extends Component {
             memberFrameComment={this.state.memberFrameComment}
             memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
             memberSearchEvent={function(searchParam) {
-              this.memberSearchEvent(searchParam);
+              this.memberSelectEvent(searchParam);
             }.bind(this)}
           />;
         break;
