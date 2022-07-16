@@ -76,12 +76,9 @@ class Comment extends Component {
     this.updateCommentList();
   }
 
-  textRef = React.createRef();
-  textRef_2 = React.createRef();
-
-  textResize = () => {
-    const textAreaBox = this.textRef.current;
-    textAreaBox.style.height = 'auto';
+  textResize = (event, defaultHeight) => {
+    const textAreaBox = event.target;
+    textAreaBox.style.height = defaultHeight;
     textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
   }
 
@@ -149,9 +146,8 @@ class Comment extends Component {
                         <textarea 
                           type="text"
                           className="postComment_2"
-                          ref={this.textRef}
-                          onKeyUp={this.textResize}
-                          onKeyDown={this.textResize}
+                          onKeyUp={(e) => this.textResize(e, '15px')}
+                          onKeyDown={(e) => this.textResize(e, '15px')}
                           value={this.state.modifyCommentValue}
                           onChange={this.handleChange_2}
                           maxLength={3000}
@@ -199,9 +195,8 @@ class Comment extends Component {
           <textarea 
             type="text"
             className="postComment"
-            ref={this.textRef}
-            onKeyUp={this.textResize}
-            onKeyDown={this.textResize}
+            onKeyUp={(e) => this.textResize(e, '15px')}
+            onKeyDown={(e) => this.textResize(e, '15px')}
             value={this.state.value}
             onChange={this.handleChange}
             maxLength={3000}
