@@ -7,11 +7,14 @@ router.get('/list', authValidator, async (req, res) => {
   const user = res.locals.user;
   try {
     const posts = await POST.findAll({
-      include: {
+      include: [{
         model: USER,
         as: 'user',
         attributes: ['id', 'name']
-      },
+      }, {
+        model: FILE,
+        as: 'files'
+      }],
       order: [['createdAt', 'DESC']]
     });
 
