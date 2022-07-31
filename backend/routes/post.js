@@ -262,7 +262,7 @@ router.get('/:id/comments', authValidator, async (req, res) => {
       include: {
         model: USER,
         as: 'user',
-        attributes: ['id', 'name']
+        attributes: ['id', 'name', 'profileImageUrl']
       }
     });
 
