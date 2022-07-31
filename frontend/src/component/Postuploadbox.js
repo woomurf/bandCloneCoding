@@ -27,7 +27,6 @@ const Postuploadbox = (props) => {
   };
 
   const imageUpload = () => {
-    // e.preventDefault();
     const file = document.getElementById("imageFile").files[0];
     updateImage(file, '/user/1');
   }
@@ -40,13 +39,20 @@ const Postuploadbox = (props) => {
     axios.post('/post', {
       content: value,
       groupId: 1,
+      files: [{ url: "url", type: "image" }]
     }).then(res => {
       props.updatePostList();
+      setFileImage("")
       contentValue("")
     }).catch(err => {
       props.postErrorPopup();
     })
   }
+
+  // upload img 
+  // handle submit
+
+  // src => postBox => picture(Url)
 
   const textRef = useRef("");
 
@@ -127,8 +133,8 @@ const Postuploadbox = (props) => {
               src={Upload_Button} 
               id="uploadButton" 
               onClick={function(){
-                handleSubmit();
                 imageUpload();
+                handleSubmit();
               }}
             />
           </div>

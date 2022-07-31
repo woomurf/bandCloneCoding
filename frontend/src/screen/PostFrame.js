@@ -18,6 +18,7 @@ class PostFrame extends Component {
   async getPostList() {
     return axios.get('/post/list')
       .then(function (res) {
+        console.log(res.data)
         return res.data;
       })
       .catch(function (error) {
