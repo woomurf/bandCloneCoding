@@ -96,6 +96,12 @@ Fonts
   height: 50px;
 }
 
+.modifyTextBox {
+  width: 118px;
+  height: 30px;
+  @include body-p14;
+}
+
 .textBox input[type="text"], 
 .textBox input[type="password"] {
   border:none;

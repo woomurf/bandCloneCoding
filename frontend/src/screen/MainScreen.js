@@ -21,21 +21,25 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      myInfo : false,
+      isMyInfo : false,
       profileInfo : {
+        id : "",
         name : "퉤스트",
         image : "",
         email : "test@test.te.st",
         birth : "1900-01-01"
       },
       memberInfo : {
+        id : "",
         name : "nameInfo",
         image : "imageInfo",
         email : "emailInfo",
         birth : "birthInfo"
       },
       selectTab : 'post',
+      members : [],
       memberCount : 0,
+      memberFrameComment : null,
       alertContent : "Err!",
       alertPopupCondition : false,
       confirmPopupCondition : false,
@@ -44,20 +48,53 @@ class MainScreen extends Component {
   }
 
   async componentDidMount(){
+    await this.loadProfileInfo();
+    await this.memberSelectEvent('');
+  } 
+
+  async loadProfileInfo() {
     await axios.get('/auth/me')
     .then(function(res){
-      this.setState({profileInfo:res.data});
+      this.setState({
+        profileInfo:res.data,
+        memberInfo:res.data
+      });
     }.bind(this));
-    await axios.get('/user/list')
-    .then(function(res){
-      this.setState({memberCount:res.data.length});
-    }.bind(this));
+  }
+
+  async memberSelectEvent(searchParam){
+    if (searchParam !== '') {
+      await axios.get('/user/search/' + searchParam)
+      .then(function(res){
+        if (res.data.length > 0) {
+          this.setState({
+            members:res.data,
+            memberFrameComment:`'${searchParam}' (으)로 검색한 결과`
+          });
+        } else {
+          this.setState({
+            members:[],
+            memberFrameComment:"조회된 데이터가 없습니다."
+          });
+        }
+      }.bind(this));
+    } else {
+      await axios.get('/user/list')
+      .then(function(res){
+        this.setState({
+          members:res.data,
+          memberCount:res.data.length,
+          memberFrameComment:"멤버 " + res.data.length
+        });
+      }.bind(this));
+    }
   }
 
   componentWillUnmount() {
     // 로그아웃 시 프로필 정보 초기화
     this.setState({
       profileInfo:{
+        id : "",
         name : "",
         image : "",
         email : "",
@@ -78,18 +115,25 @@ class MainScreen extends Component {
     })
   }
 
-  showUserInfoPopup(myInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
-    let myProfileYn = myInfo || (nameInfo === this.state.profileInfo.name);
-    this.setState({
-      myInfo : myProfileYn,
-      memberInfo:{
-        name:(myProfileYn ? this.state.profileInfo.name : nameInfo),
-        image:(myProfileYn ? this.state.profileInfo.profileImage : imageInfo),
-        email:(myProfileYn ? this.state.profileInfo.email : emailInfo),
-        birth:(myProfileYn ? this.state.profileInfo.birth : birthInfo),
-      },
-      memberInfoPopupCondition : !this.state.memberInfoPopupCondition
-    });
+  showUserInfoPopup(isMyInfo, idInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
+    if (!this.state.memberInfoPopupCondition) {
+      let isMyProfile = isMyInfo || (nameInfo === this.state.profileInfo.name);
+      this.setState({
+        isMyInfo : isMyProfile,
+        memberInfo:{
+          id:(isMyProfile ? this.state.profileInfo.id : idInfo),
+          name:(isMyProfile ? this.state.profileInfo.name : nameInfo),
+          image:(isMyProfile ? this.state.profileInfo.profileImage : imageInfo),
+          email:(isMyProfile ? this.state.profileInfo.email : emailInfo),
+          birth:(isMyProfile ? this.state.profileInfo.birth : birthInfo),
+        },
+        memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+      });
+    } else {
+      this.setState({
+        memberInfoPopupCondition : !this.state.memberInfoPopupCondition
+      });
+    }
   }
 
   render () {
@@ -148,6 +192,30 @@ class MainScreen extends Component {
             />
           </div>
         </div>
+        <MemberInfoPopup
+          isMyInfo={this.state.isMyInfo}
+          id={this.state.memberInfo.id}
+          name={this.state.memberInfo.name}
+          image={this.state.memberInfo.image}
+          email={this.state.memberInfo.email}
+          birth={this.state.memberInfo.birth}
+          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+          onClick={function(result, content) {
+            if (result === 'success') {
+              this.setState({
+                alertContent : content,
+              }); 
+            } else {
+              this.setState({
+                alertContent : content,
+              }); 
+            } 
+            this.alertPopupOnoff();
+            this.loadProfileInfo();
+            this.memberSelectEvent('');
+          }.bind(this)}
+        />
         <AlertPopup
           content={this.state.alertContent} 
           alertPopupCondition={this.state.alertPopupCondition}
@@ -160,15 +228,6 @@ class MainScreen extends Component {
           onClick={function(e){
             this.props.onClick("")
           }.bind(this)}
-        />
-        <MemberInfoPopup
-          myInfoYn={this.state.myInfo}
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birth={this.state.memberInfo.birth}
-          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
         />
       </div>
     );
@@ -192,7 +251,12 @@ class MainScreen extends Component {
       case 'member':
         tabPage = 
           <MemberFrame
+            members={this.state.members}
+            memberFrameComment={this.state.memberFrameComment}
             memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+            memberSearchEvent={function(searchParam) {
+              this.memberSelectEvent(searchParam);
+            }.bind(this)}
           />;
         break;
       case 'setting':

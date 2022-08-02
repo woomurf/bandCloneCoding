@@ -113,7 +113,7 @@ class LoginScreen extends Component {
             alertPopupCondition={this.state.alertPopupCondition}
             alertPopupOnoff={this.alertPopupOnoff.bind(this)}
             purpose={this.state.alertPurpose}
-            onClick={function(e) { 
+            onClick={function() { 
               if (this.state.alertPurpose === "REG_COMPLETE") {  
                 this.registerPopupModalonoff();
               }
