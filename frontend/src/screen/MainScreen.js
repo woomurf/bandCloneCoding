@@ -47,14 +47,14 @@ class MainScreen extends Component {
     } 
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     await this.loadProfileInfo();
     await this.memberSelectEvent('');
   } 
 
   async loadProfileInfo() {
     await axios.get('/auth/me')
-    .then(function(res){
+    .then(function(res) {
       this.setState({
         profileInfo:res.data,
         memberInfo:res.data
@@ -62,10 +62,10 @@ class MainScreen extends Component {
     }.bind(this));
   }
 
-  async memberSelectEvent(searchParam){
+  async memberSelectEvent(searchParam) {
     if (searchParam !== '') {
       await axios.get('/user/search/' + searchParam)
-      .then(function(res){
+      .then(function(res) {
         if (res.data.length > 0) {
           this.setState({
             members:res.data,
@@ -80,7 +80,7 @@ class MainScreen extends Component {
       }.bind(this));
     } else {
       await axios.get('/user/list')
-      .then(function(res){
+      .then(function(res) {
         this.setState({
           members:res.data,
           memberCount:res.data.length,
@@ -88,6 +88,16 @@ class MainScreen extends Component {
         });
       }.bind(this));
     }
+  }
+
+  async deleteUser() {
+    axios.delete(`/user/${this.state.profileInfo.id}`)
+    .then(res => {
+      this.updateCommentList();
+    })
+    .catch(err => {
+      this.props.postErrorPopup();
+    })
   }
 
   componentWillUnmount() {

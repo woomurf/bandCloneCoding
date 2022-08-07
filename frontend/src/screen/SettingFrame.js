@@ -11,17 +11,20 @@ class SettingFrame extends Component {
       informations : [{
         headTitle : "밴드 정보 관리",
         arr : [{              
-          title : "밴드 소개",
-          explain : "밴드 주소, 키워드, 소개글을 관리하세요"  
+          title : "밴드 이름 및 커버",
+          explain : "밴드 이름 및 커버를 수정합니다.",
+          button : "수정"
         }, {
-          title : "밴드 이름 및 커버"
+          title : "밴드 소개글 수정",
+          explain : "밴드 소개글을 수정합니다.",
+          button : "수정"
         }]
       }, {
-        headTitle: "밴드 활동 관리",
+        headTitle: "활동 관리",
         arr : [{
-          title : "멤버들의 권한 설정",
-        }, {
-          title : "멤버 탈퇴, 차단 설정",
+          title : "회원 탈퇴",
+          explain : "다시 한번 생각해봅시다.",
+          button : "탈퇴"
         }]
       }]            
     }

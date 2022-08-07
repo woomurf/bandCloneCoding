@@ -89,4 +89,29 @@ router.put('/:id', authValidator, async (req, res) => {
   }
 });
 
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const count = await USER.destroy({
+      where: {
+        id,
+      }
+    });
+
+    if (count !== 1) {
+      res.status(404).json({
+        message: `Not found user(${id}).`,
+      });
+      return;
+    }
+
+    res.json({ message: 'OK' });
+  } catch (err) {
+    console.error(`Failed to delete user(${id}) - ${error}`);
+    res.status(500).json({
+      message: `Failed to delete user(${id})`
+    });
+  }
+});
 module.exports = router;

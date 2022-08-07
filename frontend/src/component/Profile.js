@@ -11,7 +11,7 @@ class Profile extends Component {
     this.state = {
       profileSetting : false,
       menuList : [
-        "내 정보", "내가 쓴글", "로그아웃"
+        "내 정보", "로그아웃"
       ]
     } 
   }
@@ -27,9 +27,6 @@ class Profile extends Component {
       case '내 정보':
         this.props.onClickMyInfo(true);
         this.setState({profileSetting:false})
-        break;
-      case '내가 쓴글':
-        alert(menuName + "은 게시글 검색 API 구현 시 재작업");
         break;
       case '로그아웃':
         this.props.onClickLogout();
