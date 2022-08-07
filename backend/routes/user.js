@@ -29,7 +29,7 @@ router.get('/search/:name', authValidator, async (req, res) => {
           [Op.like] : `%${name}%` 
         },
       },
-      attributes: ['name', 'email', 'birth', 'profileImageUrl'],
+      attributes: ['id', 'name', 'email', 'birth', 'profileImageUrl'],
     })
     res.json(user);
   } catch (err) {
@@ -47,7 +47,7 @@ router.get('/:id', authValidator, async (req, res) => {
       where: {
         id,
       },
-      attributes: ['name', 'email', 'birth', 'profileImageUrl'],
+      attributes: ['id', 'name', 'email', 'birth', 'profileImageUrl'],
     })
     res.json({ user });
   } catch (err) {
@@ -66,7 +66,7 @@ router.put('/:id', authValidator, async (req, res) => {
   try {
     const users = await USER.update({
       name,
-      birth,
+      birth: new Date(birth),
       profileImageUrl,
     }, {
       where: {
