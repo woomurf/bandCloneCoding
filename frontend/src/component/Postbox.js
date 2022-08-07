@@ -4,7 +4,7 @@ import CommentImage from '../image/Comment.png';
 import Schedule from "../component/Schedule";
 import axios from "axios";
 import DefaultProfileImage from "../image/DefaultProfileImage.png";
-import Comment from "./Comment";
+import CommentList from "./CommentList";
 import SeeMorePopup from "../popup/SeeMorePopup";
 import ModifyPopup from "../popup/ModifyPopup";
 import '../scss/common.scss';
@@ -119,7 +119,7 @@ class PostBox extends Component {
             />
           </div>
             {this.state.conditionComment && 
-              <Comment
+              <CommentList
                 userName={this.props.userName}
                 postId={this.props.postId}
                 postErrorPopup={this.props.postErrorPopup}
