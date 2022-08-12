@@ -25,11 +25,12 @@ class Profile extends Component {
   onClickMenu(menuName) {
     switch(menuName) {
       case '내 정보':
-        this.props.onClickMyInfo(true);
-        this.setState({profileSetting:false})
+        this.props.onClickMyInfo(this.props.id);
+        this.setState({profileSetting:false});
         break;
       case '로그아웃':
         this.props.onClickLogout();
+        this.setState({profileSetting:false});
         break;
       default:
         console.log('menu select error');

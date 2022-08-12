@@ -8,15 +8,15 @@ class MemberBox extends Component {
       <div>
         <div className="memberBodyDiv">
           <div className="memberBody">
-            <img alt="" src={this.props.profileImage || DefaultProfileImage} id="memberProfileImage"/>
+            <img alt="" src={this.props.memberInfo.profileImageUrl || DefaultProfileImage} id="memberProfileImage"/>
             <div className="memberName">
-              {this.props.name}
+              {this.props.memberInfo.name}
             </div>
           </div>
           <button 
             className="settingButton"
             onClick={function(){
-              this.props.onClickProfileInfo(false, this.props.id, this.props.name, this.props.profileImage, this.props.email, this.props.birth);
+              this.props.onClickProfileInfo(this.props.memberInfo.id);
             }.bind(this)}
           >
             정보

@@ -46,7 +46,7 @@ class SettingFrame extends Component {
               </div>
               <div className="settingChangeButton">
                 <button className="settingButton" 
-                  onClick={this.props.onClick}>
+                  onClick={this.props.onClick.bind(this, "로그아웃")}>
                   로그아웃
                 </button>
               </div>
@@ -59,6 +59,7 @@ class SettingFrame extends Component {
                 key={i}
                 headTitle={info.headTitle}
                 informations={info.arr}
+                onClick={this.props.onClick}
               />
             )
           })}

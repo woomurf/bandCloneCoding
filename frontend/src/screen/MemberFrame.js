@@ -28,11 +28,8 @@ class MemberFrame extends Component {
             {this.props.members.map((member,index) => {
               return (
                 <MemberBox
-                  id={member.id}
-                  name={member.name}
-                  profileImage={member.profileImage}
-                  email={member.email}
-                  birth={member.birth}
+                  key={index}
+                  memberInfo={member}
                   lastIndexYn={this.props.members.length === index + 1}
                   onClickProfileInfo={this.props.memberInfoPopupOnOff.bind(this)}
                 />

@@ -56,16 +56,16 @@ const MemberInfoPopup = (props) => {
           <div className="profileInfo">
             <img 
               alt="" 
-              src={props.profileImage || DefaultProfileImage} 
+              src={props.memberInfo.profileImageUrl || DefaultProfileImage} 
               className="infoProfileImage"
             /> 
             {!isModify &&
               <div className="text taCenter">
-                {props.name} <br/>
-                {props.email} <br/>
-                {props.birth.substring(0,4) + "년 " 
-                + props.birth.substring(5,7) + "월 " 
-                + props.birth.substring(8,10) + "일생"}
+                {props.memberInfo.name} <br/>
+                {props.memberInfo.email} <br/>
+                {props.memberInfo.birth.substring(0,4) + "년 " 
+                + props.memberInfo.birth.substring(5,7) + "월 " 
+                + props.memberInfo.birth.substring(8,10) + "일생"}
               </div>
             } {isModify &&
               <div className="pt10">

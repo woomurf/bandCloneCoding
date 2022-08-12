@@ -21,29 +21,25 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isMyInfo : false,
-      profileInfo : {
-        id : "",
-        name : "퉤스트",
-        image : "",
-        email : "test@test.te.st",
-        birth : "1900-01-01"
-      },
-      memberInfo : {
-        id : "",
-        name : "nameInfo",
-        image : "imageInfo",
-        email : "emailInfo",
-        birth : "birthInfo"
-      },
       selectTab : 'post',
-      members : [],
-      memberCount : 0,
-      memberFrameComment : null,
-      alertContent : "Err!",
+      alertContent : "",
       alertPopupCondition : false,
+      confirmEvent : "",
+      confirmContent : "",
       confirmPopupCondition : false,
-      memberInfoPopupCondition : false
+      memberInfoPopupCondition : false,
+      isMyInfo : false,
+      myId : -1,
+      members : [{
+        id : "",
+        name : "",
+        email : "",
+        birth : "",
+        profileImageUrl : ""
+      }],
+      memberInfoIndex : 0,
+      memberCount : 0,
+      memberFrameComment : null
     } 
   }
 
@@ -56,8 +52,7 @@ class MainScreen extends Component {
     await axios.get('/auth/me')
     .then(function(res) {
       this.setState({
-        profileInfo:res.data,
-        memberInfo:res.data
+        myId:res.data.id
       });
     }.bind(this));
   }
@@ -91,13 +86,44 @@ class MainScreen extends Component {
   }
 
   async deleteUser() {
-    axios.delete(`/user/${this.state.profileInfo.id}`)
-    .then(res => {
-      this.updateCommentList();
+    axios.delete(`/user/${this.state.myId}`)
+    .then(() => {
+      this.setState({
+        alertContent : "회원 탈퇴가 완료되었습니다.",
+      }); 
     })
-    .catch(err => {
-      this.props.postErrorPopup();
+    .catch(() => {
+      this.setState({
+        confirmEvent : "",
+        alertContent : "회원 탈퇴를 진행하는 도중 오류가 발생했습니다.",
+      }); 
     })
+    this.alertPopupOnoff();
+  }
+
+  onClickForSettingFrame(buttonTitle) {
+    switch(buttonTitle) {
+      case "로그아웃" :
+        this.setState({
+          confirmEvent : "Logout",
+          confirmContent : "로그아웃 하시겠습니까?"
+        });
+        this.confirmPopupOnOff();
+        break;
+      case "밴드 이름 및 커버" :
+        break;
+      case "밴드 소개글 수정" :
+        break;
+      case "회원 탈퇴" :
+        this.setState({
+          confirmEvent : "Withdrawal",
+          confirmContent : "회원 탈퇴를 하시겠습니까?"
+        });
+        this.confirmPopupOnOff();
+        break; 
+      default :
+        alert(buttonTitle);
+    }
   }
 
   componentWillUnmount() {
@@ -116,7 +142,7 @@ class MainScreen extends Component {
   alertPopupOnoff() {
     this.setState({ 
       alertPopupCondition : !this.state.alertPopupCondition 
-    })
+    });
   }
 
   confirmPopupOnOff() {
@@ -125,18 +151,12 @@ class MainScreen extends Component {
     })
   }
 
-  showUserInfoPopup(isMyInfo, idInfo, nameInfo, imageInfo, emailInfo, birthInfo) {
+  showUserInfoPopup(memberId) {
     if (!this.state.memberInfoPopupCondition) {
-      let isMyProfile = isMyInfo || (nameInfo === this.state.profileInfo.name);
+      let isMyProfile = (memberId === this.state.myId);
       this.setState({
         isMyInfo : isMyProfile,
-        memberInfo:{
-          id:(isMyProfile ? this.state.profileInfo.id : idInfo),
-          name:(isMyProfile ? this.state.profileInfo.name : nameInfo),
-          image:(isMyProfile ? this.state.profileInfo.profileImage : imageInfo),
-          email:(isMyProfile ? this.state.profileInfo.email : emailInfo),
-          birth:(isMyProfile ? this.state.profileInfo.birth : birthInfo),
-        },
+        memberInfoIndex : this.state.members.findIndex(m => m.id === memberId),
         memberInfoPopupCondition : !this.state.memberInfoPopupCondition
       });
     } else {
@@ -155,8 +175,15 @@ class MainScreen extends Component {
               {/*할까?*/}
             </div>
             <Profile
+              id = {this.state.myId}
               onClickMyInfo={this.showUserInfoPopup.bind(this)}
-              onClickLogout={this.confirmPopupOnOff.bind(this)}
+              onClickLogout={function() {
+                this.setState({
+                  confirmEvent : "Logout",
+                  confirmContent : "로그아웃 하시겠습니까?"
+                });
+                this.confirmPopupOnOff();
+              }.bind(this)}
             />
           </div>
           <div id="pageTopBar">
@@ -204,11 +231,7 @@ class MainScreen extends Component {
         </div>
         <MemberInfoPopup
           isMyInfo={this.state.isMyInfo}
-          id={this.state.memberInfo.id}
-          name={this.state.memberInfo.name}
-          image={this.state.memberInfo.image}
-          email={this.state.memberInfo.email}
-          birth={this.state.memberInfo.birth}
+          memberInfo={this.state.members[this.state.memberInfoIndex]}
           memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
           memberInfoPopupCondition={this.state.memberInfoPopupCondition}
           onClick={function(result, content) {
@@ -229,14 +252,28 @@ class MainScreen extends Component {
         <AlertPopup
           content={this.state.alertContent} 
           alertPopupCondition={this.state.alertPopupCondition}
-          alertPopupOnoff={this.alertPopupOnoff.bind(this)}
+          alertPopupOnoff={function() {
+            this.alertPopupOnoff();
+            if (this.state.alertPopupCondition && this.state.confirmEvent === "Withdrawal") {
+              this.props.onClick("");
+            }
+          }.bind(this)}
         />
         <ConfirmPopup
-          content="로그아웃 하시겠습니까?"
+          content={this.state.confirmContent}
           confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
           confirmPopupCondition={this.state.confirmPopupCondition}
-          onClick={function(e){
-            this.props.onClick("")
+          onClick={function(){
+            switch(this.state.confirmEvent) {
+              case "Withdrawal" :
+                this.deleteUser();
+                break;
+              case "Logout" :
+                this.props.onClick("");
+                break;
+              default :
+                break;
+            }
           }.bind(this)}
         />
       </div>
@@ -272,9 +309,9 @@ class MainScreen extends Component {
       case 'setting':
         tabPage = 
           <SettingFrame
-            name={this.state.profileInfo.name}
-            profileImage={this.state.profileInfo.profileImage}
-            onClick={this.confirmPopupOnOff.bind(this)}
+            name={this.state.members[this.state.myId].name}
+            profileImage={this.state.members[this.state.myId].profileImageUrl}
+            onClick={this.onClickForSettingFrame.bind(this)}
           />;
         break;
       default:
