@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Button from '../component/Button';
 import TextBox from '../component/TextBox';
-import DefaultProfileImage from "../image/DefaultProfileImage.png";
+import DefaultProfileImage from '../image/Sky.png';
 import axios from "axios";
 import Modal from "react-modal";
 import '../scss/page.scss';
@@ -57,7 +57,7 @@ const GroupInfoPopup = (props) => {
             /> 
             {!isModify &&
               <div className="text taCenter">
-                {props.groupInfo.name} <br/>
+                {props.groupInfo.name} <br/><br/>
                 {props.groupInfo.description} <br/>
               </div>
             } {isModify &&
