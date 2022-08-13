@@ -30,6 +30,7 @@ class MainScreen extends Component {
       memberInfoPopupCondition : false,
       isMyInfo : false,
       myId : -1,
+      myIndex : -1,
       members : [{
         id : "",
         name : "",
@@ -77,6 +78,7 @@ class MainScreen extends Component {
       await axios.get('/user/list')
       .then(function(res) {
         this.setState({
+          myIndex:res.data.findIndex(m => m.id === this.state.myId),
           members:res.data,
           memberCount:res.data.length,
           memberFrameComment:"멤버 " + res.data.length
@@ -301,16 +303,14 @@ class MainScreen extends Component {
             members={this.state.members}
             memberFrameComment={this.state.memberFrameComment}
             memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-            memberSearchEvent={function(searchParam) {
-              this.memberSelectEvent(searchParam);
-            }.bind(this)}
+            memberSearchEvent={this.memberSelectEvent.bind(this)}
           />;
         break;
-      case 'setting':
-        tabPage = 
+      case 'setting': 
+        tabPage =
           <SettingFrame
-            name={this.state.members[this.state.myId].name}
-            profileImage={this.state.members[this.state.myId].profileImageUrl}
+            name={this.state.members[this.state.myIndex].name}
+            profileImage={this.state.members[this.state.myIndex].profileImageUrl}
             onClick={this.onClickForSettingFrame.bind(this)}
           />;
         break;
