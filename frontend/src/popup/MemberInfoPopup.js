@@ -111,7 +111,7 @@ const MemberInfoPopup = (props) => {
                     if(modifyCheck.valid) {
                       modifyCheck = birthValidation(modifyBirth);
                       if(modifyCheck.valid){
-                        modifyMember(props.id, modifyName, modifyBirth); // DB 반영
+                        modifyMember(props.memberInfo.id, modifyName, modifyBirth); // DB 반영
                       }
                     }
   
@@ -119,11 +119,11 @@ const MemberInfoPopup = (props) => {
                       props.onClick('fail', modifyCheck.message);
                     }
                   } else {
-                    setName(props.name);
+                    setName(props.memberInfo.name);
                     setBirth(
-                      props.birth.substring(0, 4)
-                      + props.birth.substring(5, 7)
-                      + props.birth.substring(8, 10)
+                      props.memberInfo.birth.substring(0, 4)
+                      + props.memberInfo.birth.substring(5, 7)
+                      + props.memberInfo.birth.substring(8, 10)
                     );
                     setIsModify(!isModify);
                   }

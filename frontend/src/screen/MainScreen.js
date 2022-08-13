@@ -8,6 +8,7 @@ import MainLside from '../component/Main_Lside';
 import MainRside from '../component/Main_Rside';
 import AlertPopup from "../popup/AlertPopup";
 import ConfirmPopup from '../popup/ConfirmPopup';
+import GroupInfoPopup from "../popup/GroupInfoPopup";
 import MemberInfoPopup from "../popup/MemberInfoPopup"
 import axios from "axios";
 import '../scss/page.scss';
@@ -21,14 +22,13 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectTab : 'post',
-      alertContent : "",
-      alertPopupCondition : false,
-      confirmEvent : "",
-      confirmContent : "",
-      confirmPopupCondition : false,
-      memberInfoPopupCondition : false,
-      isMyInfo : false,
+      groupId : 0,
+      group : {
+        id : "",
+        name : "",
+        description : "",
+        profileImageUrl : ""
+      },
       myId : -1,
       myIndex : -1,
       members : [{
@@ -39,15 +39,34 @@ class MainScreen extends Component {
         profileImageUrl : ""
       }],
       memberInfoIndex : 0,
+      selectTab : 'post',
+      alertContent : "",
+      alertPopupCondition : false,
+      confirmEvent : "",
+      confirmContent : "",
+      confirmPopupCondition : false,
+      groupInfoPopupCondition : false,
+      memberInfoPopupCondition : false,
+      isMyInfo : false,
       memberCount : 0,
       memberFrameComment : null
     } 
   }
 
   async componentDidMount() {
+    await this.loadGroupInfo();
     await this.loadProfileInfo();
     await this.memberSelectEvent('');
   } 
+
+  async loadGroupInfo() {
+    await axios.get(`/group/${this.state.groupId}`)
+    .then(function(res) {
+      this.setState({
+        group:res.data
+      });
+    }.bind(this));
+  }
 
   async loadProfileInfo() {
     await axios.get('/auth/me')
@@ -60,7 +79,7 @@ class MainScreen extends Component {
 
   async memberSelectEvent(searchParam) {
     if (searchParam !== '') {
-      await axios.get('/user/search/' + searchParam)
+      await axios.get(`/user/search/${searchParam}`)
       .then(function(res) {
         if (res.data.length > 0) {
           this.setState({
@@ -112,9 +131,8 @@ class MainScreen extends Component {
         });
         this.confirmPopupOnOff();
         break;
-      case "밴드 이름 및 커버" :
-        break;
-      case "밴드 소개글 수정" :
+      case "밴드 정보 수정" :
+        this.showGroupInfoPopup();
         break;
       case "회원 탈퇴" :
         this.setState({
@@ -150,6 +168,12 @@ class MainScreen extends Component {
   confirmPopupOnOff() {
     this.setState({ 
       confirmPopupCondition : !this.state.confirmPopupCondition 
+    })
+  }
+
+  showGroupInfoPopup() {
+    this.setState({ 
+      groupInfoPopupCondition : !this.state.groupInfoPopupCondition 
     })
   }
 
@@ -219,10 +243,10 @@ class MainScreen extends Component {
             <MainLside
               onClick={this.onChangeTab.bind(this, "setting")}
               selectYn={this.state.selectTab === "setting"}
-              bandImage={Sky_}
-              bandName={"우리의밴드이름은?"}
+              bandImage={this.state.group.profileImageUrl || Sky_}
+              bandName={this.state.group.name}
               memberCount={"멤버 " + this.state.memberCount}
-              bandIntroduce={"몰?루"}
+              bandIntroduce={this.state.group.description}
             />
             {this.getSelectTab()}
             <MainRside 
@@ -231,6 +255,24 @@ class MainScreen extends Component {
             />
           </div>
         </div>
+        <GroupInfoPopup
+          groupInfo={this.state.group}
+          groupInfoPopupOnOff={this.showGroupInfoPopup.bind(this)}
+          groupInfoPopupCondition={this.state.groupInfoPopupCondition}
+          onClick={function(result, content) {
+            if (result === 'success') {
+              this.setState({
+                alertContent : content,
+              }); 
+            } else {
+              this.setState({
+                alertContent : content,
+              }); 
+            } 
+            this.alertPopupOnoff();
+            this.loadGroupInfo();
+          }.bind(this)}
+        />
         <MemberInfoPopup
           isMyInfo={this.state.isMyInfo}
           memberInfo={this.state.members[this.state.memberInfoIndex]}
