@@ -71,7 +71,7 @@ class PostFrame extends Component {
               postId={post.id}
               userName={post.user.name}
               updatedAt={post.updatedAt}
-              profileImage={post.profileImage}
+              profileImage={post.user.profileImageUrl}
               content={post.content} 
               picture={post.picture} 
               scheduleDate={post.scheduleDate}
