@@ -22,7 +22,7 @@ class MainScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      groupId : 0,
+      groupId : 1,
       group : {
         id : "",
         name : "",
