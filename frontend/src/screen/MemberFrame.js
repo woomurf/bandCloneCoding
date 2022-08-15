@@ -30,7 +30,7 @@ class MemberFrame extends Component {
                 <MemberBox
                   id={member.id}
                   name={member.name}
-                  profileImage={member.profileImage}
+                  profileImage={member.profileImageUrl}
                   email={member.email}
                   birth={member.birth}
                   lastIndexYn={this.props.members.length === index + 1}
