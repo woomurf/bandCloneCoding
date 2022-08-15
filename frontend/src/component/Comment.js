@@ -41,7 +41,7 @@ const Comment = ({ id, content, user, isAuthor, createdAt, postErrorPopup }) => 
         <div className="commentProfileImage">
           <img 
             alt=""
-            src={user.profileImage || DefaultProfileImage} 
+            src={user.profileImageUrl || DefaultProfileImage} 
             className="commentProfileImage"
           />
         </div>
