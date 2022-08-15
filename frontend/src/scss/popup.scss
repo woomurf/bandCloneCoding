@@ -193,6 +193,8 @@ Fonts
   background-color: $gray-white;
   box-shadow: 2px 2px 2px $transparent-black;
   @include body-p14;
+  top: 20px;
+  right: 5px;
 }
 
 .moreContent{

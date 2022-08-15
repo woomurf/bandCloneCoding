@@ -14,4 +14,10 @@ function uploadImage(file) {
   return axios.post('/upload-image', form).then((res) => res.data);
 }
 
-export { updateImage };
+function textResize(event, defaultHeight) {
+  const textAreaBox = event.target;
+  textAreaBox.style.height = defaultHeight;
+  textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
+}
+
+export { updateImage, textResize };

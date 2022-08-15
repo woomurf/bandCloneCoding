@@ -64,11 +64,11 @@ router.put('/:id', authValidator, async (req, res) => {
   const { id } = req.params;
   const { name, birth, profileImageUrl } = req.body;
   try {
-    const users = await USER.update({
-      name,
-      birth: new Date(birth),
-      profileImageUrl,
-    }, {
+    const updateBody = { name, birth, profileImageUrl };
+    if (updateBody.birth) {
+      updateBody.birth = new Date(birth);
+    }
+    const users = await USER.update(updateBody, {
       where: {
         id,
       }
