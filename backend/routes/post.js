@@ -10,7 +10,7 @@ router.get('/list', authValidator, async (req, res) => {
       include: [{
         model: USER,
         as: 'user',
-        attributes: ['id', 'name']
+        attributes: ['id', 'name', 'profileImageUrl']
       }, {
         model: FILE,
         as: 'files'
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
       include: [{
         model: USER,
         as: 'user',
-        attributes: ['id', 'name']
+        attributes: ['id', 'name', 'profileImageUrl']
       }, {
         model: FILE,
         as: 'files',
