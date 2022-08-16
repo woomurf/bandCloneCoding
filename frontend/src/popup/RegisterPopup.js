@@ -12,14 +12,14 @@ const RegisterPopup = (props) => {
   const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
   const [regId, setId] = useState("");
   const [regPw, setPw] = useState("");
-  const [regNm, setNm] = useState("");
-  const [regBd, setBd] = useState("");
+  const [regName, setName] = useState("");
+  const [regBirth, setBirth] = useState("");
 
   const infoReset = () => {
     setId("");
     setPw("");
-    setNm("");
-    setBd("");
+    setName("");
+    setBirth("");
   }
 
   const confirmPopupOnOff = () => {
@@ -28,26 +28,24 @@ const RegisterPopup = (props) => {
     )
   }
   
-  const addMember = async (regId, regPw, regNm, regBd) => {
+  const addMember = async (regId, regPw, regName, regBirth) => {
     var checkResult;
     var alertContent = 'fail';
-    const year = Number(regBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-    const month = Number(regBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-    const day = Number(regBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+    const year = Number(regBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    const month = Number(regBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+    const day = Number(regBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
     await axios.post("/auth/register", {
-      name : regNm,
+      name : regName,
       email : regId,
       password : regPw,
       birth: year + "-" + month + "-" + day
-    }).then(res => {
-      console.log(res)
+    }).then(function() {
       checkResult = 'success';
       alertContent = "회원가입이 완료되었습니다."
       infoReset();
       props.registerPopupModalonoff();
       props.onClick(checkResult,alertContent);
-    }).catch(function(err){
-      console.log(err)
+    }).catch(function() {
       checkResult = "err"
       alertContent = "회원가입이 실패했습니다."
       props.onClick(checkResult,alertContent);
@@ -74,8 +72,8 @@ const RegisterPopup = (props) => {
               id="regId"
               type="text"
               value={regId}
-              placeholder="이메일" 
-              onChange={({ target: { value } }) => setId(value)}
+              placeholder="이메일"
+              onChange={(e) => setId(e.target.value)}
             />
             <TextBox 
               className="regTextBox" 
@@ -83,23 +81,23 @@ const RegisterPopup = (props) => {
               type="password"
               value={regPw}
               placeholder="비밀번호" 
-              onChange={({ target: { value } }) => setPw(value)}
+              onChange={(e) => setPw(e.target.value)}
             />
             <TextBox 
               className="regTextBox" 
-              id="regNm"
+              id="regName"
               type="text"
-              value={regNm}
+              value={regName}
               placeholder="이름" 
-              onChange={({ target: { value } }) => setNm(value)}
+              onChange={(e) => setName(e.target.value)}
             />
             <TextBox 
               className="regTextBox" 
-              id="regBd"
+              id="regBirth"
               type="text"
-              value={regBd}
+              value={regBirth}
               placeholder="생년월일" 
-              onChange={({ target: { value } }) => setBd(value)}
+              onChange={(e) => setBirth(e.target.value)}
             />
             <div className="flexWrapperTwo">
               <Button 
@@ -111,17 +109,17 @@ const RegisterPopup = (props) => {
                 label="Confirm" 
                 className="mainButton largeButton"
                 onClick={function() {
-                  var regCheck = join_vali(regId, regPw, regNm);
+                  var regCheck = joinValidation(regId, regPw, regName);
 
-                  if(regCheck === "") {
-                    regCheck = Birth_vali(regBd);
-                    if(regCheck === ""){
-                      addMember(regId, regPw, regNm, regBd); // DB 반영
+                  if (regCheck.valid) {
+                    regCheck = birthValidation(regBirth);
+                    if (regCheck.valid) {
+                      addMember(regId, regPw, regName, regBirth); // DB 반영
                     }
                   }
 
-                  if(regCheck !== ""){
-                    props.onClick('fail', regCheck);
+                  if (!regCheck.valid) {
+                    props.onClick('fail', regCheck.message);
                   }
                 }}
               />
@@ -143,61 +141,58 @@ const RegisterPopup = (props) => {
   );
 };
 
-function join_vali(regId, regPw, regNm) {
-	var RegExp = /^[a-zA-Z0-9]{4,15}$/;
-  var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  var n_RegExp = /^[가-힣]{2,15}$/;
+function joinValidation(regId, regPw, regName) {
+	var pwRegex = /^[a-zA-Z0-9]{4,15}$/;
+  var emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  var nameRegex = /^[가-힣]{2,15}$/;
+  let retString = "";
 
 	if (!regId) {
-    return "E-mail을 입력해 주세요";
+    retString = "E-mail을 입력해 주세요";
+  } else if (!emailRegex.test(regId)) {
+    retString = "올바른 이메일 형식이 아닙니다.";
+  } else if (!regPw) {
+    retString = "password 를 입력해 주세요";
+  } else if (!pwRegex.test(regPw)) {
+    retString = "Password는 4~15자의 영문 대소문자와 숫자로만 입력하여 주세요.";
+  } else if (!regName) {
+    retString = "성함을 입력해 주세요";
+  } else if (!nameRegex.test(regName)) {
+    retString = "이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.";
   }
-	if (!e_RegExp.test(regId)) {
-    return "올바른 이메일 형식이 아닙니다.";
-  }
-	if (!regPw) {
-    return "password 를 입력해 주세요";
-  }
-	if (!RegExp.test(regPw)) {
-    return "Password는 4~15자의 영문 대소문자와 숫자로만 입력하여 주세요.";
-  }
-	if (!regNm) {
-    return "성함을 입력해 주세요";
-  }
-	if (!n_RegExp.test(regNm)) {
-    return "이름에 특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.";
-  }
-  return "";
+
+  return { valid: retString === "" ? true : false, message: retString };
 };
 
-function Birth_vali(_inputBd) {
-  var Bd_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
-  var year = Number(_inputBd.substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
-  var month = Number(_inputBd.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-  var day = Number(_inputBd.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+function birthValidation(_inputBirth) { //TODO 공통함수로 빼기(이 외에도 생일 Formet 형식 변경하는 함수라든지 등등)
+  var Birth_exp = /^(\(?\+?[0-9]*\)?)?[0-9_\- ]*$/
+  var year = Number(_inputBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+  var month = Number(_inputBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+  var day = Number(_inputBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
   var today = new Date();
   var yearNow = today.getFullYear();
-  
-  if (_inputBd === undefined) {
-    return "생년월일을 입력해주세요";
-  }
-  
-  if (_inputBd.length !== 8 || !Bd_exp.test(_inputBd)) {
-    return "년도 4자리를 포함한 8자리숫자로 적어주세요";
+  let retString = "";
+
+  if (_inputBirth === undefined) {
+    retString = "생년월일을 입력해주세요";
+  } else if (_inputBirth.length !== 8 || !Birth_exp.test(_inputBirth)) {
+    retString = "년도 4자리를 포함한 8자리숫자로 적어주세요";
   } else if (1900 > year || year > yearNow) {
-    return "1900년~"+yearNow+"년 사이를 입력해주세요";
+    retString = "1900년~"+yearNow+"년 사이를 입력해주세요";
   } else if (month < 1 || month > 12) {
-    return "정확한 달(월)을 입력해주세요"; 
+    retString = "정확한 달(월)을 입력해주세요"; 
   } else if (day < 1 || day > 31) {
-    return "정확한 날(일) 을 입력해주세요"; 
+    retString = "정확한 날(일) 을 입력해주세요"; 
   } else if ((month === 4 || month === 6 || month === 9 || month === 11) && day === 31) {
-    return "정확한 날(일) 을 입력해주세요"; 
+    retString = "정확한 날(일) 을 입력해주세요"; 
   } else if (month === 2) { 
-    var leapYear = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)); 
+    const leapYear = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)); 
     if (day>29 || (day === 29 && !leapYear)) {
-      return "정확한 날(일) 을 입력해주세요"; 
+      retString = "정확한 날(일) 을 입력해주세요"; 
     }
   }
-  return "";
+  
+  return { valid: retString === "" ? true : false, message: retString };
 }
 
 export default RegisterPopup;

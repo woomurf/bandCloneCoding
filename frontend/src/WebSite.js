@@ -14,11 +14,8 @@ class WebSite extends Component {
       await axios({
         method: 'post',
         url: '/auth/logout',
-      }).then(function (res) {
-        console.log(JSON.stringify(res.message));
-      })
-      .catch(function (err) {
-        console.log(err);
+      }).catch(function (err) {
+        console.log('/auth/logout', err);
       });
     }
     window.location.href = "/" + pagePath;
