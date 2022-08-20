@@ -155,10 +155,42 @@ Fonts
 #pictureImage{
   border-radius: 50%;
   margin: 15px;
+  cursor: pointer;
+}
+
+#imageFile{
+  display: none;
 }
 
 .pictureImage{
+  display: flex;
+}
+
+#imagePreview{
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  flex-direction: column;
+  background-color: #999999;
+  @include body-p12;
+}
+
+#fileImage{
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+#fileImageMore{
+  position: absolute;
   display: flex; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .uploadButton{

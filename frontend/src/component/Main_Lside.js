@@ -5,14 +5,7 @@ import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss';
 
-import { updateImage } from '../util';
-
 class MainLside extends Component {
-  imageUpload(e) {
-    e.preventDefault();
-    const file = document.getElementById("imageFile").files[0];
-    updateImage(file, '/user/1');
-  }
   render() {
     return (
       <div id="leftFrame">
@@ -44,14 +37,6 @@ class MainLside extends Component {
             />
           </div>
         </div>
-        {/**
-         * Sample button to test image upload.
-         * If you want to test, change false to true :X
-         * */}
-        { false && <div>
-          <input id="imageFile" type="file" accept="image/*"></input>
-          <button onClick={this.imageUpload}> 업로드 </button>
-        </div>}
       </div>
     );
   }
