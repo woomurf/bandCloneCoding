@@ -93,13 +93,13 @@ router.put('/:id', authValidator, async (req, res) => {
 router.delete('/:id', authValidator, async (req, res) => {
   const { id } = req.params;
   try {
-    const users = await USER.destroy({
+    const user = await USER.destroy({
       where: {
         id,
       }
     });
-
-    if (users.length !== 1) {
+    console.log(user);
+    if (user !== 1) {
       res.status(404).json({
         message: `Cannot found user(${id}).`,
       });

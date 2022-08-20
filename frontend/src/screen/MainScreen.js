@@ -149,13 +149,9 @@ class MainScreen extends Component {
   componentWillUnmount() {
     // 로그아웃 시 프로필 정보 초기화
     this.setState({
-      profileInfo:{
-        id : "",
-        name : "",
-        image : "",
-        email : "",
-        birth : ""
-      }
+      myId : -1,
+      myIndex : -1,
+      confirmEvent : ""
     });
   }
 
