@@ -293,7 +293,9 @@ Fonts
 
 #groupInfoPopup .profileInfo {
   width: auto;
-  height: 340px;
+  max-width: 200px;
+  min-height: 340px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

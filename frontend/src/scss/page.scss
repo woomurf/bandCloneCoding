@@ -249,6 +249,7 @@ PostScreen CSS
 
 .bandName{
   margin-top: 10px;
+  width: 210px;
   @include headline-h5;
 }
 
@@ -260,6 +261,7 @@ PostScreen CSS
 
 .bandIntroduce{
   margin-top: 5px;
+  width: 210px;
   @include body-p12;
   color: $gray-5;
 }

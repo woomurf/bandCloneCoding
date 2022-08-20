@@ -98,7 +98,7 @@ router.delete('/:id', authValidator, async (req, res) => {
         id,
       }
     });
-    console.log(user);
+    
     if (user !== 1) {
       res.status(404).json({
         message: `Cannot found user(${id}).`,

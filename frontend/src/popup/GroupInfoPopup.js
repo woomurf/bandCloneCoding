@@ -4,6 +4,7 @@ import TextBox from '../component/TextBox';
 import DefaultProfileImage from '../image/Sky.png';
 import axios from "axios";
 import Modal from "react-modal";
+import { textResize } from '../util';
 import '../scss/page.scss';
 import '../scss/common.scss';
 import '../scss/popup.scss';
@@ -63,21 +64,30 @@ const GroupInfoPopup = (props) => {
             } {isModify &&
               <div className="pt10">
                 <TextBox 
-                  className="modifyTextBox" 
+                  className="modifyTextBox_2" 
                   id="modifyName"
                   type="text"
                   value={modifyName}
                   placeholder="이름" 
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={function(e) {
+                    if (e.target.value.length < 15) {
+                      setName(e.target.value);
+                    }
+                  }}
                 />
-                <TextBox 
-                  className="modifyTextBox" 
-                  id="modifyDescription"
-                  type="text"
-                  value={modifyDescription}
-                  placeholder="소개글" 
-                  onChange={(e) => setDescription(e.target.value)}
-                />
+                <div className="modifyTextAreaOutLine">
+                  <textarea 
+                    className="modifyTextArea"
+                    id="modifyDescription"
+                    type="text"
+                    value={modifyDescription}
+                    placeholder="소개글" 
+                    onKeyUp={(e) => textResize(e, '15px')}
+                    onKeyDown={(e) => textResize(e, '15px')}
+                    onChange={(e) => setDescription(e.target.value)}
+                    maxLength={100}
+                  />
+                </div>
               </div>
             }
           </div>
