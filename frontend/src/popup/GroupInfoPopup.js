@@ -10,30 +10,25 @@ import '../scss/common.scss';
 import '../scss/popup.scss';
 
 const GroupInfoPopup = (props) => {
-
+  const groupInfo = props.groupInfo;
   const [isModify, setIsModify] = useState(false);
   const [modifyName, setName] = useState("");
   const [modifyDescription, setDescription] = useState("");
+  const [modifyProfileImageUrl, setProfileImageUrl] = useState("");
 
-  const modifyGroup = async (id, modName, modDes) => {
-    var checkResult;
-    var alertContent = 'fail';
-    await axios.put('/group/' + id, {
-      name : modName,
-      description : modDes,
-      profileImageUrl : ""
+  const modifyGroup = async () => {
+    var alertContent = 'error';
+    await axios.put('/group/' + groupInfo.id, {
+      name : modifyName,
+      description : modifyDescription,
+      profileImageUrl : modifyProfileImageUrl
     }).then(function() {
-      checkResult = 'success'; //TODO checkResult enum 으로 변경
       alertContent = "수정이 완료되었습니다."
-      props.onClick(checkResult,alertContent);
-      setName(modName);
-      setDescription(modDes);
       setIsModify(!isModify);
     }).catch(function() {
-      checkResult = "err"
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
-      props.onClick(checkResult,alertContent);
-    })
+    });
+    props.onClick(alertContent);
   }
 
   return (
@@ -53,13 +48,19 @@ const GroupInfoPopup = (props) => {
           <div className="profileInfo">
             <img 
               alt="" 
-              src={props.groupInfo.profileImageUrl || DefaultProfileImage} 
+              src={groupInfo.profileImageUrl || DefaultProfileImage} 
               className="infoProfileImage"
+              onClick={function(e) {
+                console.log(e.target.value)
+                if (e.target.value === "임시입니다.") {
+                  setProfileImageUrl(e.target.value); //이미지 적용 전까지 임시
+                }
+              }}
             /> 
             {!isModify &&
               <div className="text taCenter">
-                {props.groupInfo.name} <br/><br/>
-                {props.groupInfo.description} <br/>
+                {groupInfo.name} <br/><br/>
+                {groupInfo.description} <br/>
               </div>
             } {isModify &&
               <div className="pt10">
@@ -108,10 +109,10 @@ const GroupInfoPopup = (props) => {
               className="mainButton smallButton"
               onClick={function(){
                 if (isModify) {
-                  modifyGroup(props.groupInfo.id, modifyName, modifyDescription); // DB 반영
+                  modifyGroup(); // DB 반영
                 } else {
-                  setName(props.groupInfo.name);
-                  setDescription(props.groupInfo.description)
+                  setName(groupInfo.name);
+                  setDescription(groupInfo.description)
                   setIsModify(!isModify);
                 }
               }}

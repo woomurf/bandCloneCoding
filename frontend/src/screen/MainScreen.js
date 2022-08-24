@@ -255,16 +255,10 @@ class MainScreen extends Component {
           groupInfo={this.state.group}
           groupInfoPopupOnOff={this.showGroupInfoPopup.bind(this)}
           groupInfoPopupCondition={this.state.groupInfoPopupCondition}
-          onClick={function(result, content) {
-            if (result === 'success') {
-              this.setState({
-                alertContent : content,
-              }); 
-            } else {
-              this.setState({
-                alertContent : content,
-              }); 
-            } 
+          onClick={function(content) {
+            this.setState({
+              alertContent : content,
+            }); 
             this.alertPopupOnoff();
             this.loadGroupInfo();
           }.bind(this)}
@@ -274,16 +268,10 @@ class MainScreen extends Component {
           memberInfo={this.state.members[this.state.memberInfoIndex]}
           memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
           memberInfoPopupCondition={this.state.memberInfoPopupCondition}
-          onClick={function(result, content) {
-            if (result === 'success') {
-              this.setState({
-                alertContent : content,
-              }); 
-            } else {
-              this.setState({
-                alertContent : content,
-              }); 
-            } 
+          onClick={function(content) {
+            this.setState({
+              alertContent : content,
+            }); 
             this.alertPopupOnoff();
             this.loadProfileInfo();
             this.memberSelectEvent('');
