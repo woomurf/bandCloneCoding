@@ -16,7 +16,7 @@ class MemberFrame extends Component {
         <div id="centerFrame">
           <SearchBox
             label="멤버 검색"
-            onClick={function(searchParam) {
+            getSearchResult={function(searchParam) {
               this.props.memberSearchEvent(searchParam);
             }.bind(this)}
           />

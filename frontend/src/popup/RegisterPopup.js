@@ -44,11 +44,11 @@ const RegisterPopup = (props) => {
       alertContent = "회원가입이 완료되었습니다."
       infoReset();
       props.registerPopupModalonoff();
-      props.onClick(checkResult,alertContent);
+      props.callAlert(checkResult,alertContent);
     }).catch(function() {
       checkResult = "err"
       alertContent = "회원가입이 실패했습니다."
-      props.onClick(checkResult,alertContent);
+      props.callAlert(checkResult,alertContent);
     })
   }
   
@@ -119,7 +119,7 @@ const RegisterPopup = (props) => {
                   }
 
                   if (!regCheck.valid) {
-                    props.onClick('fail', regCheck.message);
+                    props.callAlert('fail', regCheck.message);
                   }
                 }}
               />
@@ -130,7 +130,7 @@ const RegisterPopup = (props) => {
           content="회원가입을 취소하겠습니까?" 
           confirmPopupOnOff={confirmPopupOnOff}
           confirmPopupCondition={conditionConfirmPopup}
-          onClick={function() {
+          onConfirmClick={function() {
             props.registerPopupModalonoff();
             confirmPopupOnOff();
             infoReset();

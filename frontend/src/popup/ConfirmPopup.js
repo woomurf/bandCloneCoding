@@ -33,7 +33,7 @@ const ConfirmPopup = (props) => {
                 label="Confirm" 
                 className="mainButton smallButton"
                 onClick={function(){
-                  props.onClick();
+                  props.onConfirmClick();
                   props.confirmPopupOnOff();
                 }}
               />

@@ -28,7 +28,7 @@ class SearchBox extends Component {
             }.bind(this)}
             onKeyUp={function() {
               if (window.event.keyCode === 13) {
-                this.props.onClick(this.state.searchContant);
+                this.props.getSearchResult(this.state.searchContant);
               }
             }.bind(this)}
           />
@@ -40,7 +40,7 @@ class SearchBox extends Component {
             src={Search} 
             id="searchImage"
             onClick={function() {
-              this.props.onClick(this.state.searchContant);
+              this.props.getSearchResult(this.state.searchContant);
             }.bind(this)}
           />
         </div>

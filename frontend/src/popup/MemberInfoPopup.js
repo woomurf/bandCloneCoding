@@ -30,7 +30,7 @@ const MemberInfoPopup = (props) => {
     }).catch(function() {
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
     });
-    props.onClick(alertContent);
+    props.callAlert(alertContent);
   }
 
   return (
@@ -116,7 +116,7 @@ const MemberInfoPopup = (props) => {
                     }
   
                     if(!modifyCheck.valid){
-                      props.onClick(modifyCheck.message);
+                      props.callAlert(modifyCheck.message);
                     }
                   } else {
                     setName(memberInfo.name);

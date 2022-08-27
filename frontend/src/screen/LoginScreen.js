@@ -93,7 +93,7 @@ class LoginScreen extends Component {
           <RegisterPopup
             registerPoupCondition={this.state.registerPoupCondition}
             registerPopupModalonoff={this.registerPopupModalonoff}
-            onClick={function(result, content) {
+            callAlert={function(result, content) {
               if (result === 'success') {
                 this.setState({
                   alertPurpose : "REG_COMPLETE",
@@ -139,7 +139,7 @@ class LoginScreen extends Component {
     .catch((err) => err.response.data);
     
     if (res.code === LoginResultCode.SUCCESS) {
-      return this.props.onClick("main");
+      return this.props.movePage("main");
     }
 
     const failContent = res.message;

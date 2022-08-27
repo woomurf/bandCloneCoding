@@ -9,7 +9,7 @@ import LoginScreen from "./screen/LoginScreen";
 import MainScreen from "./screen/MainScreen";
 
 class WebSite extends Component {
-  async onChangePage(pagePath) {
+  async movePage(pagePath) {
     if (pagePath === "") {
       await axios({
         method: 'post',
@@ -27,15 +27,15 @@ class WebSite extends Component {
         <Routes>
           <Route path="/" element={
             <LoginScreen
-              onClick={
-                (result) => this.onChangePage(result)
+              movePage={
+                (result) => this.movePage(result)
               }
             />
           }/>
           <Route path="/main" element={
             <MainScreen
-              onClick={
-                (result) => this.onChangePage(result)
+              movePage={
+                (result) => this.movePage(result)
               }
             />
           }/>
