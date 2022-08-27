@@ -9,34 +9,28 @@ import '../scss/common.scss';
 import '../scss/popup.scss';
 
 const MemberInfoPopup = (props) => {
-
+  const memberInfo = props.memberInfo;
   const [isModify, setIsModify] = useState(false);
   const [modifyName, setName] = useState("");
   const [modifyBirth, setBirth] = useState("");
+  const [modifyProfileImageUrl, setProfileImageUrl] = useState("");
 
-  const modifyMember = async (id, modName, modBirth) => {
-    var checkResult;
-    var alertContent = 'fail';
-    const year = Number(modBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
-    const month = Number(modBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-    const day = Number(modBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+  const modifyMember = async () => {
+    var alertContent = 'error';
+    const year = Number(modifyBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    const month = Number(modifyBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+    const day = Number(modifyBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
     const birth = year + "-" + month + "-" + day;
-    await axios.put('/user/' + id, {
-      name : modName,
+    await axios.put('/user/' + memberInfo.id, {
+      name : modifyName,
       birth : birth,
-      profileImageUrl : ""
+      profileImageUrl : modifyProfileImageUrl
     }).then(function() {
-      checkResult = 'success'; //TODO checkResult enum 으로 변경
       alertContent = "수정이 완료되었습니다."
-      props.onClick(checkResult,alertContent);
-      setName(modName);
-      setBirth(modBirth);
-      setIsModify(!isModify);
     }).catch(function() {
-      checkResult = "err"
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
-      props.onClick(checkResult,alertContent);
-    })
+    });
+    props.onClick(alertContent);
   }
 
   return (
@@ -56,16 +50,22 @@ const MemberInfoPopup = (props) => {
           <div className="profileInfo">
             <img 
               alt="" 
-              src={props.profileImage || DefaultProfileImage} 
+              src={memberInfo.profileImageUrl || DefaultProfileImage} 
               className="infoProfileImage"
+              onClick={function(e) {
+                console.log(e.target.value)
+                if (e.target.value === "임시입니다.") {
+                  setProfileImageUrl(e.target.value); //이미지 적용 전까지 임시
+                }
+              }}
             /> 
             {!isModify &&
               <div className="text taCenter">
-                {props.name} <br/>
-                {props.email} <br/>
-                {props.birth.substring(0,4) + "년 " 
-                + props.birth.substring(5,7) + "월 " 
-                + props.birth.substring(8,10) + "일생"}
+                {memberInfo.name} <br/>
+                {memberInfo.email} <br/>
+                {memberInfo.birth.substring(0,4) + "년 " 
+                + memberInfo.birth.substring(5,7) + "월 " 
+                + memberInfo.birth.substring(8,10) + "일생"}
               </div>
             } {isModify &&
               <div className="pt10">
@@ -111,19 +111,19 @@ const MemberInfoPopup = (props) => {
                     if(modifyCheck.valid) {
                       modifyCheck = birthValidation(modifyBirth);
                       if(modifyCheck.valid){
-                        modifyMember(props.id, modifyName, modifyBirth); // DB 반영
+                        modifyMember(); // DB 반영
                       }
                     }
   
                     if(!modifyCheck.valid){
-                      props.onClick('fail', modifyCheck.message);
+                      props.onClick(modifyCheck.message);
                     }
                   } else {
-                    setName(props.name);
+                    setName(memberInfo.name);
                     setBirth(
-                      props.birth.substring(0, 4)
-                      + props.birth.substring(5, 7)
-                      + props.birth.substring(8, 10)
+                      memberInfo.birth.substring(0, 4)
+                      + memberInfo.birth.substring(5, 7)
+                      + memberInfo.birth.substring(8, 10)
                     );
                     setIsModify(!isModify);
                   }
