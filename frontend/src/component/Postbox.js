@@ -100,11 +100,6 @@ class PostBox extends Component {
               scheduleDDay={this.props.scheduleDDay}
             />
           )}
-          {/* {this.props.picture && (
-            <div className="postPicture">
-              <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>
-          )} */}
           {this.props.picture.map((picture,index)=>{
             return(
               <div className="postPicture" key={index}>

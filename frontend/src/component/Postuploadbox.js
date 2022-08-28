@@ -1,5 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
-import { updateImage } from '../util';
+import React, { useRef, useState} from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import Picture from '../image/Picture.png';
@@ -13,7 +12,6 @@ const Postuploadbox = (props) => {
   const [value, contentValue] = useState("")
   const [fileImage, setFileImage] = useState("");
   const [modal, setModal] = useState(false);
-  const [fileUrl, setFileUrl] = useState();
 
   const setModalon = () =>{
     setModal(true)
@@ -23,34 +21,33 @@ const Postuploadbox = (props) => {
     setModal(false)
   }
 
+
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const imageUpload = () => {
+  const updateImage  = async() => {
     const file = document.getElementById("imageFile").files[0];
-    updateImage(file, '/user/1');
+    return await imageUpload(file);
   }
-  
+
+  const imageUpload = async (file) => {
+    const form = new FormData();
+    form.append('file', file);
+    const res = await axios.post('/upload-image', form);
+    return res.data.url;
+  }
+
   const handleChange = (e) => {
       contentValue(e.target.value)
   }
 
-  useEffect(() =>{
-    const file = document.getElementById("imageFile").files[0];
-    const form = new FormData();
-    form.append('file', file);
-    return axios.post('/upload-image', form)
-    .then((res) => setFileUrl(res.data));
-  },[])
-  
-
-
-  const handleSubmit = async() => {
+  const handleSubmit = async(fileUrl) => {
+    console.log(fileUrl);
     axios.post('/post', {
       content: value,
       groupId: 1,
-      files: [{ url: fileUrl.url, type: "image" }]
+      files: [{ url: fileUrl, type: "image" }]
     }).then(res => {
       props.updatePostList();
       setFileImage("")
@@ -143,9 +140,9 @@ const Postuploadbox = (props) => {
               className="uploadButton" 
               src={Upload_Button} 
               id="uploadButton" 
-              onClick={function(){
-                imageUpload();
-                handleSubmit();
+              onClick={async function(){
+                const url = await updateImage();
+                await handleSubmit(url);
               }}
             />
           </div>
