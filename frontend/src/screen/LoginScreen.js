@@ -24,7 +24,7 @@ class LoginScreen extends Component {
     }
   } 
 
-  registerPopupModalonoff = () => {
+  registerPopupOnoff () {
     this.setState({ 
       registerPoupCondition : !this.state.registerPoupCondition 
     })
@@ -81,7 +81,7 @@ class LoginScreen extends Component {
               label="Register" 
               className="subButton largeButton mr8"
               onClick={function(e){
-                this.registerPopupModalonoff();
+                this.registerPopupOnoff();
               }.bind(this)}
             />
             <Button 
@@ -92,7 +92,7 @@ class LoginScreen extends Component {
           </div>
           <RegisterPopup
             registerPoupCondition={this.state.registerPoupCondition}
-            registerPopupModalonoff={this.registerPopupModalonoff}
+            registerPopupOnoff={this.registerPopupOnoff}
             callAlert={function(result, content) {
               if (result === 'success') {
                 this.setState({
@@ -115,7 +115,7 @@ class LoginScreen extends Component {
             purpose={this.state.alertPurpose}
             onClick={function() { 
               if (this.state.alertPurpose === "REG_COMPLETE") {  
-                this.registerPopupModalonoff();
+                this.registerPopupOnoff();
               }
             }.bind(this)}
           />

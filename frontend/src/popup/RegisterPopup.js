@@ -43,7 +43,7 @@ const RegisterPopup = (props) => {
       checkResult = 'success';
       alertContent = "회원가입이 완료되었습니다."
       infoReset();
-      props.registerPopupModalonoff();
+      props.registerPopupOnoff();
       props.callAlert(checkResult,alertContent);
     }).catch(function() {
       checkResult = "err"
@@ -57,7 +57,7 @@ const RegisterPopup = (props) => {
       className="modal"
       isOpen={props.registerPoupCondition}
       ariaHideApp={false}
-      onRequestClose={props.registerPopupModalonoff}
+      onRequestClose={props.registerPopupOnoff}
       style={{
         overlay : {
           backgroundColor : "rgba(15, 15, 15, 0.79)",
@@ -131,7 +131,7 @@ const RegisterPopup = (props) => {
           confirmPopupOnOff={confirmPopupOnOff}
           confirmPopupCondition={conditionConfirmPopup}
           onConfirmClick={function() {
-            props.registerPopupModalonoff();
+            props.registerPopupOnoff();
             confirmPopupOnOff();
             infoReset();
           }}

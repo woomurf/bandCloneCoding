@@ -27,16 +27,12 @@ class WebSite extends Component {
         <Routes>
           <Route path="/" element={
             <LoginScreen
-              movePage={
-                (result) => this.movePage(result)
-              }
+              movePage={(pagePath) => this.movePage(pagePath)}
             />
           }/>
           <Route path="/main" element={
             <MainScreen
-              movePage={
-                (result) => this.movePage(result)
-              }
+              movePage={(pagePath) => this.movePage(pagePath)}
             />
           }/>
         </Routes>
