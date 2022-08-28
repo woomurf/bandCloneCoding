@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { updateImage } from '../util';
 import Modal from "react-modal";
 import axios from "axios";
@@ -13,6 +13,7 @@ const Postuploadbox = (props) => {
   const [value, contentValue] = useState("")
   const [fileImage, setFileImage] = useState("");
   const [modal, setModal] = useState(false);
+  const [fileUrl, setFileUrl] = useState();
 
   const setModalon = () =>{
     setModal(true)
@@ -35,11 +36,21 @@ const Postuploadbox = (props) => {
       contentValue(e.target.value)
   }
 
+  useEffect(() =>{
+    const file = document.getElementById("imageFile").files[0];
+    const form = new FormData();
+    form.append('file', file);
+    return axios.post('/upload-image', form)
+    .then((res) => setFileUrl(res.data));
+  },[])
+  
+
+
   const handleSubmit = async() => {
     axios.post('/post', {
       content: value,
       groupId: 1,
-      files: [{ url: "url", type: "image" }]
+      files: [{ url: fileUrl.url, type: "image" }]
     }).then(res => {
       props.updatePostList();
       setFileImage("")
