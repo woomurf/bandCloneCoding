@@ -20,4 +20,4 @@ function textResize(event, defaultHeight) {
   textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
 }
 
-export { updateImage, textResize };
+export { updateImage, uploadImage, textResize };
