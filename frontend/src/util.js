@@ -1,23 +1,20 @@
 import axios from 'axios';
 
-// sample function
-async function updateImage(file, path) {
+export async function updateImage(file, path) {
   const { url } = await uploadImage(file);
-  const body = { profileImageUrl: url }; // user 객체 전용으로 되어 있음 수정해서 사용할 것!
+  const body = { profileImageUrl: url };
   const headers = { 'Content-Type': 'application/json' };
   return axios.put(path, body, { headers }).then((res) => res.data);
 }
 
-function uploadImage(file) {
+export function uploadImage(file) {
   const form = new FormData();
   form.append('file', file);
   return axios.post('/upload-image', form).then((res) => res.data);
 }
 
-function textResize(event, defaultHeight) {
+export function textResize(event, defaultHeight) {
   const textAreaBox = event.target;
   textAreaBox.style.height = defaultHeight;
   textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
 }
-
-export { updateImage, uploadImage, textResize };

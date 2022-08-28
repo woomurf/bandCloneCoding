@@ -74,7 +74,7 @@ class PostFrame extends Component {
               updatedAt={post.updatedAt}
               profileImage={post.user.profileImageUrl}
               content={post.content} 
-              picture={post.picture} 
+              picture={post.files} 
               scheduleDate={post.scheduleDate}
               scheduleDay={post.scheduleDay}
               scheduleDDay={post.scheduleDDay}

@@ -55,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
 
     post.hasMany(models.FILE, {
       as: 'files',
-      onDelete: 'RESTRICT'
+      onDelete: 'CASCADE'
     });
   }
 
