@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-// sample function
 export async function updateImage(file, path) {
   const { url } = await uploadImage(file);
-  const body = { profileImageUrl: url }; // user 객체 전용으로 되어 있음 수정해서 사용할 것!
+  const body = { profileImageUrl: url };
   const headers = { 'Content-Type': 'application/json' };
   return axios.put(path, body, { headers }).then((res) => res.data);
 }
@@ -20,4 +19,3 @@ export function textResize(event, defaultHeight) {
   textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
 }
 
-// export { updateImage, textResize };

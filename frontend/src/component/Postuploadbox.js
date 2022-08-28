@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
+import { uploadImage } from "../util";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -21,21 +22,13 @@ const Postuploadbox = (props) => {
     setModal(false)
   }
 
-
   const saveFileImage = (e) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const updateImage  = async() => {
     const file = document.getElementById("imageFile").files[0];
-    return await imageUpload(file);
-  }
-
-  const imageUpload = async (file) => {
-    const form = new FormData();
-    form.append('file', file);
-    const res = await axios.post('/upload-image', form);
-    return res.data.url;
+    return await uploadImage(file);
   }
 
   const handleChange = (e) => {
@@ -43,11 +36,11 @@ const Postuploadbox = (props) => {
   }
 
   const handleSubmit = async(fileUrl) => {
-    console.log(fileUrl);
+      /* 추후 이미 여러장 올릴수있게 할것 */
     axios.post('/post', {
       content: value,
       groupId: 1,
-      files: [{ url: fileUrl, type: "image" }]
+      files: [{ url: fileUrl.url, type: "image" }]
     }).then(res => {
       props.updatePostList();
       setFileImage("")
@@ -56,11 +49,6 @@ const Postuploadbox = (props) => {
       props.postErrorPopup();
     })
   }
-
-  // upload img 
-  // handle submit
-
-  // src => postBox => picture(Url)
 
   const textRef = useRef("");
 
