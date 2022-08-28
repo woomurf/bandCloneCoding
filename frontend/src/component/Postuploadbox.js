@@ -36,7 +36,7 @@ const Postuploadbox = (props) => {
   }
 
   const handleSubmit = async(fileUrl) => {
-      /* 추후 이미 여러장 올릴수있게 할것 */
+      /* TODO : 추후 이미 여러장 올릴수있게 할것 */
     axios.post('/post', {
       content: value,
       groupId: 1,
