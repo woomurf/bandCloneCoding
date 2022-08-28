@@ -100,11 +100,14 @@ class PostBox extends Component {
               scheduleDDay={this.props.scheduleDDay}
             />
           )}
-          {this.props.picture && (
-            <div className="postPicture">
-              <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>
-          )}
+          {/* TODO : 추후 이미 여러장 올릴수있게 할것 */}
+          {this.props.picture.map((picture,index)=>{
+            return(
+              <div className="postPicture" key={index}>
+                <img alt="" className="postPicture" src={picture.url}/>
+              </div>
+          )})}
+          
         </div>
         <div className="postFooter">
           <div className="addOn">

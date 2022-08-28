@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
-import { updateImage } from '../util';
+import React, { useRef, useState} from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import Picture from '../image/Picture.png';
 import Upload_Button from '../image/Upload_Button.png'
+import { uploadImage } from "../util";
 import '../scss/common.scss';
 import '../scss/component.scss';
 import '../scss/page.scss'
@@ -26,20 +26,21 @@ const Postuploadbox = (props) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const imageUpload = () => {
+  const updateImage  = async() => {
     const file = document.getElementById("imageFile").files[0];
-    updateImage(file, '/user/1');
+    return await uploadImage(file);
   }
-  
+
   const handleChange = (e) => {
       contentValue(e.target.value)
   }
 
-  const handleSubmit = async() => {
+  const handleSubmit = async(fileUrl) => {
+      /* TODO : 추후 이미 여러장 올릴수있게 할것 */
     axios.post('/post', {
       content: value,
       groupId: 1,
-      files: [{ url: "url", type: "image" }]
+      files: [{ url: fileUrl.url, type: "image" }]
     }).then(res => {
       props.updatePostList();
       setFileImage("")
@@ -48,11 +49,6 @@ const Postuploadbox = (props) => {
       props.postErrorPopup();
     })
   }
-
-  // upload img 
-  // handle submit
-
-  // src => postBox => picture(Url)
 
   const textRef = useRef("");
 
@@ -132,9 +128,9 @@ const Postuploadbox = (props) => {
               className="uploadButton" 
               src={Upload_Button} 
               id="uploadButton" 
-              onClick={function(){
-                imageUpload();
-                handleSubmit();
+              onClick={async function(){
+                const url = await updateImage();
+                await handleSubmit(url);
               }}
             />
           </div>
