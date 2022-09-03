@@ -20,20 +20,20 @@ class LoginScreen extends Component {
       alertContent : '',
       conditionAlert : false,
       alertPopupCondition : false,
-      registerPoupCondition : false
+      registerPopupCondition : false
     }
   } 
 
   registerPopupOnoff () {
     this.setState({ 
-      registerPoupCondition : !this.state.registerPoupCondition 
-    })
+      registerPopupCondition : !this.state.registerPopupCondition 
+    });
   }
 
   alertPopupOnoff () {
     this.setState({
       alertPopupCondition : !this.state.alertPopupCondition
-    })
+    });
   }
 
   render() {
@@ -91,8 +91,8 @@ class LoginScreen extends Component {
             /> 
           </div>
           <RegisterPopup
-            registerPoupCondition={this.state.registerPoupCondition}
-            registerPopupOnoff={this.registerPopupOnoff}
+            registerPopupCondition={this.state.registerPopupCondition}
+            registerPopupOnoff={this.registerPopupOnoff.bind(this)}
             callAlert={function(result, content) {
               if (result === 'success') {
                 this.setState({
@@ -125,29 +125,21 @@ class LoginScreen extends Component {
   }
 
   async loginCheck(email, password) {
-    const res = await axios({
-      method : 'post',
-      url : '/auth/login',
-      headers : { 
-        'Content-Type' : 'application/json'
-      },
-      data: JSON.stringify({
-        email,
-        password
-      })
-    }).then(res => res.data)
-    .catch((err) => err.response.data);
-    
-    if (res.code === LoginResultCode.SUCCESS) {
-      return this.props.movePage("main");
-    }
-
-    const failContent = res.message;
-    this.setState({
-      alertPurpose : "",
-      alertContent : failContent
-    }); 
-    this.alertPopupOnoff();
+    await axios.post("/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if (res.data.code === LoginResultCode.SUCCESS) {
+        this.props.movePage("main");
+      }
+    }).catch((err) => {
+      const failContent = err.response.data.message;
+      this.setState({
+        alertPurpose : "",
+        alertContent : failContent
+      }); 
+      this.alertPopupOnoff();
+    });
   }
 };
 

@@ -11,10 +11,8 @@ import MainScreen from "./screen/MainScreen";
 class WebSite extends Component {
   async movePage(pagePath) {
     if (pagePath === "") {
-      await axios({
-        method: 'post',
-        url: '/auth/logout',
-      }).catch(function (err) {
+      await axios.post("/auth/logout")
+      .catch((err) => {
         console.log('/auth/logout', err);
       });
     }

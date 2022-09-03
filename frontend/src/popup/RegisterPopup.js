@@ -9,7 +9,7 @@ import '../scss/component.scss';
 import '../scss/popup.scss';
 
 const RegisterPopup = (props) => {
-  const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
+  const [confirmPopupCondition, setConfirmPopupCondition] = useState(false);
   const [regId, setId] = useState("");
   const [regPw, setPw] = useState("");
   const [regName, setName] = useState("");
@@ -23,8 +23,8 @@ const RegisterPopup = (props) => {
   }
 
   const confirmPopupOnOff = () => {
-    confirmPopupCondition(
-      !conditionConfirmPopup
+    setConfirmPopupCondition(
+      !confirmPopupCondition
     )
   }
   
@@ -55,7 +55,7 @@ const RegisterPopup = (props) => {
   return (
     <Modal 
       className="modal"
-      isOpen={props.registerPoupCondition}
+      isOpen={props.registerPopupCondition}
       ariaHideApp={false}
       onRequestClose={props.registerPopupOnoff}
       style={{
@@ -129,7 +129,7 @@ const RegisterPopup = (props) => {
         <ConfirmPopup
           content="회원가입을 취소하겠습니까?" 
           confirmPopupOnOff={confirmPopupOnOff}
-          confirmPopupCondition={conditionConfirmPopup}
+          confirmPopupCondition={confirmPopupCondition}
           onConfirmClick={function() {
             props.registerPopupOnoff();
             confirmPopupOnOff();
