@@ -18,4 +18,3 @@ export function textResize(event, defaultHeight) {
   textAreaBox.style.height = defaultHeight;
   textAreaBox.style.height = textAreaBox.scrollHeight + 'px';
 }
-
