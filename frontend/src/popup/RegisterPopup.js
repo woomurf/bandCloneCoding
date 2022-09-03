@@ -27,18 +27,28 @@ const RegisterPopup = (props) => {
       !confirmPopupCondition
     )
   }
+
+  const birthToString = (birth) => {
+    const year = Number(birth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
+    let month = Number(birth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+    const day = Number(birth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    return `${year}-${month}-${day}`;
+  }
   
   const addMember = async (regId, regPw, regName, regBirth) => {
     var checkResult;
     var alertContent = 'fail';
-    const year = Number(regBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
-    const month = Number(regBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
-    const day = Number(regBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+    const birth = birthToString(regBirth);
     await axios.post("/auth/register", {
       name : regName,
       email : regId,
       password : regPw,
-      birth: year + "-" + month + "-" + day
+      birth
     }).then(function() {
       checkResult = 'success';
       alertContent = "회원가입이 완료되었습니다."

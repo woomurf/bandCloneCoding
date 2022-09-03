@@ -7,30 +7,46 @@ import Modal from "react-modal";
 import '../scss/page.scss';
 import '../scss/common.scss';
 import '../scss/popup.scss';
+import CameraIcon from '../image/camera.png';
+import { uploadImage } from '../util';
 
 const MemberInfoPopup = (props) => {
   const memberInfo = props.memberInfo;
   const [isModify, setIsModify] = useState(false);
   const [modifyName, setName] = useState("");
   const [modifyBirth, setBirth] = useState("");
-  const [modifyProfileImageUrl, setProfileImageUrl] = useState("");
+  const [previewImage, setPreviewImage] = useState(memberInfo.profileImageUrl);
 
-  const modifyMember = async () => {
+  const modifyMember = async (profileImageUrl = undefined) => {
     var alertContent = 'error';
     const year = Number(modifyBirth.substring(0,4)); // 입력한 값의 0~4자리까지 (연) 
     const month = Number(modifyBirth.substring(4,6)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
     const day = Number(modifyBirth.substring(6,8)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
     const birth = year + "-" + month + "-" + day;
-    await axios.put('/user/' + memberInfo.id, {
-      name : modifyName,
-      birth : birth,
-      profileImageUrl : modifyProfileImageUrl
-    }).then(function() {
+
+    const updateBody = {
+      name: modifyName,
+      birth
+    }
+    if (profileImageUrl) {
+      updateBody['profileImageUrl'] = profileImageUrl;
+    }
+
+    await axios.put('/user/' + memberInfo.id, updateBody).then(function() {
       alertContent = "수정이 완료되었습니다."
     }).catch(function() {
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
     });
     props.callAlert(alertContent);
+  }
+
+  const updateProfileImage = async () => {
+    const file = document.getElementById('updateProfileImageButton').files[0];
+    if (file) {
+      const { url } = await uploadImage(file);
+      return url;
+    }
+    return undefined;
   }
 
   return (
@@ -48,17 +64,32 @@ const MemberInfoPopup = (props) => {
       <div id="memberInfoPopup"> 
         <div className="content">
           <div className="profileInfo">
-            <img 
-              alt="" 
-              src={memberInfo.profileImageUrl || DefaultProfileImage} 
-              className="infoProfileImage"
-              onClick={function(e) {
-                console.log(e.target.value)
-                if (e.target.value === "임시입니다.") {
-                  setProfileImageUrl(e.target.value); //이미지 적용 전까지 임시
-                }
-              }}
-            /> 
+            <div>
+              <img 
+                alt="" 
+                src={previewImage || DefaultProfileImage}
+                className={`infoProfileImage + ${isModify && 'margin-left-30'}`} // FIXME(hyeonwoong): 더 좋은 방법으로... 알아보자 ㅠㅠㅠ
+              />
+              {isModify &&
+              <>
+                <label for="updateProfileImageButton">
+                  <img
+                    className='updateProfileImageLabel'
+                    src={CameraIcon}
+                    alt="ProfileImageUpdateBtn"
+                  />
+                </label>
+                <input
+                  type="file"
+                  id="updateProfileImageButton"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setPreviewImage(URL.createObjectURL(file));
+                  }}
+                />
+              </>
+              }
+            </div>
             {!isModify &&
               <div className="text taCenter">
                 {memberInfo.name} <br/>
@@ -104,14 +135,15 @@ const MemberInfoPopup = (props) => {
               <Button 
                 label={isModify ? "Confirm" : "Modify"} 
                 className="mainButton smallButton"
-                onClick={function(){
+                onClick={async function () {
                   if (isModify) {
-                    let modifyCheck = joinValidation(modifyName);
+                    let modifyCheck = nameValidation(modifyName);
   
                     if(modifyCheck.valid) {
                       modifyCheck = birthValidation(modifyBirth);
                       if(modifyCheck.valid){
-                        modifyMember(); // DB 반영
+                        const url = await updateProfileImage();
+                        modifyMember(url); // DB 반영
                       }
                     }
   
@@ -137,7 +169,7 @@ const MemberInfoPopup = (props) => {
   );
 }
 
-function joinValidation(modName) {
+function nameValidation(modName) {
   const nameRegex = /^[가-힣]{2,15}$/;
   let retString = "";
 

@@ -12,6 +12,7 @@ const postRouter = require('./routes/post');
 const authRouter = require('./routes/auth');
 const commentRouter = require('./routes/comment');
 const fileUploadRouter = require('./routes/upload-image');
+const fileRouter = require('./routes/file');
 
 const { makeImageFolder } = require('./utils/googleDrive');
 
@@ -40,6 +41,7 @@ app.use('/group', groupRouter);
 app.use('/post', postRouter);
 app.use('/comment', commentRouter);
 app.use('/upload-image', fileUploadRouter);
+app.use('/file', fileRouter);
 
 app.get('/health', (req, res) => {
   res.json('HEALTHY');
