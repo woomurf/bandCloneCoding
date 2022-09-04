@@ -82,12 +82,12 @@ Fonts
 .textBox {
   display: flex;  
   align-items:center;
-  padding: 0px 25px;
+  padding: 0px 15px;
   width: 230px;
   height: 50px;
   background-color: $gray-white;
   margin-bottom: 8px;
-  border-radius: 40px;
+  border-radius: 25px;
   box-shadow: 2px 2px 2px 0 $transparent-black;
 }
 
@@ -97,8 +97,37 @@ Fonts
 }
 
 .modifyTextBox {
-  width: 118px;
+  width: 138px;
   height: 30px;
+  @include body-p14;
+}
+
+.modifyTextBox_2 {
+  width: 180px;
+  height: 30px;
+  @include body-p14;
+}
+
+.modifyTextAreaOutLine {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 5px 10px;
+  background-color: $gray-white;
+  border: none;
+  justify-content: space-between;
+  box-shadow: 2px 2px 2px 0 $transparent-black;
+}
+
+.modifyTextArea {
+  height: auto;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  resize: none;
+  align-items: center;
+  margin: 5px 5px;
+  overflow: hidden;
   @include body-p14;
 }
 
@@ -173,7 +202,7 @@ Fonts
   padding: 10px;
   border-radius: 20px;
   flex-direction: column;
-  background-color: #999999;
+  background-color: $gray-4;
   @include body-p12;
 }
 
@@ -212,7 +241,7 @@ ul,li{
 .postMoreMenuBtn{
   border: 0;
   border-radius: 30px;
-  background-color: white;
+  background-color: $gray-white;
   transition: 0.3s;
   cursor: pointer;
   // margin-left: 65px;

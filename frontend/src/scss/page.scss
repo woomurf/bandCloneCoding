@@ -249,19 +249,21 @@ PostScreen CSS
 
 .bandName{
   margin-top: 10px;
+  width: 210px;
   @include headline-h5;
 }
 
 .memberCount{
   margin-top: 10px;
   @include body-p14;
-  color: #666666;
+  color: $gray-5;
 }
 
 .bandIntroduce{
   margin-top: 5px;
+  width: 210px;
   @include body-p12;
-  color: #666666;
+  color: $gray-5;
 }
 
 .line{
@@ -269,7 +271,7 @@ PostScreen CSS
   height: 2px;
   left: 0px;
   top: 252px;
-  background: #E6E6E6;
+  background: $gray-2;
   margin-top:7px ;
 }
 
@@ -280,7 +282,7 @@ PostScreen CSS
 
 .bandSetting{
   @include body-p12;
-  color: #999999;
+  color: $gray-4;
   margin-left: 5px;
   margin-top: 2px;
 }
@@ -326,7 +328,7 @@ PostScreen CSS
   font-size: 13px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
 }
 
 .day{
@@ -339,7 +341,7 @@ PostScreen CSS
   font-size: 12px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #999999;
+  color: $gray-4;
   padding-top: 3px;
 }
 
@@ -435,7 +437,7 @@ PostScreen CSS
   font-size: 14px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
   margin: 5px 0 5px 0;
   white-space: pre-line;
 }
@@ -476,8 +478,8 @@ PostScreen CSS
   height: 80px;
   left: 15px;
   top: 746px;
-  background: #F5F5F5;
-  border: 0.5px solid #E6E6E6;
+  background: $gray-1;
+  border: 0.5px solid $gray-2;
   box-sizing: border-box;
 }
 
@@ -499,7 +501,7 @@ PostScreen CSS
   font-size: 24px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
   margin-top: 21px;
   text-align: center;
 }
@@ -511,7 +513,7 @@ PostScreen CSS
   font-size: 10px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #FF8080;
+  color: $theme-alert;
   margin-top: 4px;
   text-align: center;
 }
@@ -528,7 +530,7 @@ PostScreen CSS
   font-size: 14px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
   margin-top: 26px;
 }
 .scheduleDDay{
@@ -538,7 +540,7 @@ PostScreen CSS
   font-size: 12px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #666666;
+  color: $gray-5;
   margin-top: 8px;
 }
 
@@ -595,7 +597,7 @@ PostScreen CSS
   font-size: 13px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
 }
 
 .CommentDay{
@@ -606,7 +608,7 @@ PostScreen CSS
   font-size: 8px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #999999;
+  color: $gray-4;
 }
 /*
   settingFrame Css
@@ -618,7 +620,7 @@ PostScreen CSS
   font-size: 13px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
 }
 
 .settingButton{
@@ -635,7 +637,7 @@ PostScreen CSS
 
 .settingButton:hover {
   background-color: #8e97d6;
-  color: white;
+  color: $gray-white;
   opacity: 1;
   box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -647,7 +649,7 @@ PostScreen CSS
 .settingHeader{
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: $gray-white;
   border-radius: 20px;
   padding: 8px;
   width: 525px;
@@ -675,7 +677,7 @@ PostScreen CSS
 .settingBody{
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: $gray-white;
   border-radius: 20px;
   padding: 8px;
   margin-top: 10px;
@@ -691,7 +693,7 @@ PostScreen CSS
   width: 510px;
   height: auto;
   border-radius: 20px;
-  background-color: #E5E5E5;
+  background-color: $gray-2;
   box-shadow: 2px 2px 2px 0 $transparent-black;
   padding: 15px;
 }
@@ -709,7 +711,7 @@ PostScreen CSS
   font-size: 13px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #000000;
+  color: $gray-black;
 }
 
 .settingExplain{
@@ -749,7 +751,7 @@ PostScreen CSS
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.01em;
-  color: #ff9898;
+  color: $theme-alert;
 }
 
 .settingProfile{
@@ -774,7 +776,7 @@ PostScreen CSS
   margin-top: 10px;
   letter-spacing: -0.01em;
   @include headline-h5;
-  color: #ff9898;
+  color: $theme-alert;
 }
 
 .memberBodyDiv{

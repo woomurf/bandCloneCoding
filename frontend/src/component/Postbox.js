@@ -105,12 +105,14 @@ class PostBox extends Component {
               scheduleDDay={post.scheduleDDay}
             />
           )}
-          {/* FIXME(hyeonwoong): post 당 사진이 여러 개 일 수 있으므로, files에서 읽어오도록 변경 */}
-          {this.props.picture && (
-            <div className="postPicture">
-              <img alt="" className="postPicture" src={this.props.picture}/>
-            </div>
-          )}
+          {/* TODO : 추후 이미 여러장 올릴수있게 할것 */}
+          {this.props.picture.map((picture,index)=>{
+            return(
+              <div className="postPicture" key={index}>
+                <img alt="" className="postPicture" src={picture.url}/>
+              </div>
+          )})}
+          
         </div>
         <div className="postFooter">
           <div className="addOn">

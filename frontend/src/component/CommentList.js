@@ -82,6 +82,7 @@ class CommentList extends Component {
         {this.state.commentsData.map((comment, index) => {
           return(
             <Comment
+              key={index}
               id={comment.id}
               content={comment.content}
               user={comment.user}

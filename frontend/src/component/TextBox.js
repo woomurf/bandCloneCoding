@@ -13,7 +13,7 @@ class TextBox extends React.PureComponent {
           placeholder={this.props.placeholder}
           onChange={this.props.onChange}
           onKeyUp={function() {
-            if (window.event.keyCode === 13) {
+            if (window.event.keyCode === 13 && this.props.onKeyUp) {
               this.props.onKeyUp();
             }
           }.bind(this)}
