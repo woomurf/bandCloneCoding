@@ -30,6 +30,7 @@ class MainScreen extends Component {
         profileImageUrl : ""
       },
       myId : -1,
+      myImage : "",
       myIndex : -1,
       members : [{
         id : "",
@@ -48,6 +49,7 @@ class MainScreen extends Component {
       groupInfoPopupCondition : false,
       memberInfoPopupCondition : false,
       isMyInfo : false,
+      isMemberList : false,
       memberCount : 0,
       memberFrameComment : null
     } 
@@ -72,7 +74,8 @@ class MainScreen extends Component {
     await axios.get('/auth/me')
     .then(function(res) {
       this.setState({
-        myId:res.data.id
+        myId:res.data.id,
+        myImage:res.data.profileImageUrl
       });
     }.bind(this));
   }
@@ -174,6 +177,7 @@ class MainScreen extends Component {
   }
 
   showUserInfoPopup(memberId) {
+    this.setState({isMemberList:true})
     if (!this.state.memberInfoPopupCondition) {
       let isMyProfile = (memberId === this.state.myId);
       this.setState({
@@ -198,6 +202,7 @@ class MainScreen extends Component {
             </div>
             <Profile
               id = {this.state.myId}
+              myImage={this.state.myImage}
               onClickMyInfo={this.showUserInfoPopup.bind(this)}
               onClickLogout={function() {
                 this.setState({
@@ -257,20 +262,22 @@ class MainScreen extends Component {
             this.loadGroupInfo();
           }.bind(this)}
         />
-        <MemberInfoPopup
-          isMyInfo={this.state.isMyInfo}
-          memberInfo={this.state.members[this.state.memberInfoIndex]}
-          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
-          callAlert={function(content) {
-            this.setState({
-              alertContent : content,
-            }); 
-            this.alertPopupOnoff();
-            this.loadProfileInfo();
-            this.memberSelectEvent('');
-          }.bind(this)}
-        />
+        {this.state.isMemberList &&
+          <MemberInfoPopup
+            isMyInfo={this.state.isMyInfo}
+            memberInfo={this.state.members[this.state.memberInfoIndex]}
+            memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+            memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+            callAlert={function(content) {
+              this.setState({
+                alertContent : content,
+              }); 
+              this.alertPopupOnoff();
+              this.loadProfileInfo();
+              this.memberSelectEvent('');
+            }.bind(this)}
+          />
+        }
         <AlertPopup
           content={this.state.alertContent} 
           alertPopupCondition={this.state.alertPopupCondition}

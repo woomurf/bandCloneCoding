@@ -63,7 +63,7 @@ class Profile extends Component {
           id="memberProfileImage"
           ref={(el) => this.wrapperRef_1 = el}
           alt="" 
-          src={DefaultProfileImage} 
+          src={this.props.myImage || DefaultProfileImage} 
           onClick={this.profileSettingEvent.bind(this, "profile")}
         />
         <div 
