@@ -106,6 +106,7 @@ class MainScreen extends Component {
           memberFrameComment:"멤버 " + res.data.length
         });
       }.bind(this));
+      this.setState({isMemberList:true});
     }
   }
 
@@ -177,7 +178,6 @@ class MainScreen extends Component {
   }
 
   showUserInfoPopup(memberId) {
-    this.setState({isMemberList:true})
     if (!this.state.memberInfoPopupCondition) {
       let isMyProfile = (memberId === this.state.myId);
       this.setState({
