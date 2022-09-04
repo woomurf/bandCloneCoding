@@ -51,6 +51,7 @@ class PostBox extends Component {
   }
 
   render() {
+    const { post, postErrorPopup, updatePostList } = this.props;
     return (
       <div className="postBox">
         <div className="postHeader">
@@ -58,46 +59,50 @@ class PostBox extends Component {
             <div className="profileImage">
               <img 
                 alt="" 
-                src={this.props.profileImage || DefaultProfileImage} 
+                src={post.user.profileImageUrl || DefaultProfileImage} 
                 className="profileImage"
               />
             </div>
             <div className="profileMeta">
               <div className="userName">
-                {this.props.userName}
+                {post.user.name}
               </div>
               <div className="day">
-                {this.props.updatedAt}
+                {post.updatedAt}
               </div>
             </div>
           </div>
-          <SeeMorePopup
-            modifyCommand={this.modifyPopupOnOff.bind(this)}
-            deleteCommand={this.deletePost.bind(this)}
-            postErrorPopup={this.props.postErrorPopup}
-            contentId={this.props.postId}
-          />
+          {
+            post.isAuthor &&
+              <SeeMorePopup
+              modifyCommand={this.modifyPopupOnOff.bind(this)}
+              deleteCommand={this.deletePost.bind(this)}
+              postErrorPopup={postErrorPopup}
+              contentId={post.id}
+            />
+          }
+          
         </div>
           <ModifyPopup 
-            content={this.props.content}
-            postId={this.props.postId}
+            content={post.content}
+            postId={post.id}
             modifyPopupCondition={this.state.modifyPopupCondition}
-            updatePostList={this.props.updatePostList}
-            postErrorPopup={this.props.postErrorPopup}
+            updatePostList={updatePostList}
+            postErrorPopup={postErrorPopup}
             modifyPopupOnOff={this.modifyPopupOnOff.bind(this)}
           />
         <div className="postBody">
-          {this.props.content && (
+          {post.content && (
             <div className="postLabel">
-              {this.props.content}
+              {post.content}
             </div>
           )}
-          {this.props.scheduleDay && (
+          {post.scheduleDay && (
             <Schedule 
-              scheduleDate={this.props.scheduleDate}
-              scheduleDay={this.props.scheduleDay}
-              scheduleName={this.props.scheduleName}
-              scheduleDDay={this.props.scheduleDDay}
+              scheduleDate={post.scheduleDate}
+              scheduleDay={post.scheduleDay}
+              scheduleName={post.scheduleName}
+              scheduleDDay={post.scheduleDDay}
             />
           )}
           {/* TODO : 추후 이미 여러장 올릴수있게 할것 */}
@@ -123,9 +128,9 @@ class PostBox extends Component {
           </div>
             {this.state.conditionComment && 
               <CommentList
-                userName={this.props.userName}
-                postId={this.props.postId}
-                postErrorPopup={this.props.postErrorPopup}
+                userName={post.user.name}
+                postId={post.id}
+                postErrorPopup={postErrorPopup}
               />
             }
         </div>
