@@ -54,9 +54,11 @@ const Comment = ({ id, content, user, isAuthor, createdAt, postErrorPopup }) => 
                   className="postComment_2"
                   onKeyUp={(e) => textResize(e, '15px')}
                   onKeyDown={(e) => textResize(e, '15px')}
+                  onFocus={(e) => textResize(e, '15px')}
                   value={newContent}
                   onChange={updateContent}
                   maxLength={3000}
+                  autoFocus
                 />
                 <div className="commentModifyBtns">
                   <button className="modifyCommentUploadBtn"

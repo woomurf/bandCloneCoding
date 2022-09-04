@@ -69,16 +69,7 @@ class PostFrame extends Component {
             return(
               <PostBox
               key={index}
-              postId={post.id}
-              userName={post.user.name}
-              updatedAt={post.updatedAt}
-              profileImage={post.user.profileImageUrl}
-              content={post.content} 
-              picture={post.files} 
-              scheduleDate={post.scheduleDate}
-              scheduleDay={post.scheduleDay}
-              scheduleDDay={post.scheduleDDay}
-              scheduleName={post.scheduleName}
+              post={post}
               postErrorPopup={this.props.postErrorPopup}
               updatePostList={this.updatePostList.bind(this)}
             />

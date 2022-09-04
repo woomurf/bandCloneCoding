@@ -369,7 +369,7 @@ PostScreen CSS
 .postComment_2{
   outline: none;
   resize: none;
-  width: 345px;
+  width: 100%;
   align-items: center;
   border-radius: 0px 0px 10px 10px;
   margin-left: 10px;
@@ -439,6 +439,7 @@ PostScreen CSS
   letter-spacing: -0.01em;
   color: $gray-black;
   margin: 5px 0 5px 0;
+  white-space: pre-line;
 }
 
 .profileImage{
@@ -555,7 +556,6 @@ PostScreen CSS
 .commentProfile{
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
 }
 
@@ -572,6 +572,8 @@ PostScreen CSS
   @include body-p12;
   // margin-bottom: 3px;
   margin-top: 3px;
+  width: 100%;
+  white-space: pre-line;
 }
 
 .commentProfileMeta{
@@ -579,6 +581,12 @@ PostScreen CSS
   flex-direction: column;
   margin-left: 5px;
   width: 100%;
+}
+
+.commentModifyBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
 .CommentUserName{
