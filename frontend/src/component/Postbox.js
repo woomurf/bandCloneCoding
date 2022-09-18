@@ -106,7 +106,7 @@ class PostBox extends Component {
             />
           )}
           {/* TODO : 추후 이미 여러장 올릴수있게 할것 */}
-          {this.props.picture.map((picture,index)=>{
+          {this.props.picture && this.props.picture.map((picture,index)=>{
             return(
               <div className="postPicture" key={index}>
                 <img alt="" className="postPicture" src={picture.url}/>
