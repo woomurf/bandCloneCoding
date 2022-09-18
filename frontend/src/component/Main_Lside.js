@@ -32,7 +32,7 @@ class MainLside extends Component {
               className="mt4white"
               selectYn={this.props.selectYn}
               onClick={function() {
-                this.props.onClick("setting");
+                this.props.moveSettingTab("setting");
               }.bind(this)}
             />
           </div>

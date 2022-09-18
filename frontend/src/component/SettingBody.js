@@ -30,7 +30,7 @@ class SettingBody extends Component {
                   )}
                 </div>
                 <div className="settingChangeButton">
-                  <button className="settingButton" onClick={this.props.onClick.bind(this, informations.title)}> 
+                  <button className="settingButton" onClick={this.props.callSettingFrameEvent.bind(this, informations.title)}> 
                     {informations.button}
                   </button>
                 </div>

@@ -9,7 +9,7 @@ import '../scss/component.scss';
 import '../scss/popup.scss';
 
 const RegisterPopup = (props) => {
-  const [conditionConfirmPopup, confirmPopupCondition] = useState(false);
+  const [confirmPopupCondition, setConfirmPopupCondition] = useState(false);
   const [regId, setId] = useState("");
   const [regPw, setPw] = useState("");
   const [regName, setName] = useState("");
@@ -23,8 +23,8 @@ const RegisterPopup = (props) => {
   }
 
   const confirmPopupOnOff = () => {
-    confirmPopupCondition(
-      !conditionConfirmPopup
+    setConfirmPopupCondition(
+      !confirmPopupCondition
     )
   }
 
@@ -53,21 +53,21 @@ const RegisterPopup = (props) => {
       checkResult = 'success';
       alertContent = "회원가입이 완료되었습니다."
       infoReset();
-      props.registerPopupModalonoff();
-      props.onClick(checkResult,alertContent);
+      props.registerPopupOnoff();
+      props.callAlert(checkResult,alertContent);
     }).catch(function() {
       checkResult = "err"
       alertContent = "회원가입이 실패했습니다."
-      props.onClick(checkResult,alertContent);
+      props.callAlert(checkResult,alertContent);
     })
   }
   
   return (
     <Modal 
       className="modal"
-      isOpen={props.registerPoupCondition}
+      isOpen={props.registerPopupCondition}
       ariaHideApp={false}
-      onRequestClose={props.registerPopupModalonoff}
+      onRequestClose={props.registerPopupOnoff}
       style={{
         overlay : {
           backgroundColor : "rgba(15, 15, 15, 0.79)",
@@ -129,7 +129,7 @@ const RegisterPopup = (props) => {
                   }
 
                   if (!regCheck.valid) {
-                    props.onClick('fail', regCheck.message);
+                    props.callAlert('fail', regCheck.message);
                   }
                 }}
               />
@@ -139,9 +139,9 @@ const RegisterPopup = (props) => {
         <ConfirmPopup
           content="회원가입을 취소하겠습니까?" 
           confirmPopupOnOff={confirmPopupOnOff}
-          confirmPopupCondition={conditionConfirmPopup}
-          onClick={function() {
-            props.registerPopupModalonoff();
+          confirmPopupCondition={confirmPopupCondition}
+          onConfirmClick={function() {
+            props.registerPopupOnoff();
             confirmPopupOnOff();
             infoReset();
           }}

@@ -30,6 +30,7 @@ class MainScreen extends Component {
         profileImageUrl : ""
       },
       myId : -1,
+      myImage : "",
       myIndex : -1,
       members : [{
         id : "",
@@ -48,6 +49,7 @@ class MainScreen extends Component {
       groupInfoPopupCondition : false,
       memberInfoPopupCondition : false,
       isMyInfo : false,
+      isMemberList : false,
       memberCount : 0,
       memberFrameComment : null
     } 
@@ -72,7 +74,8 @@ class MainScreen extends Component {
     await axios.get('/auth/me')
     .then(function(res) {
       this.setState({
-        myId:res.data.id
+        myId:res.data.id,
+        myImage:res.data.profileImageUrl
       });
     }.bind(this));
   }
@@ -103,6 +106,7 @@ class MainScreen extends Component {
           memberFrameComment:"멤버 " + res.data.length
         });
       }.bind(this));
+      this.setState({isMemberList:true});
     }
   }
 
@@ -122,7 +126,7 @@ class MainScreen extends Component {
     this.alertPopupOnoff();
   }
 
-  onClickForSettingFrame(buttonTitle) {
+  callSettingFrameEvent(buttonTitle) {
     switch(buttonTitle) {
       case "로그아웃" :
         this.setState({
@@ -198,6 +202,7 @@ class MainScreen extends Component {
             </div>
             <Profile
               id = {this.state.myId}
+              myImage={this.state.myImage}
               onClickMyInfo={this.showUserInfoPopup.bind(this)}
               onClickLogout={function() {
                 this.setState({
@@ -213,23 +218,17 @@ class MainScreen extends Component {
               <TextButton
                 label="게시글"
                 selectYn={this.state.selectTab === "post"}
-                onClick={function(){
-                  this.onChangeTab("post");
-                }.bind(this)}
+                onClick={this.moveTab.bind(this, "post")}
               />
               <TextButton
                 label="멤버"
                 selectYn={this.state.selectTab === "member"}
-                onClick={function(){
-                  this.onChangeTab("member");
-                }.bind(this)}
+                onClick={this.moveTab.bind(this, "member")}
               />
               <TextButton
                 label="설정"
                 selectYn={this.state.selectTab === "setting"}
-                onClick={function(){
-                  this.onChangeTab("setting");
-                }.bind(this)}
+                onClick={this.moveTab.bind(this, "setting")}
               />
             </div>
           </div>
@@ -237,8 +236,8 @@ class MainScreen extends Component {
         <div>
           <div id="pageBody">
             <MainLside
-              onClick={this.onChangeTab.bind(this, "setting")}
               selectYn={this.state.selectTab === "setting"}
+              moveSettingTab={this.moveTab.bind(this, "setting")}
               bandImage={this.state.group.profileImageUrl || Sky_}
               bandName={this.state.group.name}
               memberCount={"멤버 " + this.state.memberCount}
@@ -255,7 +254,7 @@ class MainScreen extends Component {
           groupInfo={this.state.group}
           groupInfoPopupOnOff={this.showGroupInfoPopup.bind(this)}
           groupInfoPopupCondition={this.state.groupInfoPopupCondition}
-          onClick={function(content) {
+          callAlert={function(content) {
             this.setState({
               alertContent : content,
             }); 
@@ -263,27 +262,29 @@ class MainScreen extends Component {
             this.loadGroupInfo();
           }.bind(this)}
         />
-        <MemberInfoPopup
-          isMyInfo={this.state.isMyInfo}
-          memberInfo={this.state.members[this.state.memberInfoIndex]}
-          memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
-          memberInfoPopupCondition={this.state.memberInfoPopupCondition}
-          onClick={function(content) {
-            this.setState({
-              alertContent : content,
-            }); 
-            this.alertPopupOnoff();
-            this.loadProfileInfo();
-            this.memberSelectEvent('');
-          }.bind(this)}
-        />
+        {this.state.isMemberList &&
+          <MemberInfoPopup
+            isMyInfo={this.state.isMyInfo}
+            memberInfo={this.state.members[this.state.memberInfoIndex]}
+            memberInfoPopupOnOff={this.showUserInfoPopup.bind(this)}
+            memberInfoPopupCondition={this.state.memberInfoPopupCondition}
+            callAlert={function(content) {
+              this.setState({
+                alertContent : content,
+              }); 
+              this.alertPopupOnoff();
+              this.loadProfileInfo();
+              this.memberSelectEvent('');
+            }.bind(this)}
+          />
+        }
         <AlertPopup
           content={this.state.alertContent} 
           alertPopupCondition={this.state.alertPopupCondition}
           alertPopupOnoff={function() {
             this.alertPopupOnoff();
             if (this.state.alertPopupCondition && this.state.confirmEvent === "Withdrawal") {
-              this.props.onClick("");
+              this.props.movePage("");
             }
           }.bind(this)}
         />
@@ -291,13 +292,13 @@ class MainScreen extends Component {
           content={this.state.confirmContent}
           confirmPopupOnOff={this.confirmPopupOnOff.bind(this)}
           confirmPopupCondition={this.state.confirmPopupCondition}
-          onClick={function(){
+          onConfirmClick={function(){
             switch(this.state.confirmEvent) {
               case "Withdrawal" :
                 this.deleteUser();
                 break;
               case "Logout" :
-                this.props.onClick("");
+                this.props.movePage("");
                 break;
               default :
                 break;
@@ -308,7 +309,7 @@ class MainScreen extends Component {
     );
   }
 
-  onChangeTab(pagePath) {
+  moveTab(pagePath) {
     this.setState({ 
       selectTab:pagePath
     });
@@ -337,7 +338,7 @@ class MainScreen extends Component {
           <SettingFrame
             name={this.state.members[this.state.myIndex].name}
             profileImage={this.state.members[this.state.myIndex].profileImageUrl}
-            onClick={this.onClickForSettingFrame.bind(this)}
+            callSettingFrameEvent={this.callSettingFrameEvent.bind(this)}
           />;
         break;
       default:

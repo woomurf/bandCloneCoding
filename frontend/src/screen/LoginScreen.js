@@ -20,20 +20,20 @@ class LoginScreen extends Component {
       alertContent : '',
       conditionAlert : false,
       alertPopupCondition : false,
-      registerPoupCondition : false
+      registerPopupCondition : false
     }
   } 
 
-  registerPopupModalonoff = () => {
+  registerPopupOnoff () {
     this.setState({ 
-      registerPoupCondition : !this.state.registerPoupCondition 
-    })
+      registerPopupCondition : !this.state.registerPopupCondition 
+    });
   }
 
   alertPopupOnoff () {
     this.setState({
       alertPopupCondition : !this.state.alertPopupCondition
-    })
+    });
   }
 
   render() {
@@ -81,7 +81,7 @@ class LoginScreen extends Component {
               label="Register" 
               className="subButton largeButton mr8"
               onClick={function(e){
-                this.registerPopupModalonoff();
+                this.registerPopupOnoff();
               }.bind(this)}
             />
             <Button 
@@ -91,9 +91,9 @@ class LoginScreen extends Component {
             /> 
           </div>
           <RegisterPopup
-            registerPoupCondition={this.state.registerPoupCondition}
-            registerPopupModalonoff={this.registerPopupModalonoff}
-            onClick={function(result, content) {
+            registerPopupCondition={this.state.registerPopupCondition}
+            registerPopupOnoff={this.registerPopupOnoff.bind(this)}
+            callAlert={function(result, content) {
               if (result === 'success') {
                 this.setState({
                   alertPurpose : "REG_COMPLETE",
@@ -115,7 +115,7 @@ class LoginScreen extends Component {
             purpose={this.state.alertPurpose}
             onClick={function() { 
               if (this.state.alertPurpose === "REG_COMPLETE") {  
-                this.registerPopupModalonoff();
+                this.registerPopupOnoff();
               }
             }.bind(this)}
           />
@@ -125,29 +125,21 @@ class LoginScreen extends Component {
   }
 
   async loginCheck(email, password) {
-    const res = await axios({
-      method : 'post',
-      url : '/auth/login',
-      headers : { 
-        'Content-Type' : 'application/json'
-      },
-      data: JSON.stringify({
-        email,
-        password
-      })
-    }).then(res => res.data)
-    .catch((err) => err.response.data);
-    
-    if (res.code === LoginResultCode.SUCCESS) {
-      return this.props.onClick("main");
-    }
-
-    const failContent = res.message;
-    this.setState({
-      alertPurpose : "",
-      alertContent : failContent
-    }); 
-    this.alertPopupOnoff();
+    await axios.post("/auth/login", {
+      email,
+      password
+    }).then((res) => {
+      if (res.data.code === LoginResultCode.SUCCESS) {
+        this.props.movePage("main");
+      }
+    }).catch((err) => {
+      const failContent = err.response.data.message;
+      this.setState({
+        alertPurpose : "",
+        alertContent : failContent
+      }); 
+      this.alertPopupOnoff();
+    });
   }
 };
 

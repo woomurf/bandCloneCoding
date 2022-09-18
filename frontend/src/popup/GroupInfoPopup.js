@@ -28,7 +28,7 @@ const GroupInfoPopup = (props) => {
     }).catch(function() {
       alertContent = "수정에 실패했습니다.\n 다시 한번 시도해주세요."
     });
-    props.onClick(alertContent);
+    props.callAlert(alertContent);
   }
 
   return (
