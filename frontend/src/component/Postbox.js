@@ -43,7 +43,7 @@ class PostBox extends Component {
     axios
       .delete(`/post/${postId}`)
       .then((res) => {
-        // do you want delete? => *TODO* confirmPopup create
+        // do you want delete? => *TODO* confirmPopup creat
         this.props.updatePostList();
       })
       .catch((err) => {
