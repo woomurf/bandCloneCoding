@@ -157,8 +157,8 @@ const MemberInfoPopup = (props) => {
                       + memberInfo.birth.substring(5, 7)
                       + memberInfo.birth.substring(8, 10)
                     );
-                    setIsModify(!isModify);
                   }
+                  setIsModify(!isModify);
                 }}
               />
             }
